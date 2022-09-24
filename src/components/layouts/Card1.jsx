@@ -1,18 +1,14 @@
-import { useState } from 'react'
-import MapView from './MapView'
-import '../../App.css'
+import { useState } from 'react';
+import MapView from './MapView';
+import '../../App.css';
 function Card1() {
-
-
   return (
     <div className="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
-    <div className="card">
-      <div className="row row-bordered g-0">
-      <MapView/>
+      <div className="card">
+        <div className="row row-bordered g-0">
+          <MapView />
 
-
-
-        {/* 
+          {/* 
         <div className="col-md-8">
           <h5 className="card-header m-0 me-2 pb-3">Total Revenue</h5>
           <div id="totalRevenueChart" className="px-2"></div>
@@ -32,9 +28,9 @@ function Card1() {
                   2022
                 </button>
                 <div className="dropdown-menu dropdown-menu-end" aria-labelledby="growthReportId">
-                  <a className="dropdown-item" href="javascript:void(0);">2021</a>
-                  <a className="dropdown-item" href="javascript:void(0);">2020</a>
-                  <a className="dropdown-item" href="javascript:void(0);">2019</a>
+                  <a className="dropdown-item" href="#;">2021</a>
+                  <a className="dropdown-item" href="#;">2020</a>
+                  <a className="dropdown-item" href="#;">2019</a>
                 </div>
               </div>
             </div>
@@ -65,11 +61,10 @@ function Card1() {
         </div>
         
         */}
-        
+        </div>
       </div>
     </div>
-  </div>
-  )
+  );
 }
 
-export default Card1
+export default Card1;
