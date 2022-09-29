@@ -1,6 +1,46 @@
-import { Link } from 'react-router-dom';
+import { Field, Form, Formik } from 'formik';
+import { useEffect, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import MensajeErrorInput from '../../components/layouts/MensajeErrorInput';
+import Loading from '../../components/layouts/Loading';
+import { useFetch } from '../../hooks/useFetch';
+import { useSetSession } from '../../context/SessionProvider';
+import { URL } from '../../utils/getUrl';
+import Alerta from '../../components/layouts/Alerta';
 
 const Login = () => {
+  const { setConfigFetch, fetchData, loading, error } = useFetch();
+  const formikRef = useRef();
+  const setToken = useSetSession();
+  const navigate = useNavigate();
+
+  const handleSubmit = (values) => {
+    const { username_usuario, password_usuario } = values;
+    setConfigFetch({
+      url: `${URL}/login`,
+      headersRequest: {
+        method: 'POST',
+        body: JSON.stringify({
+          username_usuario,
+          password_usuario,
+        }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      },
+    });
+  };
+
+  useEffect(() => {
+    formikRef.current.setSubmitting(false);
+  }, [error]);
+
+  useEffect(() => {
+    if (fetchData.length === 0) return;
+    setToken(fetchData.token);
+    navigate('/');
+  }, [fetchData]);
+
   return (
     <div className="container-xxl" style={{ width: '50%' }}>
       <div className="authentication-wrapper authentication-basic container-p-y">
@@ -92,71 +132,82 @@ const Login = () => {
                     </svg>
                   </span>
                   <span className="app-brand-text demo text-body fw-bolder">
-                    Sneat
+                    SIGAF 🚀
                   </span>
                 </a>
               </div>
               <h4 className="mb-2">Iniciar Sesión👋</h4>
-              {/* <p className="mb-4">
-                Please sign-in to your account and start the adventure
-              </p> */}
-
-              <form
-                id="formAuthentication"
-                className="mb-3"
-                action="index.html"
-                method="POST"
+              <Formik
+                innerRef={formikRef}
+                initialValues={{
+                  username_usuario: '',
+                  password_usuario: '',
+                }}
+                onSubmit={handleSubmit}
               >
-                <div className="mb-3">
-                  <label htmlFor="email" className="form-label">
-                    Email or Username
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="email"
-                    name="email-username"
-                    placeholder="Enter your email or username"
-                    autoFocus
-                  />
-                </div>
-                <div className="mb-3 form-password-toggle">
-                  <div className="d-flex justify-content-between">
-                    <label className="form-label" htmlFor="password">
-                      Password
-                    </label>
-                    <a href="auth-forgot-password-basic.html">
+                {({ isSubmitting }) => (
+                  <Form id="formAuthentication" className="mb-3">
+                    <div className="mb-3">
+                      <label htmlFor="email" className="form-label">
+                        Ingrese su nombre de usuario:
+                      </label>
+                      <Field
+                        type="text"
+                        className="form-control mb-3"
+                        id="username_usuario"
+                        name="username_usuario"
+                        placeholder="Por favor ingrese su nombre de usuario"
+                        autoFocus
+                      />
+                      <MensajeErrorInput
+                        name="username_usuario"
+                        className="alert alert-danger"
+                      />
+                    </div>
+                    <div className="mb-3">
+                      <div className="d-flex justify-content-between">
+                        <label className="form-label" htmlFor="password">
+                          Ingrese su contraseña
+                        </label>
+                        {/* <a href="#">
                       <small>Forgot Password?</small>
-                    </a>
-                  </div>
-                  <div className="input-group input-group-merge">
-                    <input
-                      type="password"
-                      id="password"
-                      className="form-control"
-                      name="password"
-                      placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                      aria-describedby="password"
-                    />
-                    <span className="input-group-text cursor-pointer">
-                      <i className="bx bx-hide"></i>
-                    </span>
-                  </div>
-                </div>
-                <div className="mb-3">
-                  <button
-                    className="btn btn-primary d-grid w-100"
-                    type="submit"
-                  >
-                    Sign in
-                  </button>
-                </div>
-              </form>
+                    </a> */}
+                      </div>
+                      <Field
+                        type="password"
+                        id="password_usuario"
+                        className="form-control mb-3"
+                        name="password_usuario"
+                        placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                      />
+                      <MensajeErrorInput
+                        name="password_usuario"
+                        className="alert alert-danger"
+                      />
+                    </div>
+                    <div className="mb-3">
+                      <button
+                        disabled={isSubmitting}
+                        className="btn btn-primary d-grid w-100"
+                        type="submit"
+                      >
+                        Iniciar Sesión
+                      </button>
+                    </div>
+                  </Form>
+                )}
+              </Formik>
+
+              {loading && <Loading />}
+
+              {error?.msg && (
+                <Alerta claseAlerta="danger" mensajeAlerta={error?.msg} />
+              )}
 
               <p className="text-center">
                 <span>No esta registrado? </span>
                 <Link to="/registrarse">
-                  <span>Creese una cuenta</span>
+                  <span>Créese una cuenta</span>
                 </Link>
               </p>
             </div>

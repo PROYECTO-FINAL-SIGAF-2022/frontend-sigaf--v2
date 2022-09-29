@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSetSession } from '../../context/SessionProvider';
 
 function Menu() {
   const [dropdown, setDropdown] = useState({
@@ -7,12 +9,21 @@ function Menu() {
     configuraciones: false,
   });
 
+  const navigate = useNavigate();
+  const setSession = useSetSession();
+
   const handleToggleDropdown = (nombreDropdown) => {
     const dropdownToggle = { ...dropdown };
 
     dropdownToggle[nombreDropdown] = !dropdownToggle[nombreDropdown];
 
     setDropdown(dropdownToggle);
+  };
+
+  const handleChangeLogout = () => {
+    setSession();
+    window.localStorage.removeItem('token');
+    navigate('/auth');
   };
 
   return (
@@ -242,7 +253,7 @@ function Menu() {
             </ul>
           </li>
           <li className="menu-item">
-            <a href="#" className="menu-link">
+            <a onClick={handleChangeLogout} className="menu-link">
               <i className="menu-icon tf-icons bx bxs-log-out"></i>
               <div data-i18n="Basic">Cerrar Sesión</div>
             </a>

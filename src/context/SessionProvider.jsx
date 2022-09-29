@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 const SessionContext = createContext(null);
 
 const SessionProvider = ({ children }) => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [session, setSession] = useState(null);
 

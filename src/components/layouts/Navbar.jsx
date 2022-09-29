@@ -1,5 +1,15 @@
+import { useNavigate } from 'react-router-dom';
 import img1 from '../../assets/img/avatars/1.png';
+import { useSetSession } from '../../context/SessionProvider';
 function Navbar() {
+  const navigate = useNavigate();
+  const setSession = useSetSession();
+
+  const handleChangeLogout = () => {
+    setSession();
+    window.localStorage.removeItem('token');
+    navigate('/auth');
+  };
   return (
     <nav
       className="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
@@ -44,7 +54,7 @@ function Navbar() {
           <li className="nav-item navbar-dropdown dropdown-user dropdown">
             <a
               className="nav-link dropdown-toggle hide-arrow"
-              href="#;"
+              href="#"
               data-bs-toggle="dropdown"
             >
               <div className="avatar avatar-online">
@@ -83,7 +93,7 @@ function Navbar() {
                 <div className="dropdown-divider"></div>
               </li>
               <li>
-                <a className="dropdown-item" href="auth-login-basic.html">
+                <a className="dropdown-item" onClick={handleChangeLogout}>
                   <i className="bx bx-power-off me-2"></i>
                   <span className="align-middle">Cerrar Sessión</span>
                 </a>
