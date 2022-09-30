@@ -253,9 +253,9 @@ function Menu () {
             </ul>
           </li>
           <li className="menu-item">
-            <a onClick={handleChangeLogout} className="menu-link">
-              <i className="menu-icon tf-icons bx bxs-log-out"></i>
-              <div data-i18n="Basic">Cerrar Sesión</div>
+            <a href="#" className="menu-link" onClick={handleChangeLogout}>
+              <i className="bx bx-power-off me-2"></i>
+              <div data-i18n="Basic">Cerrar Sessión</div>
             </a>
           </li>
         </ul>

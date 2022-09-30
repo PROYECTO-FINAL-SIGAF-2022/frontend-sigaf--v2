@@ -1,15 +1,25 @@
 import { useNavigate } from "react-router-dom";
 import img1 from "../../assets/img/avatars/1.png";
-import { useSetSession } from "../../context/SessionProvider";
+import { useSession, useSetSession } from "../../context/SessionProvider";
+import useGetUser from "../../hooks/useGetUser";
 function Navbar () {
   const navigate = useNavigate();
   const setSession = useSetSession();
+
+  const session = useSession();
+
+  const { user, error, isLoading } = useGetUser(session);
 
   const handleChangeLogout = () => {
     setSession();
     window.localStorage.removeItem("token");
     navigate("/auth");
   };
+
+  if (error) {
+    return <p>error</p>;
+  }
+
   return (
     <nav
       className="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
@@ -47,59 +57,66 @@ function Navbar () {
               data-show-count="true"
               aria-label="Star themeselection/sneat-html-admin-template-free on GitHub"
             >
-              Enzo
+              {
+                isLoading
+                  ? <span className="visually-hidden">Loading...</span>
+                  : <span>{user?.username_usuario}</span>
+              }
             </a>
           </li>
-
-          <li className="nav-item navbar-dropdown dropdown-user dropdown">
-            <a
-              className="nav-link dropdown-toggle hide-arrow"
-              href="#"
-              data-bs-toggle="dropdown"
-            >
-              <div className="avatar avatar-online">
-                <img src={img1} className="w-px-40 h-auto rounded-circle" />
-              </div>
-            </a>
-            <ul className="dropdown-menu dropdown-menu-end">
-              <li>
-                <a className="dropdown-item" href="#">
-                  <div className="d-flex">
-                    <div className="flex-shrink-0 me-3">
-                      <div className="avatar avatar-online">
-                        <img
-                          src={img1}
-                          className="w-px-40 h-auto rounded-circle"
-                        />
-                      </div>
-                    </div>
-                    <div className="flex-grow-1">
-                      <span className="fw-semibold d-block">John Doe</span>
-                      <small className="text-muted">Admin</small>
-                    </div>
+          {
+            !isLoading && (
+              <li className="nav-item navbar-dropdown dropdown-user dropdown">
+                <a
+                  className="nav-link dropdown-toggle hide-arrow"
+                  href="#"
+                  data-bs-toggle="dropdown"
+                >
+                  <div className="avatar avatar-online">
+                    <img src={img1} className="w-px-40 h-auto rounded-circle" />
                   </div>
                 </a>
+                <ul className="dropdown-menu dropdown-menu-end">
+                  <li>
+                    <a className="dropdown-item" href="#">
+                      <div className="d-flex">
+                        <div className="flex-shrink-0 me-3">
+                          <div className="avatar avatar-online">
+                            <img
+                              src={img1}
+                              className="w-px-40 h-auto rounded-circle"
+                            />
+                          </div>
+                        </div>
+                        <div className="flex-grow-1">
+                          <span className="fw-semibold d-block">{user?.username_usuario}</span>
+                          <small className="text-muted">{user?.descripcion_tipo_usuario}</small>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <div className="dropdown-divider"></div>
+                  </li>
+                  <li>
+                    <a className="dropdown-item" href="#">
+                      <i className="bx bx-user me-2"></i>
+                      <span className="align-middle">Mi Perfil</span>
+                    </a>
+                  </li>
+                  <li>
+                    <div className="dropdown-divider"></div>
+                  </li>
+                  <li>
+                    <button className="dropdown-item align-middle" onClick={handleChangeLogout}>
+                      <i className="bx bx-power-off me-2"></i>
+                      <span className="">Cerrar Sessión</span>
+                    </button>
+                  </li>
+                </ul>
               </li>
-              <li>
-                <div className="dropdown-divider"></div>
-              </li>
-              <li>
-                <a className="dropdown-item" href="#">
-                  <i className="bx bx-user me-2"></i>
-                  <span className="align-middle">Mi Perfil</span>
-                </a>
-              </li>
-              <li>
-                <div className="dropdown-divider"></div>
-              </li>
-              <li>
-                <a className="dropdown-item" onClick={handleChangeLogout}>
-                  <i className="bx bx-power-off me-2"></i>
-                  <span className="align-middle">Cerrar Sessión</span>
-                </a>
-              </li>
-            </ul>
-          </li>
+            )
+          }
         </ul>
       </div>
     </nav>
