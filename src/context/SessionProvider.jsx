@@ -1,5 +1,5 @@
-import { createContext, useContext, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { createContext, useContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SessionContext = createContext(null);
 
@@ -9,19 +9,19 @@ const SessionProvider = ({ children }) => {
   const [session, setSession] = useState(null);
 
   useEffect(() => {
-    const token = window.localStorage.getItem('token');
+    const token = window.localStorage.getItem("token");
     if (token) {
       setSession(token);
-      navigate('/');
+      navigate("/");
     } else {
       setSession(null);
-      navigate('/auth');
+      navigate("/auth");
     }
   }, []);
 
   const setNewSession = (token) => {
     setSession(token);
-    window.localStorage.setItem('token', token);
+    window.localStorage.setItem("token", token);
   };
 
   return (

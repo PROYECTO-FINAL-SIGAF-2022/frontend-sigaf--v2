@@ -1,12 +1,12 @@
-import { Field, Form, Formik } from 'formik';
-import { useEffect, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import MensajeErrorInput from '../../components/layouts/MensajeErrorInput';
-import Loading from '../../components/layouts/Loading';
-import { useFetch } from '../../hooks/useFetch';
-import { useSetSession } from '../../context/SessionProvider';
-import { URL } from '../../utils/getUrl';
-import Alerta from '../../components/layouts/Alerta';
+import { Field, Form, Formik } from "formik";
+import { useEffect, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import MensajeErrorInput from "../../components/layouts/MensajeErrorInput";
+import Loading from "../../components/layouts/Loading";
+import { useFetch } from "../../hooks/useFetch";
+import { useSetSession } from "../../context/SessionProvider";
+import { URL } from "../../utils/getUrl";
+import Alerta from "../../components/layouts/Alerta";
 
 const Login = () => {
   const { setConfigFetch, fetchData, loading, error } = useFetch();
@@ -19,15 +19,15 @@ const Login = () => {
     setConfigFetch({
       url: `${URL}/login`,
       headersRequest: {
-        method: 'POST',
+        method: "POST",
         body: JSON.stringify({
           username_usuario,
-          password_usuario,
+          password_usuario
         }),
         headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-        },
-      },
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      }
     });
   };
 
@@ -38,11 +38,11 @@ const Login = () => {
   useEffect(() => {
     if (fetchData.length === 0) return;
     setToken(fetchData.token);
-    navigate('/');
+    navigate("/");
   }, [fetchData]);
 
   return (
-    <div className="container-xxl" style={{ width: '50%' }}>
+    <div className="container-xxl" style={{ width: "50%" }}>
       <div className="authentication-wrapper authentication-basic container-p-y">
         <div className="authentication-inner">
           <div className="card">
@@ -140,8 +140,8 @@ const Login = () => {
               <Formik
                 innerRef={formikRef}
                 initialValues={{
-                  username_usuario: '',
-                  password_usuario: '',
+                  username_usuario: "",
+                  password_usuario: ""
                 }}
                 onSubmit={handleSubmit}
               >

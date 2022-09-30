@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useSetSession } from '../../context/SessionProvider';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSetSession } from "../../context/SessionProvider";
 
-function Menu() {
+function Menu () {
   const [dropdown, setDropdown] = useState({
     actividades: false,
     costes: false,
-    configuraciones: false,
+    configuraciones: false
   });
 
   const navigate = useNavigate();
@@ -22,8 +22,8 @@ function Menu() {
 
   const handleChangeLogout = () => {
     setSession();
-    window.localStorage.removeItem('token');
-    navigate('/auth');
+    window.localStorage.removeItem("token");
+    navigate("/auth");
   };
 
   return (
@@ -159,9 +159,9 @@ function Menu() {
               <div data-i18n="Analytics">Stock</div>
             </a>
           </li>
-          <li className={`menu-item ${dropdown.costes ? 'open' : 'false'} `}>
+          <li className={`menu-item ${dropdown.costes ? "open" : "false"} `}>
             <a
-              onClick={() => handleToggleDropdown('costes')}
+              onClick={() => handleToggleDropdown("costes")}
               className="menu-link menu-toggle"
             >
               <i className="menu-icon tf-icons bx bx-lock-open-alt"></i>
@@ -195,11 +195,11 @@ function Menu() {
 
           <li
             className={`menu-item ${
-              dropdown.configuraciones ? 'open' : 'false'
+              dropdown.configuraciones ? "open" : "false"
             } `}
           >
             <a
-              onClick={() => handleToggleDropdown('configuraciones')}
+              onClick={() => handleToggleDropdown("configuraciones")}
               className="menu-link menu-toggle"
             >
               <i className="menu-icon tf-icons bx bx-dock-top"></i>

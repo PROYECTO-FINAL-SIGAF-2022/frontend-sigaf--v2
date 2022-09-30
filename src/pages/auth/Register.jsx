@@ -1,13 +1,13 @@
-import { Field, Form, Formik } from 'formik';
-import { useEffect, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import * as yup from 'yup';
-import MensajeErrorInput from '../../components/layouts/MensajeErrorInput';
-import { useSetSession } from '../../context/SessionProvider';
-import { useFetch } from '../../hooks/useFetch';
-import { URL } from '../../utils/getUrl';
-import Loading from '../../components/layouts/Loading';
-import Alerta from '../../components/layouts/Alerta';
+import { Field, Form, Formik } from "formik";
+import { useEffect, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import * as yup from "yup";
+import MensajeErrorInput from "../../components/layouts/MensajeErrorInput";
+import { useSetSession } from "../../context/SessionProvider";
+import { useFetch } from "../../hooks/useFetch";
+import { URL } from "../../utils/getUrl";
+import Loading from "../../components/layouts/Loading";
+import Alerta from "../../components/layouts/Alerta";
 
 const Register = () => {
   const { setConfigFetch, fetchData, loading, error } = useFetch();
@@ -16,29 +16,29 @@ const Register = () => {
   const navigate = useNavigate();
 
   const schemaRegister = yup.object().shape({
-    nombre_persona: yup.string().required('Su nombre es requerido'),
-    apellido_persona: yup.string().required('Su apellido es requerido'),
+    nombre_persona: yup.string().required("Su nombre es requerido"),
+    apellido_persona: yup.string().required("Su apellido es requerido"),
     dni_persona: yup
       .string()
-      .required('El dni es requerido')
-      .min(8, 'EL dni debe tener como minimo 8 numeros')
-      .max(8, 'El dni debe tener como maximo 8 numeros'),
+      .required("El dni es requerido")
+      .min(8, "EL dni debe tener como minimo 8 numeros")
+      .max(8, "El dni debe tener como maximo 8 numeros"),
     fecha_nac_persona: yup
       .date()
-      .required('La fecha de nacimiento es requerido'),
+      .required("La fecha de nacimiento es requerido"),
     email_persona: yup
       .string()
-      .email('El correo ingresado no tiene un formato valido')
-      .required('El correo electronico es requerido'),
+      .email("El correo ingresado no tiene un formato valido")
+      .required("El correo electronico es requerido"),
     telefono_persona: yup
       .string()
-      .required('Su nombre es requerido')
-      .min(10, 'El numero de telefono debe tener como minimo 10 caracteres')
-      .max(10, 'El numero de telefono debe tener como maximo 10 caracteres'),
+      .required("Su nombre es requerido")
+      .min(10, "El numero de telefono debe tener como minimo 10 caracteres")
+      .max(10, "El numero de telefono debe tener como maximo 10 caracteres"),
     username_usuario: yup
       .string()
-      .required('El nombre de usuario es requerido'),
-    password_usuario: yup.string().required('La contraseña es requerido'),
+      .required("El nombre de usuario es requerido"),
+    password_usuario: yup.string().required("La contraseña es requerido")
   });
 
   const handleSubmit = (values) => {
@@ -51,13 +51,13 @@ const Register = () => {
       email_persona,
       telefono_persona,
       username_usuario,
-      password_usuario,
+      password_usuario
     } = values;
 
     setConfigFetch({
       url: `${URL}/registrarse`,
       headersRequest: {
-        method: 'POST',
+        method: "POST",
         body: JSON.stringify({
           nombre_persona,
           apellido_persona,
@@ -66,9 +66,9 @@ const Register = () => {
           email_persona,
           telefono_persona,
           username_usuario,
-          password_usuario,
-        }),
-      },
+          password_usuario
+        })
+      }
     });
   };
 
@@ -80,10 +80,10 @@ const Register = () => {
   useEffect(() => {
     if (fetchData.length === 0) return;
     setToken(fetchData.token);
-    navigate('/');
+    navigate("/");
   }, [fetchData]);
   return (
-    <div className="container-xxl" style={{ width: '50%' }}>
+    <div className="container-xxl" style={{ width: "50%" }}>
       <div className="authentication-wrapper authentication-basic container-p-y">
         <div className="authentication-inner">
           <div className="card">
@@ -180,14 +180,14 @@ const Register = () => {
               <Formik
                 innerRef={formikRef}
                 initialValues={{
-                  nombre_persona: '',
-                  apellido_persona: '',
-                  dni_persona: '',
-                  fecha_nac_persona: '',
-                  email_persona: '',
-                  telefono_persona: '',
-                  username_usuario: '',
-                  password_usuario: '',
+                  nombre_persona: "",
+                  apellido_persona: "",
+                  dni_persona: "",
+                  fecha_nac_persona: "",
+                  email_persona: "",
+                  telefono_persona: "",
+                  username_usuario: "",
+                  password_usuario: ""
                 }}
                 onSubmit={handleSubmit}
                 validationSchema={schemaRegister}

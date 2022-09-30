@@ -1,14 +1,14 @@
-import { useNavigate } from 'react-router-dom';
-import img1 from '../../assets/img/avatars/1.png';
-import { useSetSession } from '../../context/SessionProvider';
-function Navbar() {
+import { useNavigate } from "react-router-dom";
+import img1 from "../../assets/img/avatars/1.png";
+import { useSetSession } from "../../context/SessionProvider";
+function Navbar () {
   const navigate = useNavigate();
   const setSession = useSetSession();
 
   const handleChangeLogout = () => {
     setSession();
-    window.localStorage.removeItem('token');
-    navigate('/auth');
+    window.localStorage.removeItem("token");
+    navigate("/auth");
   };
   return (
     <nav
@@ -41,7 +41,7 @@ function Navbar() {
           <li className="nav-item lh-1 me-3">
             <a
               className="github-button"
-              href="https://github.com/themeselection/sneat-html-admin-template-free"
+              href="#"
               data-icon="octicon-star"
               data-size="large"
               data-show-count="true"
