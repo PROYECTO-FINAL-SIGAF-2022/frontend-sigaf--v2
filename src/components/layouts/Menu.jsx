@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSetSession } from "../../context/SessionProvider";
+import { Link } from 'react-router-dom';
 
 function Menu () {
   const [dropdown, setDropdown] = useState({
@@ -235,9 +236,9 @@ function Menu () {
               </li>
 
               <li className="menu-item">
-                <a href="#" className="menu-link">
+                <Link to="/Proveedores" className="menu-link">
                   <div data-i18n="Connections">Clientes</div>
-                </a>
+                </Link>
               </li>
 
               <li className="menu-item">

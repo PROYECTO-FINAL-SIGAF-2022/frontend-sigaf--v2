@@ -3,7 +3,8 @@ import { useSession } from "../../context/SessionProvider";
 import Login from "../../pages/auth/Login";
 import Register from "../../pages/auth/Register";
 import Home from "../../pages/Home";
-
+import Clientes from '../../pages/clientes/Clientes';
+import FormCliente from "../../pages/clientes/formCliente";
 function Rutas () {
   const session = useSession();
 
@@ -11,6 +12,8 @@ function Rutas () {
     return (
       <Routes>
         <Route path="/" exact element={<Home />} />
+        <Route path='/Proveedores' exact element={<Clientes/>} />
+        <Route path='/Formulario-Proveedor' exact element={<FormCliente/>} />
         <Route path="*" exact element={<Home />} />
       </Routes>
     );

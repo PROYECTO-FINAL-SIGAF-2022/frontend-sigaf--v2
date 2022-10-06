@@ -15,7 +15,7 @@ function Navbar () {
     window.localStorage.removeItem("token");
     navigate("/auth");
   };
-
+  
   if (error) {
     return <p>error</p>;
   }
