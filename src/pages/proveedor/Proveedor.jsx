@@ -1,7 +1,7 @@
 import img1 from "../../assets/img/illustrations/man-with-laptop-light.png";
 import Footer from "../../components/layouts/Footer";
 import LayoutContainer from "../../components/layouts/LayoutContainer";
-import "./Cliente.css";
+import "./PRoveedor.css";
 import Loading from "../../components/layouts/Loading";
 import { useFetch } from "../../hooks/useFetch";
 import { URL } from "../../utils/getUrl";
@@ -19,7 +19,7 @@ import {
   MDBModalFooter,
 } from "mdb-react-ui-kit";
 
-function Clientes() {
+function Proveedor() {
   const { setConfigFetch, fetchData, loading, error } = useFetch();
   const session = useSession();
   //console.log(session)
@@ -44,7 +44,12 @@ function Clientes() {
 
   const [optSmModal, setOptSmModal] = useState(false);
 
+  //const [ idCliente,setIdCliente] = useState('');
   const toggleShow = () => setOptSmModal(!optSmModal);
+  
+
+  
+
 
   return (
     <LayoutContainer>
@@ -54,7 +59,7 @@ function Clientes() {
             <div className="row">
               <div className="col-lg-10 mx-auto mb-4">
                 <div className="section-title text-center ">
-                  <h3 className="top-c-sep">LISTA DE CLIENTES/PROVEEDORES</h3>
+                  <h3 className="top-c-sep">LISTA DE PROVEEDORES</h3>
                   <p>Descripcion de lo que sea Texto.</p>
                 </div>
               </div>
@@ -80,7 +85,7 @@ function Clientes() {
                     {!fetchData ? (
                       <Loading />
                     ) : (
-                      fetchData.map((item) => {
+                      fetchData.length > 0 ? fetchData.map((item) => {
                         return (
                           <div className="job-box d-md-flex align-items-center justify-content-between mb-30">
                             <div className="job-left my-4 d-md-flex align-items-center flex-wrap">
@@ -114,13 +119,12 @@ function Clientes() {
                               <button
                                 className="btn  d-block w-100 btn-danger"
                                 onClick={toggleShow}
+                                
                               >
                                 Eliminar
                               </button>
                             </div>
-                            {/* Modal Eliminar */}
-
-                            {/* <MDBBtn onClick={toggleShow}>Small modal</MDBBtn> */}
+                           
                             <MDBModal
                               show={optSmModal}
                               tabIndex="-1"
@@ -139,12 +143,11 @@ function Clientes() {
                                     ></MDBBtn>
                                   </MDBModalHeader>
                                   <MDBModalBody className="text-danger d-flex justify-content-center">
-                                  X
+                                  ...
                                   </MDBModalBody>
                                   <MDBModalFooter>
                                     <MDBBtn
                                       className="btn btn-success"
-                                      
                                       onClick={toggleShow}
                                     >
                                       Cancelar
@@ -156,7 +159,10 @@ function Clientes() {
                             </MDBModal>
                           </div>
                         );
-                      })
+                      }):
+                      <div>
+                        <h4 >No hay ningun proveedor cargado...</h4>
+                      </div>
                     )}
                   </div>
                 </div>
@@ -167,7 +173,7 @@ function Clientes() {
                       <a
                         className="page-link"
                         href="#"
-                        tabindex="-1"
+                        tabIndex="-1"
                         aria-disabled="true"
                       >
                         <i className="zmdi zmdi-long-arrow-left"></i>
@@ -218,4 +224,4 @@ function Clientes() {
   );
 }
 
-export default Clientes;
+export default Proveedor;

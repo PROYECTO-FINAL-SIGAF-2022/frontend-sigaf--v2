@@ -1,13 +1,13 @@
 import Footer from "../../components/layouts/Footer";
 import LayoutContainer from "../../components/layouts/LayoutContainer";
-import "./FormCliente.css";
+import "./FormProveedor.css";
 
 import { Field, Form, Formik } from "formik";
 import { useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import MensajeErrorInput from "../../components/layouts/MensajeErrorInput";
-import { useSetSession } from "../../context/SessionProvider";
+
 import { useFetch } from "../../hooks/useFetch";
 import { URL } from "../../utils/getUrl";
 import Loading from "../../components/layouts/Loading";
@@ -97,7 +97,7 @@ function FormCliente() {
                         id="nombre_proveedor"
                         name="nombre_proveedor"
                         placeholder="Por favor ingrese el nombre del proveedor"
-                        autoFocus
+                       
                       />
               </div>
               <MensajeErrorInput
@@ -112,7 +112,7 @@ function FormCliente() {
                         id="telefono_proveedor"
                         name="telefono_proveedor"
                         placeholder="Por favor ingrese el número de telefono del proveedor"
-                        autoFocus
+                        
                       />
 
 							</div>
@@ -128,7 +128,7 @@ function FormCliente() {
                         id="direccion_proveedor"
                         name="direccion_proveedor"
                         placeholder="Por favor ingrese la direccion del proveedor"
-                        autoFocus
+                        
                       />
 
 							</div>
@@ -138,6 +138,12 @@ function FormCliente() {
                     />
 							<div className="row">
 								<input type="submit"  disabled={isSubmitting} value="Guardar" className="btn_formcliente"/>
+                <Link to="/Proveedores">
+                <input type="buttom" defaultValue="Cancelar" className="btn_formcliente mx-3"/>
+                </Link>
+              </div>
+              <div className="row">
+								
 							</div>
               </Form>
                 )}

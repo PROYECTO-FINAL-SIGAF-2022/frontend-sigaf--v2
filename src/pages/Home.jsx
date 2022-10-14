@@ -1,8 +1,16 @@
 import img1 from "../assets/img/illustrations/man-with-laptop-light.png";
 import Footer from "../components/layouts/Footer";
 import LayoutContainer from "../components/layouts/LayoutContainer";
+import useGetUser from "../hooks/useGetUser";
+import { useSession, useSetSession } from "../context/SessionProvider";
 
 function Home () {
+  const setSession = useSetSession();
+
+  const session = useSession();
+
+  const { user, error, isLoading } = useGetUser(session);
+  
   return (
     <LayoutContainer>
       <div className="content-wrapper">
@@ -14,12 +22,11 @@ function Home () {
                   <div className="col-sm-7">
                     <div className="card-body">
                       <h5 className="card-title text-primary">
-                        SISTEMA DE GESTIÓN AGROPECUARIA FORMOSEÑA! 🎉
+                        Bienvenido {user?.username_usuario}!!! 🎉
                       </h5>
-                      <p className="mb-4">
-                        Nuestros usuarios estan un{" "}
-                        <span className="fw-bold">72%</span> conformes con
-                        nuestra aplicacion de gestión Dea
+                      <p className="mb-4" >
+                      SISTEMA DE GESTIÓN AGROPECUARIA FORMOSEÑA! {" "}
+                        <span className="fw-bold">ayudamos</span> a facilitar las tareas agropecuarias para los pequeños y medianos productores
                       </p>
 
                       <a href="#" className="btn btn-sm btn-outline-primary">
