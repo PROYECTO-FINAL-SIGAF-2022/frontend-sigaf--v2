@@ -218,15 +218,15 @@ function Menu () {
                 </a>
               </li>
               <li className="menu-item">
-                <a href="#" className="menu-link">
+                <Link to="/Maquinas" className="menu-link">
                   <div data-i18n="Connections">Máquinas</div>
-                </a>
+                </Link>
               </li>
 
               <li className="menu-item">
-                <a href="#" className="menu-link">
+              <Link to="/Personal" className="menu-link">
                   <div data-i18n="Connections">Personal</div>
-                </a>
+                </Link>
               </li>
 
               <li className="menu-item">
@@ -247,9 +247,9 @@ function Menu () {
                 </a>
               </li>
               <li className="menu-item">
-                <a href="#" className="menu-link">
+              <Link to="/Almacenes" className="menu-link">
                   <div data-i18n="Connections">Almacenes</div>
-                </a>
+                </Link>
               </li>
             </ul>
           </li>

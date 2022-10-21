@@ -8,6 +8,9 @@ import FormCliente from "../../pages/proveedor/FormProveedor";
 import Productos from "../../pages/productos/Productos";
 import MapaTest from "../../pages/mapa/MapaTest";
 import FormProductos from "../../pages/productos/FormProductos";
+import Almacenes from "../../pages/almacenes/Almacenes";
+import Maquinas from "../../pages/maquinas/maquinas";
+import Personal from "../../pages/personal/Persona";
 function Rutas () {
   const session = useSession();
 
@@ -20,6 +23,9 @@ function Rutas () {
         <Route path='/Productos' exact element={<Productos/>} />
         <Route path='/Mapa' exact element={<MapaTest/>} />
         <Route path='/Formulario-Productos' exact element={<FormProductos/>} />
+        <Route path='/Maquinas' exact element={<Maquinas/>} />
+        <Route path='/Almacenes' exact element={<Almacenes/>} />
+        <Route path='/Personal' exact element={<Personal/>} />
         <Route path="*" exact element={<Home />} />
       </Routes>
     );
