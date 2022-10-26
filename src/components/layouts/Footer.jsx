@@ -1,8 +1,5 @@
-import { useState } from 'react'
 
-function Footer() {
-
-
+function Footer () {
   return (
     <footer className="content-footer footer bg-footer-theme">
     <div className="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
@@ -11,7 +8,7 @@ function Footer() {
         <script>
           document.write(new Date().getFullYear());
         </script>
-        , Copyright ❤️ 
+        , Copyright ❤️
         <a href="#" target="_blank" className="footer-link fw-bolder"> AgrioFormosa</a>
       </div>
       <div>
@@ -34,7 +31,7 @@ function Footer() {
       </div>
     </div>
   </footer>
-  )
+  );
 }
 
-export default Footer
+export default Footer;

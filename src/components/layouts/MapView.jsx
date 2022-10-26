@@ -7,16 +7,16 @@ import {
   MDBModalContent,
   MDBModalHeader,
   MDBModalTitle,
-  MDBModalBody,
+  MDBModalBody
 } from "mdb-react-ui-kit";
 
 import {
   MapContainer,
   TileLayer,
   FeatureGroup,
-  Popup,
-  Marker,
+  Popup
 } from "react-leaflet";
+
 import { EditControl } from "react-leaflet-draw";
 import "leaflet/dist/leaflet.css";
 import "leaflet-draw/dist/leaflet.draw.css";
@@ -28,7 +28,7 @@ const MapView = () => {
 
   const [center, setCenter] = useState({
     lat: "-26.18064675300086",
-    lng: "-58.188628961794805",
+    lng: "-58.188628961794805"
   });
   const [mapLayers, setMapLayers] = useState([]);
   const mapRef = useRef();
@@ -42,7 +42,7 @@ const MapView = () => {
 
       setMapLayers((layers) => [
         ...layers,
-        { id: _leaflet_id /* , latlngs: layer.getLatLngs()[0]  */ },
+        { id: _leaflet_id /* , latlngs: layer.getLatLngs()[0]  */ }
       ]);
     }
   };
@@ -50,7 +50,7 @@ const MapView = () => {
   const _onEdited = (e) => {
     console.log(e);
     const {
-      layers: { _layers },
+      layers: { _layers }
     } = e;
 
     Object.values(_layers).map(({ _leaflet_id, editing }) => {
@@ -67,7 +67,7 @@ const MapView = () => {
   const _onDeleted = (e) => {
     console.log(e);
     const {
-      layers: { _layers },
+      layers: { _layers }
     } = e;
 
     Object.values(_layers).map(({ _leaflet_id }) => {
@@ -91,7 +91,7 @@ const MapView = () => {
                   polyline: false,
                   circle: false,
                   circlemarker: false,
-                  marker: false,
+                  marker: false
                 }}
               />
               <Popup>
@@ -125,7 +125,7 @@ const MapView = () => {
                       ></MDBBtn>
                     </MDBModalHeader>
                     <MDBModalBody>
-                      <table class="table">
+                      <table className="table">
                         <thead>
                           <tr>
                             <th scope="col">NRO</th>

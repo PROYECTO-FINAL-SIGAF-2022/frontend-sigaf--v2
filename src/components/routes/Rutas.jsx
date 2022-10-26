@@ -3,7 +3,7 @@ import { useSession } from "../../context/SessionProvider";
 import Login from "../../pages/auth/Login";
 import Register from "../../pages/auth/Register";
 import Home from "../../pages/Home";
-import Proveedor from '../../pages/proveedor/Proveedor';
+import Proveedor from "../../pages/proveedor/Proveedor";
 import FormCliente from "../../pages/proveedor/FormProveedor";
 import Productos from "../../pages/productos/Productos";
 import MapaTest from "../../pages/mapa/MapaTest";

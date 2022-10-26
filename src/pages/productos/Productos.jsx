@@ -1,18 +1,17 @@
-import img1 from "../../assets/img/illustrations/man-with-laptop-light.png";
 import Footer from "../../components/layouts/Footer";
 import LayoutContainer from "../../components/layouts/LayoutContainer";
 import "./Productos.css";
 import Loading from "../../components/layouts/Loading";
 import { useFetch } from "../../hooks/useFetch";
 import { URL } from "../../utils/getUrl";
-import { useEffect, useState } from "react";
-import { useSession, useSetSession } from "../../context/SessionProvider";
+import { useEffect } from "react";
+import { useSession } from "../../context/SessionProvider";
 import { Link } from "react-router-dom";
 
-function Productos() {
-  const { setConfigFetch, fetchData, loading, error } = useFetch();
+function Productos () {
+  const { setConfigFetch, fetchData, error } = useFetch();
   const session = useSession();
-  //console.log(session)
+
   useEffect(() => {
     if (session) {
       setConfigFetch({
@@ -20,19 +19,16 @@ function Productos() {
         headersRequest: {
           method: "GET",
           headers: {
-            "Content-type": "application/json; charset=UTF-8",
-          },
-        },
+            "Content-type": "application/json; charset=UTF-8"
+          }
+        }
       });
     }
   }, []);
 
-  //console.log()
   if (!error) {
     return <h1>Error</h1>;
   }
-
- 
 
   return (
     <LayoutContainer>
@@ -74,14 +70,16 @@ function Productos() {
                         </tr>
                       </thead>
                       <tbody>
-                        {!fetchData ? (
-                          <Loading />
-                        ) : (
-                          fetchData.length > 0 ? fetchData.map((item) => {
-							let fecha = new Date(item.fecha_vencimiento_producto)
-							//console.log(item.fecha_vencimiento_producto)
-							let fechaConvertida = fecha.toLocaleDateString()
-                            return (
+                        {!fetchData
+                          ? (
+                        <Loading/>
+                            )
+                          : (
+                              fetchData.length > 0
+                                ? fetchData.map((item) => {
+                                  const fecha = new Date(item.fecha_vencimiento_producto);
+                                  const fechaConvertida = fecha.toLocaleDateString();
+                                  return (
                               <tr>
                                 <td>
                                   <img
@@ -129,13 +127,12 @@ function Productos() {
                                   </a>
                                 </td>
                               </tr>
-                            );
-                          })
-						  :
-						<div>
+                                  );
+                                })
+						  :						<div>
 							<h4 >No hay ningun producto cargado...</h4>
 						</div>
-                        )
+                            )
 					}
                       </tbody>
                     </table>

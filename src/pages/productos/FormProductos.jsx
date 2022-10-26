@@ -11,8 +11,7 @@ import { URL } from "../../utils/getUrl";
 import Loading from "../../components/layouts/Loading";
 import Alerta from "../../components/layouts/Alerta";
 
-
-function FormProductos() {
+function FormProductos () {
   const { setConfigFetch, fetchData, loading, error } = useFetch();
   const formikRef = useRef();
 
@@ -21,9 +20,7 @@ function FormProductos() {
   const schemaFormProductos = yup.object().shape({
     descripcion_producto: yup.string().required("La descripcion del producto es requerida"),
     fecha_vencimiento_producto: yup.date().required("La fecha de vencimiento es requerida"),
-    cantidad_producto: yup.number().required("La cantidad del producto es requerida"),
-  
-
+    cantidad_producto: yup.number().required("La cantidad del producto es requerida")
   });
 
   const handleSubmit = (values) => {
@@ -31,8 +28,7 @@ function FormProductos() {
     const {
       descripcion_producto,
       fecha_vencimiento_producto,
-      cantidad_producto,
-      
+      cantidad_producto
     } = values;
 
     setConfigFetch({
@@ -43,15 +39,15 @@ function FormProductos() {
           descripcion_producto,
           fecha_vencimiento_producto,
           cantidad_producto,
-          id_proveedor:1,
-          id_tipo_producto:1,
+          id_proveedor: 1,
+          id_tipo_producto: 1,
           id_usuario: 1,
-          id_unidad_medida:1
+          id_unidad_medida: 1
         })
       }
     });
   };
-console.log(fetchData)
+  console.log(fetchData);
   useEffect(() => {
     formikRef.current.setSubmitting(false);
     // console.log(error);
@@ -76,9 +72,9 @@ console.log(fetchData)
                       initialValues={{
                         descripcion_producto: "",
                         fecha_vencimiento_producto: "",
-                        cantidad_producto:"",
-                        id_proveedor:"",
-                        id_tipo_producto:""
+                        cantidad_producto: "",
+                        id_proveedor: "",
+                        id_tipo_producto: ""
                       }}
                       onSubmit={handleSubmit}
                       validationSchema={schemaFormProductos}
@@ -86,9 +82,9 @@ console.log(fetchData)
                 {({ isSubmitting }) => (
                       <Form id="formAuthentication" className="form-group">
                         <div className="mb-3">
-                          <label  className="form-label">
+                          <label className="form-label">
                             Nombre Del Producto
-                          </label>                        
+                          </label>
                           <Field
                             type="text"
                             className="form-control"
@@ -106,7 +102,7 @@ console.log(fetchData)
                           className="alert alert-danger"
                         />
                         <div className="mb-3">
-                          <label  className="form-label">
+                          <label className="form-label">
                             Fecha de Vencimiento
                           </label>
                           <Field
@@ -123,7 +119,7 @@ console.log(fetchData)
                           className="alert alert-danger"
                         />
                         <div className="mb-3">
-                          <label  className="form-label">
+                          <label className="form-label">
                             Cantidad de productos
                           </label>
                           <Field
@@ -154,7 +150,7 @@ console.log(fetchData)
                             <option value="2">Vehiculo</option>
                             <option value="3">Edificio</option>
                           </Field>
-                          
+
                         </div>
                         <MensajeErrorInput
                           name="id_tipo_producto"
@@ -186,7 +182,7 @@ console.log(fetchData)
                           Volver
                         </button>
                         </Link>
-                        <button type="submit"  disabled={isSubmitting} className="btn btn-success">
+                        <button type="submit" disabled={isSubmitting} className="btn btn-success">
                           Agregar Producto
                         </button>
                         </Form>

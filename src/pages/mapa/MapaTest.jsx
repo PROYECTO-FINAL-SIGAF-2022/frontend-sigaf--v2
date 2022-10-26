@@ -1,7 +1,7 @@
 import Footer from "../../components/layouts/Footer";
 import LayoutContainer from "../../components/layouts/LayoutContainer";
-import MapaView from "../../components/layouts/MapView"
-import '../../App.css'
+import MapaView from "../../components/layouts/MapView";
+import "../../App.css";
 
 function MapaTest () {
   return (

@@ -1,5 +1,5 @@
-import Menu from './Menu';
-import Navbar from './Navbar';
+import Menu from "./Menu";
+import Navbar from "./Navbar";
 
 const LayoutContainer = ({ children }) => {
   return (

@@ -1,4 +1,3 @@
-import img1 from "../../assets/img/illustrations/man-with-laptop-light.png";
 import Footer from "../../components/layouts/Footer";
 import LayoutContainer from "../../components/layouts/LayoutContainer";
 import "./PRoveedor.css";
@@ -6,7 +5,7 @@ import Loading from "../../components/layouts/Loading";
 import { useFetch } from "../../hooks/useFetch";
 import { URL } from "../../utils/getUrl";
 import { useEffect, useState } from "react";
-import { useSession, useSetSession } from "../../context/SessionProvider";
+import { useSession } from "../../context/SessionProvider";
 import { Link } from "react-router-dom";
 import {
   MDBBtn,
@@ -16,13 +15,13 @@ import {
   MDBModalHeader,
   MDBModalTitle,
   MDBModalBody,
-  MDBModalFooter,
+  MDBModalFooter
 } from "mdb-react-ui-kit";
 
-function Proveedor() {
-  const { setConfigFetch, fetchData, loading, error } = useFetch();
+function Proveedor () {
+  const { setConfigFetch, fetchData, error } = useFetch();
   const session = useSession();
-  //console.log(session)
+  // console.log(session)
   useEffect(() => {
     if (session) {
       setConfigFetch({
@@ -30,26 +29,22 @@ function Proveedor() {
         headersRequest: {
           method: "GET",
           headers: {
-            "Content-type": "application/json; charset=UTF-8",
-          },
-        },
+            "Content-type": "application/json; charset=UTF-8"
+          }
+        }
       });
     }
   }, []);
 
-  //console.log()
+  // console.log()
   if (!error) {
     return <h1>Error</h1>;
   }
 
   const [optSmModal, setOptSmModal] = useState(false);
 
-  //const [ idCliente,setIdCliente] = useState('');
+  // const [ idCliente,setIdCliente] = useState('');
   const toggleShow = () => setOptSmModal(!optSmModal);
-  
-
-  
-
 
   return (
     <LayoutContainer>
@@ -119,12 +114,12 @@ function Proveedor() {
                               <button
                                 className="btn  d-block w-100 btn-danger"
                                 onClick={toggleShow}
-                                
+
                               >
                                 Eliminar
                               </button>
                             </div>
-                           
+
                             <MDBModal
                               show={optSmModal}
                               tabIndex="-1"
@@ -159,8 +154,8 @@ function Proveedor() {
                             </MDBModal>
                           </div>
                         );
-                      }):
-                      <div>
+                      })
+                        : <div>
                         <h4 >No hay ningun proveedor cargado...</h4>
                       </div>
                     )}

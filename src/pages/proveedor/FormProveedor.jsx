@@ -1,6 +1,5 @@
 import Footer from "../../components/layouts/Footer";
 import LayoutContainer from "../../components/layouts/LayoutContainer";
-import "./FormProveedor.css";
 
 import { Field, Form, Formik } from "formik";
 import { useEffect, useRef } from "react";
@@ -24,7 +23,7 @@ function FormCliente() {
       telefono_proveedor,
       direccion_proveedor,
   */
-  const schemaFormCliente = yup.object().shape({
+  const schemaFormProveedor = yup.object().shape({
     nombre_proveedor: yup.string().required("El nombre del proveedor es requerido"),
     telefono_proveedor: yup.number().required("El telefono del proveedor es requerido"),
     direccion_proveedor: yup.string().required("La direccion del proveedor es requerida"),
@@ -65,104 +64,107 @@ function FormCliente() {
     <LayoutContainer>
       <div className="content-wrapper">
         <div className="container-xxl flex-grow-1 container-p-y">
-        <div className="container-fluid">
-		<div className="row main-content bg-success text-center">
-			<div className="col-md-4 text-center company__info">
-      <h4 className="company_title">EL LOGO DE SIGAF</h4>
-				{/* <span className="company__logo"><h2><span className="fa fa-android"></span></h2></span>
-				<h4 className="company_title">Your Company Logo</h4> */}
-			</div>
-			<div className="col-md-8 col-xs-12 col-sm-12 login_form ">
-				<div className="container-fluid">
-					<div className="row">
-						<h2 className="h2-formCliente">Formulario Para Clientes/Proveedores</h2>
-					</div>
-					<div className="row">
-          <Formik
-                innerRef={formikRef}
-                initialValues={{
-                  nombre_proveedor: "",
-                  telefono_proveedor: "",
-                  direccion_proveedor:""
-                }}
-                onSubmit={handleSubmit}
-                validationSchema={schemaFormCliente}
-              >
+          <div className="row">
+            <div className="col-lg-12 mb-4 order-0">
+              <div className="card">
+                <div className="d-flex align-items-end row">
+                  <div className="col-sm-7">
+                    <div className="card-body">
+                    <Formik
+                      innerRef={formikRef}
+                      initialValues={{
+                        nombre_proveedor: "",
+                        telefono_proveedor: "",
+                        direccion_proveedor:""
+                      }}
+                      onSubmit={handleSubmit}
+                      validationSchema={schemaFormProveedor}
+                    >
                 {({ isSubmitting }) => (
-						<Form id="formAuthentication" className="form-group">
-							<div className="row">
-                <Field
-                        type="text"
-                        className="form__input"
-                        id="nombre_proveedor"
-                        name="nombre_proveedor"
-                        placeholder="Por favor ingrese el nombre del proveedor"
-                       
-                      />
-              </div>
-              <MensajeErrorInput
-                      name="nombre_proveedor"
-                      className="alert alert-danger"
-              />
-							<div className="row">
-								
-              <Field
-                        type="text"
-                        className="form__input"
-                        id="telefono_proveedor"
-                        name="telefono_proveedor"
-                        placeholder="Por favor ingrese el número de telefono del proveedor"
+                      <Form id="formAuthentication" className="form-group">
+                        <div className="mb-3">
+                          <label  className="form-label">
+                            Nombre Del Preveedor
+                          </label>                        
+                          <Field
+                            type="text"
+                            className="form-control"
+                            id="nombre_proveedor"
+                            name="nombre_proveedor"
+                            placeholder="Por favor ingrese el nombre del proveedor"
+                            
+                          />
+                          <div id="emailHelp" className="form-text">
+                            Agregar el nombre completo
+                          </div>
+                        </div>
+                        <MensajeErrorInput
+                          name="nombre_proveedor"
+                          className="alert alert-danger"
+                        />
+                        <div className="mb-3">
+                          <label  className="form-label">
+                           Telefono del proveedor
+                          </label>
+                          <Field
+                            type="number"
+                            className="form-control"
+                            id="telefono_proveedor"
+                            name="telefono_proveedor"
+                            placeholder="Por favor ingrese el numero del proveedor"
+                           
+                          />
+                        </div>
+                        <MensajeErrorInput
+                          name="telefono_proveedor"
+                          className="alert alert-danger"
+                        />
+                        <div className="mb-3">
+                          <label  className="form-label">
+                            Direccion del proveedor
+                          </label>
+                          <Field
+                            type="text"
+                            className="form-control"
+                            id="direccion_proveedor"
+                            name="direccion_proveedor"
+                            placeholder="Por favor ingrese la direccion"
+                            aria-describedby="emailHelp"
+                          />
+                        </div>
+                        <MensajeErrorInput
+                          name="direccion_proveedor"
+                          className="alert alert-danger"
+                        />
                         
-                      />
-
-							</div>
-              <MensajeErrorInput
-                      name="telefono_proveedor"
-                      className="alert alert-danger"
-                    />
-							<div className="row">
-								
-              <Field
-                        type="text"
-                        className="form__input"
-                        id="direccion_proveedor"
-                        name="direccion_proveedor"
-                        placeholder="Por favor ingrese la direccion del proveedor"
-                        
-                      />
-
-							</div>
-              <MensajeErrorInput
-                      name="direccion_proveedor"
-                      className="alert alert-danger"
-                    />
-							<div className="row">
-								<input type="submit"  disabled={isSubmitting} value="Guardar" className="btn_formcliente"/>
-                <Link to="/Proveedores">
-                <input type="buttom" defaultValue="Cancelar" className="btn_formcliente mx-3"/>
-                </Link>
-              </div>
-              <div className="row">
-								
-							</div>
-              </Form>
+                        <br></br>
+                        <Link to='/Proveedor'>
+                        <button className="btn btn-danger mx-3">
+                          Volver
+                        </button>
+                        </Link>
+                        <button type="submit"  disabled={isSubmitting} className="btn btn-success">
+                          Agregar Proveedor
+                        </button>
+                        </Form>
                 )}
               </Formik>
-					</div>
-          {loading && <Loading />}
+                    </div>
+                  </div>
+                  {loading && <Loading />}
 
-        {error?.errors &&
-          error?.errors.map((msgError, i) => (
-            <Alerta
-              claseAlerta="danger"
-              key={i}
-              mensajeAlerta={msgError?.msg}
-            />
-          ))}
-				</div>
-			</div>
-		</div>
-	</div>
+                {error?.errors &&
+                  error?.errors.map((msgError, i) => (
+                    <Alerta
+                      claseAlerta="danger"
+                      key={i}
+                      mensajeAlerta={msgError?.msg}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <Footer />
         <div className="content-backdrop fade"></div>
