@@ -5,12 +5,12 @@ import useGetUser from "../hooks/useGetUser";
 import { useSession, useSetSession } from "../context/SessionProvider";
 
 function Home () {
-  const setSession = useSetSession();
+  // const setSession = useSetSession();
 
   const session = useSession();
 
   const { user, error, isLoading } = useGetUser(session);
-  
+
   return (
     <LayoutContainer>
       <div className="content-wrapper">

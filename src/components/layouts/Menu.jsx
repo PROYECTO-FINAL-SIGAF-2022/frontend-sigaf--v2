@@ -140,7 +140,7 @@ function Menu () {
             </a>
           </li>
           <li className="menu-item">
-            <Link to="/Mapa" className="menu-link">
+            <Link to="/mapa" className="menu-link">
               <i className="menu-icon tf-icons bx bxs-map"></i>
               <div data-i18n="Analytics">Mapa</div>
             </Link>
@@ -217,25 +217,25 @@ function Menu () {
                 </a>
               </li>
               <li className="menu-item">
-                <Link to="/Maquinas" className="menu-link">
+                <Link to="/maquinas" className="menu-link">
                   <div data-i18n="Connections">Máquinas</div>
                 </Link>
               </li>
 
               <li className="menu-item">
-              <Link to="/Personal" className="menu-link">
+              <Link to="/personal" className="menu-link">
                   <div data-i18n="Connections">Personal</div>
                 </Link>
               </li>
 
               <li className="menu-item">
-                <Link to="/Productos" className="menu-link">
+                <Link to="/productos" className="menu-link">
                   <div data-i18n="Connections">Productos</div>
                 </Link>
               </li>
 
               <li className="menu-item">
-                <Link to="/Proveedores" className="menu-link">
+                <Link to="/proveedores" className="menu-link">
                   <div data-i18n="Connections">Proveedores</div>
                 </Link>
               </li>
@@ -246,7 +246,7 @@ function Menu () {
                 </a>
               </li>
               <li className="menu-item">
-              <Link to="/Almacenes" className="menu-link">
+              <Link to="/almacenes" className="menu-link">
                   <div data-i18n="Connections">Almacenes</div>
                 </Link>
               </li>

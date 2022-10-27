@@ -6,29 +6,68 @@ import Home from "../../pages/Home";
 import Proveedor from "../../pages/proveedor/Proveedor";
 import FormCliente from "../../pages/proveedor/FormProveedor";
 import Productos from "../../pages/productos/Productos";
-import MapaTest from "../../pages/mapa/MapaTest";
 import FormProductos from "../../pages/productos/FormProductos";
 import Almacenes from "../../pages/almacenes/Almacenes";
 import Maquinas from "../../pages/maquinas/maquinas";
 import Personal from "../../pages/personal/Persona";
+import MapaHome from "../../pages/mapa/MapaHOme";
+import HomePerfilesEstablecimientos from "../../pages/perfilesEstablecimientos/HomePerfilesEstablecimientos";
+import HomeEstablecimientos from "../../pages/Establecimientos/HomeEstablecimientos";
+import { useEffect } from "react";
+import { useFetch } from "../../hooks/useFetch";
+import { URL } from "../../utils/getUrl";
 function Rutas () {
   const session = useSession();
 
+  const [setConfigFetchVerifyToken, fetchDataVerifyToken,,, cleanStates] = useFetch();
+  useEffect(() => {
+    if (session) {
+      // console.log("first");
+      setConfigFetchVerifyToken({
+        url: `${URL}/verificar-token-establecimiento-usuario`,
+        headersRequest: {
+          method: "GET",
+          headers: {
+            "Content-type": "application/json; charset=UTF-8"
+          }
+        }
+      });
+    }
+
+    return () => {
+      cleanStates();
+    };
+  }, [session]);
+
+  // console.log(fetchDataVerifyToken);
+  // console.log(errorVerifyToken);
   if (session != null) {
-    return (
-      <Routes>
-        <Route path="/" exact element={<Home />} />
-        <Route path='/Proveedores' exact element={<Proveedor/>} />
-        <Route path='/Formulario-Proveedor' exact element={<FormCliente/>} />
-        <Route path='/Productos' exact element={<Productos/>} />
-        <Route path='/Mapa' exact element={<MapaTest/>} />
-        <Route path='/Formulario-Productos' exact element={<FormProductos/>} />
-        <Route path='/Maquinas' exact element={<Maquinas/>} />
-        <Route path='/Almacenes' exact element={<Almacenes/>} />
-        <Route path='/Personal' exact element={<Personal/>} />
-        <Route path="*" exact element={<Home />} />
-      </Routes>
-    );
+    // console.log(fetchDataVerifyToken);
+    if (fetchDataVerifyToken?.length > 0) {
+      return (
+        <Routes>
+          <Route path="/" exact element={<Home />} />
+          {/* <Route path="/perfiles-establecimientos" exact element={<HomePerfilesEstablecimientos />} /> */}
+          <Route path='/proveedores' exact element={<Proveedor/>} />
+          <Route path='/formulario-proveedor' exact element={<FormCliente/>} />
+          <Route path='/productos' exact element={<Productos/>} />
+          <Route path='/mapa' exact element={<MapaHome/>} />
+          <Route path='/formulario-productos' exact element={<FormProductos/>} />
+          <Route path='/maquinas' exact element={<Maquinas/>} />
+          <Route path='/almacenes' exact element={<Almacenes/>} />
+          <Route path='/personal' exact element={<Personal/>} />
+          <Route path='/establecimientos' exact element={<HomeEstablecimientos/>} />
+          <Route path="*" exact element={<Home />} />
+        </Routes>
+      );
+    } else {
+      return (
+        <Routes>
+          <Route path="/perfiles-establecimientos" exact element={<HomePerfilesEstablecimientos />} />
+          <Route path="*" exact element={<HomePerfilesEstablecimientos />} />
+        </Routes>
+      );
+    }
   }
 
   return (

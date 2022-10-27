@@ -12,7 +12,7 @@ const SessionProvider = ({ children }) => {
     const token = window.localStorage.getItem("token");
     if (token) {
       setSession(token);
-      navigate("/");
+      // navigate("/");
     } else {
       setSession(null);
       navigate("/auth");

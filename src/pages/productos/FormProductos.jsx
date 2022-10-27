@@ -12,7 +12,7 @@ import Loading from "../../components/layouts/Loading";
 import Alerta from "../../components/layouts/Alerta";
 
 function FormProductos () {
-  const { setConfigFetch, fetchData, loading, error } = useFetch();
+  const [setConfigFetch, fetchData, loading, error] = useFetch();
   const formikRef = useRef();
 
   const navigate = useNavigate();

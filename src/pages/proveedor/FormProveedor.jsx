@@ -12,13 +12,13 @@ import { URL } from "../../utils/getUrl";
 import Loading from "../../components/layouts/Loading";
 import Alerta from "../../components/layouts/Alerta";
 
-function FormCliente() {
-  const { setConfigFetch, fetchData, loading, error } = useFetch();
+function FormCliente () {
+  const [setConfigFetch, fetchData, loading, error] = useFetch();
   const formikRef = useRef();
 
   const navigate = useNavigate();
-  
-  /* 
+
+  /*
    nombre_proveedor,
       telefono_proveedor,
       direccion_proveedor,
@@ -26,7 +26,7 @@ function FormCliente() {
   const schemaFormProveedor = yup.object().shape({
     nombre_proveedor: yup.string().required("El nombre del proveedor es requerido"),
     telefono_proveedor: yup.number().required("El telefono del proveedor es requerido"),
-    direccion_proveedor: yup.string().required("La direccion del proveedor es requerida"),
+    direccion_proveedor: yup.string().required("La direccion del proveedor es requerida")
   });
 
   const handleSubmit = (values) => {
@@ -75,7 +75,7 @@ function FormCliente() {
                       initialValues={{
                         nombre_proveedor: "",
                         telefono_proveedor: "",
-                        direccion_proveedor:""
+                        direccion_proveedor: ""
                       }}
                       onSubmit={handleSubmit}
                       validationSchema={schemaFormProveedor}
@@ -83,16 +83,16 @@ function FormCliente() {
                 {({ isSubmitting }) => (
                       <Form id="formAuthentication" className="form-group">
                         <div className="mb-3">
-                          <label  className="form-label">
+                          <label className="form-label">
                             Nombre Del Preveedor
-                          </label>                        
+                          </label>
                           <Field
                             type="text"
                             className="form-control"
                             id="nombre_proveedor"
                             name="nombre_proveedor"
                             placeholder="Por favor ingrese el nombre del proveedor"
-                            
+
                           />
                           <div id="emailHelp" className="form-text">
                             Agregar el nombre completo
@@ -103,7 +103,7 @@ function FormCliente() {
                           className="alert alert-danger"
                         />
                         <div className="mb-3">
-                          <label  className="form-label">
+                          <label className="form-label">
                            Telefono del proveedor
                           </label>
                           <Field
@@ -112,7 +112,7 @@ function FormCliente() {
                             id="telefono_proveedor"
                             name="telefono_proveedor"
                             placeholder="Por favor ingrese el numero del proveedor"
-                           
+
                           />
                         </div>
                         <MensajeErrorInput
@@ -120,7 +120,7 @@ function FormCliente() {
                           className="alert alert-danger"
                         />
                         <div className="mb-3">
-                          <label  className="form-label">
+                          <label className="form-label">
                             Direccion del proveedor
                           </label>
                           <Field
@@ -136,14 +136,14 @@ function FormCliente() {
                           name="direccion_proveedor"
                           className="alert alert-danger"
                         />
-                        
+
                         <br></br>
                         <Link to='/Proveedor'>
                         <button className="btn btn-danger mx-3">
                           Volver
                         </button>
                         </Link>
-                        <button type="submit"  disabled={isSubmitting} className="btn btn-success">
+                        <button type="submit" disabled={isSubmitting} className="btn btn-success">
                           Agregar Proveedor
                         </button>
                         </Form>

@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useSession, useSetSession } from "../context/SessionProvider";
+import { useState, useEffect } from "react";
+import { useSession } from "../context/SessionProvider";
 
 export const useFetch = () => {
   const [configFetch, setConfigFetch] = useState({});
@@ -7,17 +7,17 @@ export const useFetch = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({});
   const session = useSession();
-  
+
   const sendFetchData = async () => {
-    if (!configFetch.url) return;
+    if (!configFetch?.url) return;
 
     const { url, headersRequest } = configFetch;
 
     setLoading(true);
-    //Pedimos los datos a la api
+    // Pedimos los datos a la api
     headersRequest.headers = {
       Authorization: session,
-      'Content-type': 'application/json; charset=UTF-8',
+      "Content-type": "application/json; charset=UTF-8"
     };
 
     try {
@@ -31,7 +31,7 @@ export const useFetch = () => {
       }
       setFetchData(data);
     } catch (error) {
-      //Si hay un error ...
+      // Si hay un error ...
       console.error(error);
       setError(error);
     }
@@ -41,5 +41,12 @@ export const useFetch = () => {
     sendFetchData();
   }, [configFetch]);
 
-  return { setConfigFetch, fetchData, loading, error };
+  const cleanStates = () => {
+    setConfigFetch();
+    setFetchData();
+    setLoading();
+    setError();
+  };
+
+  return [setConfigFetch, fetchData, loading, error, cleanStates];
 };

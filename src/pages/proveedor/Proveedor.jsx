@@ -19,7 +19,7 @@ import {
 } from "mdb-react-ui-kit";
 
 function Proveedor () {
-  const { setConfigFetch, fetchData, error } = useFetch();
+  const [setConfigFetch, fetchData, error] = useFetch();
   const session = useSession();
   // console.log(session)
   useEffect(() => {

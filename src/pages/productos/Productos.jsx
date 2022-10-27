@@ -9,7 +9,7 @@ import { useSession } from "../../context/SessionProvider";
 import { Link } from "react-router-dom";
 
 function Productos () {
-  const { setConfigFetch, fetchData, error } = useFetch();
+  const [setConfigFetch, fetchData, error] = useFetch();
   const session = useSession();
 
   useEffect(() => {

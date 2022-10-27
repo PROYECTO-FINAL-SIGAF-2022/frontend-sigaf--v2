@@ -5,8 +5,8 @@ import Loading from "../../components/layouts/Loading";
 
 import { Link } from "react-router-dom";
 
-function Almacenes() {
- /*  const { setConfigFetch, fetchData, loading, error } = useFetch();
+function Almacenes () {
+  /*  const { setConfigFetch, fetchData, loading, error } = useFetch();
   const session = useSession();
   //console.log(session)
   useEffect(() => {
@@ -27,8 +27,6 @@ function Almacenes() {
   if (!error) {
     return <h1>Error</h1>;
   } */
-
- 
 
   return (
     <LayoutContainer>
@@ -82,19 +80,15 @@ function Almacenes() {
                                   <span className="user-subhead">Detalle</span>
                                 </td>
                                 <td className="text-center">
-								<span className="label label-default">
-									Para guardar las herramientas
-									</span>
-									</td>
+                              <span className="label label-default">Para guardar las herramientas</span>
+                                </td>
                                 <td className="text-center">
                                   <span className="label label-default">
                                     dirreccion
                                   </span>
                                 </td>
                                 <td className="text-center">
-								<span className="label label-default">
-                                  <a href="#">ACTIVO</a>
-								  </span>
+								                <span className="label label-default"><a href="#">ACTIVO</a></span>
                                 </td>
                                 <td style={{ width: "20%" }}>
                                   <a href="#" className="table-link">
@@ -129,19 +123,19 @@ function Almacenes() {
                                   <span className="user-subhead">Detalle</span>
                                 </td>
                                 <td className="text-center">
-								<span className="label label-default">
-									Para guardar semillas
-									</span>
-									</td>
+                                  <span className="label label-default">
+                                  Para guardar semillas
+                                  </span>
+                                </td>
                                 <td className="text-center">
                                   <span className="label label-default">
                                     direccion
                                   </span>
                                 </td>
                                 <td className="text-center">
-								<span className="label label-default">
-                                  <a href="#" style={{color:'red'}}>CERRADO</a>
-								  </span>
+								                  <span className="label label-default">
+                                   <a href="#" style={{ color: "red" }}>CERRADO</a>
+								                  </span>
                                 </td>
                                 <td style={{ width: "20%" }}>
                                   <a href="#" className="table-link">
