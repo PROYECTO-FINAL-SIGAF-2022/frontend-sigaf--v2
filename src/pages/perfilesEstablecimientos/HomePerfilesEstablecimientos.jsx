@@ -1,5 +1,6 @@
 import { useEffect } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import "./PerfilesEstablecimientos.css";
+import { useNavigate } from "react-router-dom";
 import Alerta from "../../components/layouts/Alerta";
 import Loading from "../../components/layouts/Loading";
 // import Footer from "../../components/layouts/Footer";
@@ -69,28 +70,38 @@ const HomePerfilesEstablecimientos = () => {
                     <h5 className="card-title text-primary">
                     Bienvenido {user?.username_usuario}!!! 🎉
                     </h5>
-
                     {loadingEstablecimientos && <Loading />}
 
                     {errorEstablecimientos?.msg && (
                     <Alerta claseAlerta="danger" mensajeAlerta={errorEstablecimientos?.msg} />
                     )}
-
+                     <p className="mb-4" >
+                            Por favor seleccione un <b>Establecimiento</b>.
+                        </p>
+                        <div className="contenidoCardEstablecimiento">
                     {
                         fetchDataEstablecimientos.length > 0 && (
                         <>
-                        <p className="mb-4" >
-                            Por favor seleccione un <b>Establecimiento</b>.
-                        </p>
-
                         {
                             fetchDataEstablecimientos?.map(establecimiento => (
-                                <div className="card" style={{ width: "13rem" }} key={establecimiento.id_establecimiento}>
-  {/* <img src="..." class="card-img-top" alt="..."> */}
-                                <div className="card-body">
+                                <div className="grid" key={establecimiento.id_establecimiento}>
+                                    <label className="cardEstablecimiento">
+                                      <input className="card__input" name="inputRadio" type="radio" onClick={() => handleClickEstablecimiento(establecimiento.id_establecimiento)}/>
+                                      <div className="card__body">
+                                        <div className="card__body-cover"><img className="card__body-cover-image" src="https://i.ytimg.com/vi/frs32vDWVTw/maxresdefault.jpg"/><span className="card__body-cover-checkbox">
+                                            <svg className="card__body-cover-checkbox--svg" viewBox="0 0 12 10">
+                                              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                            </svg></span></div>
+                                        <header className="card__body-header">
+                                          <h5 className="card__body-header-title">Establecimiento 1</h5>
+                                          <p className="card__body-header-subtitle">Seleccionar</p>
+                                        </header>
+                                      </div>
+                                    </label>
+                                {/* <div className="card-body">
                                     <h5 className="card-title">{establecimiento.descripcion_establecimiento}</h5>
                                    <button className="btn btn-primary" onClick={() => handleClickEstablecimiento(establecimiento.id_establecimiento)}>Seleccionar</button>
-                                </div>
+                                </div> */}
                                 </div>
                             ))
                         }
@@ -98,20 +109,24 @@ const HomePerfilesEstablecimientos = () => {
                         )
                     }
 
-                    <div className="card mt-3" style={{ width: "13rem" }} >
-  {/* <img src="..." class="card-img-top" alt="..."> */}
-                        <div className="card-body">
-                            <h5 className="card-title">Crear un establecimiento</h5>
-                            <NavLink
-                                to="/establecimientos"
-                                className="btn btn-success"
-                            >
-                            Crear
-                        </NavLink>
-
-                        </div>
+                    <div className="grid" >
+                            <label className="cardEstablecimiento">
+                              <input className="card__input" name="inputRadio" type="radio" />
+                              <div className="card__body">
+                                <div className="card__body-cover">
+                                  <img className="card__body-cover-image" src="https://i.ibb.co/WDwmPy5/other.png"/>
+                                  <span className="card__body-cover-checkbox">
+                                    <svg className="card__body-cover-checkbox--svg" viewBox="0 0 12 10">
+                                      <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                    </svg></span></div>
+                                <header className="card__body-header">
+                                  <h5 className="card__body-header-title">Crear</h5>
+                                  <p className="card__body-header-subtitle">Crear Otro Establecimiento</p>
+                                </header>
+                              </div>
+                            </label>
                     </div>
-
+                    </div>
                     {loadingToken && <Loading />}
 
                     {errorToken?.msg && (

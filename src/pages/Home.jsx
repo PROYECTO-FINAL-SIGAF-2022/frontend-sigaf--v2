@@ -24,6 +24,7 @@ function Home () {
                       <h5 className="card-title text-primary">
                         Bienvenido {user?.username_usuario}!!! 🎉
                       </h5>
+
                       <p className="mb-4" >
                       SISTEMA DE GESTIÓN AGROPECUARIA FORMOSEÑA! {" "}
                         <span className="fw-bold">ayudamos</span> a facilitar las tareas agropecuarias para los pequeños y medianos productores
