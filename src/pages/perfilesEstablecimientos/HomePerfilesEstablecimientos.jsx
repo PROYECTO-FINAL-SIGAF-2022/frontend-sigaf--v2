@@ -109,6 +109,25 @@ const HomePerfilesEstablecimientos = () => {
                         )
                     }
 
+                          <div className="grid" >
+                                    <label className="cardEstablecimiento">
+                                      <input className="card__input" name="inputRadio" type="radio" />
+                                      <div className="card__body">
+                                        <div className="card__body-cover"><img className="card__body-cover-image" src="https://unionclm.files.wordpress.com/2019/08/roma-maquinaria-agrc3adcola-tractores.jpg"/><span className="card__body-cover-checkbox">
+                                            <svg className="card__body-cover-checkbox--svg" viewBox="0 0 12 10">
+                                              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                            </svg></span></div>
+                                        <header className="card__body-header">
+                                          <h5 className="card__body-header-title">Establecimiento 2</h5>
+                                          <p className="card__body-header-subtitle">Seleccionar</p>
+                                        </header>
+                                      </div>
+                                    </label>
+                                {/* <div className="card-body">
+                                    <h5 className="card-title">{establecimiento.descripcion_establecimiento}</h5>
+                                   <button className="btn btn-primary" onClick={() => handleClickEstablecimiento(establecimiento.id_establecimiento)}>Seleccionar</button>
+                                </div> */}
+                                </div>
                     <div className="grid" >
                             <label className="cardEstablecimiento">
                               <input className="card__input" name="inputRadio" type="radio" />

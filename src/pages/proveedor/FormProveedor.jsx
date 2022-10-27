@@ -57,7 +57,7 @@ function FormCliente () {
 
   useEffect(() => {
     if (fetchData.length === 0) return;
-    navigate("/Proveedores");
+    navigate("/proveedores");
   }, [fetchData]);
 
   return (
@@ -138,7 +138,7 @@ function FormCliente () {
                         />
 
                         <br></br>
-                        <Link to='/Proveedor'>
+                        <Link to='/proveedores'>
                         <button className="btn btn-danger mx-3">
                           Volver
                         </button>
