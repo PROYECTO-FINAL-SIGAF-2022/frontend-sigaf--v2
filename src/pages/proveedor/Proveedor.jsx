@@ -10,17 +10,8 @@ import Loading from "../../components/layouts/Loading";
 import { useFetch } from "../../hooks/useFetch";
 import { URL } from "../../utils/getUrl";
 import { Link } from "react-router-dom";
-
-import {
-  MDBBtn,
-  MDBModal,
-  MDBModalDialog,
-  MDBModalContent,
-  MDBModalHeader,
-  MDBModalTitle,
-  MDBModalBody,
-  MDBModalFooter
-} from "mdb-react-ui-kit";
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 function Proveedor () {
   const [setConfigFetchProveedores, fetchDataProveedores, loadingProveedores, errorProveedores] = useFetch();
@@ -42,13 +33,48 @@ function Proveedor () {
     getProveedores();
   }, []);
 
-  console.log(fetchDataProveedores)
-  
-  
-  const [optSmModal, setOptSmModal] = useState(false);
+  //console.log(fetchDataProveedores)
 
-  // const [ idCliente,setIdCliente] = useState('');
-  const toggleShow = () => setOptSmModal(!optSmModal);
+  
+
+  const MySwal = withReactContent(Swal)
+  const handleBounceIn = (id) => {
+    const idEliminar = id
+    //console.log(idEliminar)
+    return MySwal.fire({
+      title: 'Seguro que lo quiere eliminar?',
+      text: "Se eliminara permanentemente!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Si, eliminar!',
+      cancelButtonText: 'Cancelar!',
+    }).then((result) => {
+      console.log(result.isDismissed)
+      if (result.isConfirmed) {
+        console.log(idEliminar)
+          setConfigFetchProveedores({
+            url: `${URL}/proveedores/${idEliminar}`,
+            headersRequest: {
+              method: "DELETE",
+              headers: {
+                "Content-type": "application/json; charset=UTF-8"
+              }
+            }
+          }); 
+        Swal.fire(
+          'Eliminado!',
+          'El archivo fue eliminado.',
+          'success'
+        ).then((resultClose) => {
+          console.log(resultClose)
+          getProveedores()
+        })
+       
+      }
+    })
+  }
 
   return (
     <LayoutContainer>
@@ -118,49 +144,19 @@ function Proveedor () {
                                 </div>
                               </div>
                               <div className="d-md-flex text-capitalize ff-open-sans">
-                                <button className="btn  d-block w-100  btn-info mx-3">
+                                
+                                <Link className="btn  d-block w-100  btn-info mx-3"  to ={{pathname:'/actualizar-proveedor/' + item.id_proveedor}}
+                                >
                                   Editar
-                                </button>
+                                </Link>
+                                
                                 <button
                                   className="btn  d-block w-100 btn-danger"
-                                  onClick={toggleShow}
+                                  onClick={()=>{handleBounceIn(item?.id_proveedor)}}
                                 >
                                   Eliminar
                                 </button>
                               </div>
-  
-                              <MDBModal
-                                show={optSmModal}
-                                tabIndex="-1"
-                                setShow={setOptSmModal}
-                              >
-                                <MDBModalDialog size="sm">
-                                  <MDBModalContent>
-                                    <MDBModalHeader className="bg-danger text-white d-flex justify-content-center">
-                                      <MDBModalTitle className="text-white ">
-                                        ¿Quiere Eliminar El Proveedor?
-                                      </MDBModalTitle>
-                                      <MDBBtn
-                                        className="btn-close"
-                                        color="none"
-                                        onClick={toggleShow}
-                                      ></MDBBtn>
-                                    </MDBModalHeader>
-                                    <MDBModalBody className="text-danger d-flex justify-content-center">
-                                    ...
-                                    </MDBModalBody>
-                                    <MDBModalFooter>
-                                      <MDBBtn
-                                        className="btn btn-success"
-                                        onClick={toggleShow}
-                                      >
-                                        Cancelar
-                                      </MDBBtn>
-                                      <MDBBtn color="danger">Eliminar</MDBBtn>
-                                    </MDBModalFooter>
-                                  </MDBModalContent>
-                                </MDBModalDialog>
-                              </MDBModal>
                             </div>
                             ))
                         }

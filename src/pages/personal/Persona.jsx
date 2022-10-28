@@ -2,10 +2,34 @@ import Footer from "../../components/layouts/Footer";
 import LayoutContainer from "../../components/layouts/LayoutContainer";
 import "./Personal.css";
 import Loading from "../../components/layouts/Loading";
-
+import Swal from 'sweetalert2'
 import { Link } from "react-router-dom";
-
+import withReactContent from 'sweetalert2-react-content'
 function Personal() {
+
+  const MySwal = withReactContent(Swal)
+
+  const handleBounceIn = () => {
+    return MySwal.fire({
+      title: 'Seguro que lo quiere eliminar?',
+      text: "Se eliminara permanentemente!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Si, eliminar!',
+      cancelButtonText: 'Cancelar!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Eliminado!',
+          'El archivo fue eliminado.',
+          'success'
+        )
+      }
+    })
+  }
+  
  /*  const { setConfigFetch, fetchData, loading, error } = useFetch();
   const session = useSession();
   //console.log(session)
@@ -35,7 +59,7 @@ function Personal() {
       <div className="content-wrapper">
         <div className="container-xxl flex-grow-1 container-p-y">
           <div style={{ textAlign: "center" }}>
-            <Link to="">
+            <Link to="/formulario-personal">
               <button
                 className="btn btn-success"
                 style={{ position: "absolute", left: "80%" }}
@@ -109,7 +133,7 @@ function Personal() {
                                       <i className="fa fa-pencil fa-stack-1x fa-inverse"></i>
                                     </span>
                                   </a>
-                                  <a href="#" className="table-link danger">
+                                  <a href="#" className="table-link danger" onClick={handleBounceIn}>
                                     <span className="fa-stack">
                                       <i className="fa fa-square fa-stack-2x"></i>
                                       <i className="fa fa-trash-o fa-stack-1x fa-inverse"></i>
@@ -156,7 +180,7 @@ function Personal() {
                                       <i className="fa fa-pencil fa-stack-1x fa-inverse"></i>
                                     </span>
                                   </a>
-                                  <a href="#" className="table-link danger">
+                                  <a className="table-link danger" onClick={handleBounceIn}>
                                     <span className="fa-stack">
                                       <i className="fa fa-square fa-stack-2x"></i>
                                       <i className="fa fa-trash-o fa-stack-1x fa-inverse"></i>

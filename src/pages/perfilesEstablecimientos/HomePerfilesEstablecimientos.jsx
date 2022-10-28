@@ -52,6 +52,7 @@ const HomePerfilesEstablecimientos = () => {
 
   useEffect(() => {
     if (fetchDataToken.token) {
+      console.log(fetchDataToken)
       setToken(fetchDataToken.token);
       navigate("/");
     };

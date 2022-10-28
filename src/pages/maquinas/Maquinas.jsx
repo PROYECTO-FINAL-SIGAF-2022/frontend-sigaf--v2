@@ -33,7 +33,7 @@ function Maquinas () {
       <div className="content-wrapper">
         <div className="container-xxl flex-grow-1 container-p-y">
           <div style={{ textAlign: "center" }}>
-            <Link to="">
+            <Link to="/formulario-maquinas">
               <button
                 className="btn btn-success"
                 style={{ position: "absolute", left: "80%" }}
