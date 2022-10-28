@@ -3,7 +3,8 @@ import { useSession } from "../../context/SessionProvider";
 import Login from "../../pages/auth/Login";
 import Register from "../../pages/auth/Register";
 import Home from "../../pages/Home";
-
+import Calendario from "../../pages/calendarioCultivo/Calendario";
+import TuCalendario from "../../pages/calendarioActividades/TuCalendario";
 function Rutas () {
   const session = useSession();
 
@@ -12,6 +13,8 @@ function Rutas () {
       <Routes>
         <Route path="/" exact element={<Home />} />
         <Route path="*" exact element={<Home />} />
+        <Route path="/calendario" exact element={<Calendario/>} />
+        <Route path="/tuCalendario" exact element={<TuCalendario/>} />
       </Routes>
     );
   }
