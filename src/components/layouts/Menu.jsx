@@ -171,13 +171,13 @@ function Menu () {
             <ul className="menu-sub">
               <li className="menu-item">
                 <a href="#" className="menu-link">
-                  <div data-i18n="Basic">Precio</div>
+                  <div data-i18n="Basic">Ingresos</div>
                 </a>
               </li>
               <li className="menu-item">
-                <a href="#" className="menu-link">
-                  <div data-i18n="Basic">Costos Fijos</div>
-                </a>
+                <Link to="/Costos" className="menu-link">
+                  <div data-i18n="Connections">Costos</div>
+                </Link>
               </li>
               <li className="menu-item">
                 <a href="#" className="menu-link">
@@ -208,14 +208,14 @@ function Menu () {
             </a>
             <ul className="menu-sub">
               <li className="menu-item">
-                <a href="#" className="menu-link">
-                  <div data-i18n="Account">Explotaciones</div>
-                </a>
+                <Link to="/Explotaciones" className="menu-link">
+                  <div data-i18n="Connections">Explotaciones</div>
+                </Link>
               </li>
               <li className="menu-item">
-                <a href="#" className="menu-link">
-                  <div data-i18n="Notifications">Campos</div>
-                </a>
+                <Link to="/Campos" className="menu-link">
+                  <div data-i18n="Connections">Campos</div>
+                </Link>
               </li>
               <li className="menu-item">
                 <Link to="/Maquinas" className="menu-link">
