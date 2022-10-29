@@ -12,7 +12,7 @@ import Maquinas from "../../pages/maquinas/maquinas";
 import Personal from "../../pages/personal/Persona";
 import MapaHome from "../../pages/mapa/MapaHOme";
 import HomePerfilesEstablecimientos from "../../pages/perfilesEstablecimientos/HomePerfilesEstablecimientos";
-import HomeEstablecimientos from "../../pages/Establecimientos/HomeEstablecimientos";
+import HomeEstablecimientos from "../../pages/establecimientos/HomeEstablecimientos";
 import { useEffect } from "react";
 import { useFetch } from "../../hooks/useFetch";
 import { URL } from "../../utils/getUrl";
@@ -56,7 +56,6 @@ function Rutas () {
           <Route path='/maquinas' exact element={<Maquinas/>} />
           <Route path='/almacenes' exact element={<Almacenes/>} />
           <Route path='/personal' exact element={<Personal/>} />
-          <Route path='/establecimientos' exact element={<HomeEstablecimientos/>} />
           <Route path="*" exact element={<Home />} />
         </Routes>
       );
@@ -64,6 +63,7 @@ function Rutas () {
       return (
         <Routes>
           <Route path="/perfiles-establecimientos" exact element={<HomePerfilesEstablecimientos />} />
+          <Route path='/crear-establecimientos' exact element={<HomeEstablecimientos/>} />
           <Route path="*" exact element={<HomePerfilesEstablecimientos />} />
         </Routes>
       );

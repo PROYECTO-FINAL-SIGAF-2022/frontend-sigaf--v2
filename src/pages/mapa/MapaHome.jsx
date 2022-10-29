@@ -1,6 +1,6 @@
 import Footer from "../../components/layouts/Footer";
 import LayoutContainer from "../../components/layouts/LayoutContainer";
-import MapaView from "./MapView";
+import IndexMap from "./mapaComponents/IndexMap";
 import "../../App.css";
 
 function MapaHome () {
@@ -13,7 +13,7 @@ function MapaHome () {
               <div className="card">
                 {/* <div className="d-flex align-items-end row">
                   <div className="col-sm-7"> */}
-                  <MapaView/>
+                  <IndexMap/>
                   {/* </div>
                 </div> */}
               </div>
