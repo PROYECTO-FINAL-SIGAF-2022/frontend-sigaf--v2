@@ -170,9 +170,9 @@ function Menu () {
             </a>
             <ul className="menu-sub">
               <li className="menu-item">
-                <a href="#" className="menu-link">
-                  <div data-i18n="Basic">Ingresos</div>
-                </a>
+              <Link to="/Precios" className="menu-link">
+                  <div data-i18n="Connections">Precios</div>
+                </Link>
               </li>
               <li className="menu-item">
                 <Link to="/Costos" className="menu-link">

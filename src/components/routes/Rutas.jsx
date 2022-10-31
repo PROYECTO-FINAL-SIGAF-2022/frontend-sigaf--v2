@@ -14,6 +14,7 @@ import Personal from "../../pages/personal/Persona";
 import Explotaciones from "../../pages/explotaciones/Explotaciones";
 import Campos from "../../pages/campos/Campos";
 import Costos from "../../pages/analisis/costos/Costos";
+import Precios from "../../pages/analisis/precios/Precios";
 
 function Rutas () {
   const session = useSession();
@@ -33,6 +34,7 @@ function Rutas () {
         <Route path='/Explotaciones' exact element={<Explotaciones/>} />
         <Route path='/Campos' exact element={<Campos/>} />
         <Route path='/Costos' exact element={<Costos/>} />
+        <Route path='/Precios' exact element={<Precios/>} />
         <Route path="*" exact element={<Home />} />
       </Routes>
     );

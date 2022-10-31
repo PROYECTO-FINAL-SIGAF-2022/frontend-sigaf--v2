@@ -22,8 +22,6 @@ function FormProductos() {
     descripcion_producto: yup.string().required("La descripcion del producto es requerida"),
     fecha_vencimiento_producto: yup.date().required("La fecha de vencimiento es requerida"),
     cantidad_producto: yup.number().required("La cantidad del producto es requerida"),
-  
-
   });
 
   const handleSubmit = (values) => {
@@ -86,7 +84,7 @@ console.log(fetchData)
                 {({ isSubmitting }) => (
                       <Form id="formAuthentication" className="form-group">
                         <div className="mb-3">
-                          <label  className="form-label">
+                          <label className="form-label">
                             Nombre Del Producto
                           </label>                        
                           <Field
