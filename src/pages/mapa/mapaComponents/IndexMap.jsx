@@ -16,6 +16,8 @@ import MapaPopup from "./MapaPopup";
 // import MapaLayers from "./mapaComponents/MapaLayers";
 import MapaToolbar from "./MapaToolbar";
 import ModalDatosParcela from "../mapaLayouts/ModalDatosParcela";
+import { useFetch } from "../../../hooks/useFetch";
+import { URL } from "../../../utils/getUrl";
 
 const IndexMap = () => {
   const [optSmModal, setOptSmModal] = useState(false);
@@ -28,25 +30,25 @@ const IndexMap = () => {
     lng: "-58.188628961794805"
   });
   const [mapLayers, setMapLayers] = useState([]);
+  const [setConfigFetchEstablecimiento, fetchDataEstablecimiento, loadingEstablecimiento, errorEstablecimiento] = useFetch();
 
   const mapRef = useRef();
 
-  const handleChange = () => {
+  const _onMounted = () => {
     console.log("Cargar coordenadas establecimiento");
-    // console.log(mapRef);
     if (!mapRef.current) return;
 
     const map = mapRef.current;
 
-    const pointA = new L.LatLng(-25.820252909960004, -58.07477700699445);
-    const pointB = new L.LatLng(-25.806884763425963,
-      -58.06910655012652);
-    const pointC = new L.LatLng(-25.811675833328245,
-      -58.056820560246);
-    const pointD = new L.LatLng(-25.825197969104742,
-      -58.06446708541639);
-    const pointE = new L.LatLng(-25.821180124281224,
-      -58.073746014836644);
+    // const pointA = new L.LatLng(-25.820252909960004, -58.07477700699445);
+    // const pointB = new L.LatLng(-25.806884763425963,
+    //   -58.06910655012652);
+    // const pointC = new L.LatLng(-25.811675833328245,
+    //   -58.056820560246);
+    // const pointD = new L.LatLng(-25.825197969104742,
+    //   -58.06446708541639);
+    // const pointE = new L.LatLng(-25.821180124281224,
+    //   -58.073746014836644);
 
     const array = [
       {
@@ -132,6 +134,16 @@ const IndexMap = () => {
     });
   };
   // console.log(mapRef);
+
+  useEffect(() => {
+    setConfigFetchEstablecimiento({
+      url: `${URL}/establecimiento-usuario`,
+      headersRequest: {
+        method: "GET"
+      }
+    });
+  }, []);
+
   return (
     <>
       <MapContainer style={{ zIndex: 1, width: "100%" }} center={center} zoom={14} ref={mapRef}>
@@ -152,7 +164,7 @@ const IndexMap = () => {
               circlemarker: false,
               marker: false
             }}
-            onMounted={handleChange}
+            onMounted={_onMounted}
           />
           <MapaPopup toggleShow={toggleShow}/>
         </FeatureGroup>
