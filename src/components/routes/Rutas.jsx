@@ -3,7 +3,7 @@ import { useSession } from "../../context/SessionProvider";
 import Login from "../../pages/auth/Login";
 import Register from "../../pages/auth/Register";
 import Home from "../../pages/Home";
-import Proveedor from "../../pages/proveedor/Proveedor";
+import Proveedor from '../../pages/proveedor/Proveedor';
 import FormCliente from "../../pages/proveedor/FormProveedor";
 import Productos from "../../pages/productos/Productos";
 import FormProductos from "../../pages/productos/FormProductos";
@@ -16,6 +16,10 @@ import HomeEstablecimientos from "../../pages/Establecimientos/HomeEstablecimien
 import FormPersonal from "../../pages/personal/FormPersonal";
 import FormMaquinas from "../../pages/maquinas/FormMaquinas";
 import UpdateProveedor from "../../pages/proveedor/UpdateProveedor";
+import Explotaciones from "../../pages/explotaciones/Explotaciones";
+import Campos from "../../pages/campos/Campos";
+import Costos from "../../pages/analisis/costos/Costos";
+import Precios from "../../pages/analisis/precios/Precios";
 import { useEffect } from "react";
 import { useFetch } from "../../hooks/useFetch";
 import { URL } from "../../utils/getUrl";
@@ -62,7 +66,11 @@ function Rutas () {
           <Route path='/establecimientos' exact element={<HomeEstablecimientos/>} />
           <Route path="/formulario-personal" exact element={<FormPersonal/>}/>
           <Route path="/formulario-maquinas" exact element={<FormMaquinas/>}/>
-          <Route path="/actualizar-proveedor/:proid" exact element={<UpdateProveedor/>}/>
+          <Route path="/actualizar-proveedor/:proid" exact element={<UpdateProveedor/>}/>   
+          <Route path='/Explotaciones' exact element={<Explotaciones/>} />
+          <Route path='/Campos' exact element={<Campos/>} />
+          <Route path='/Costos' exact element={<Costos/>} />
+          <Route path='/Precios' exact element={<Precios/>} />
           <Route path="*" exact element={<Home />} />
         </Routes>
       );
