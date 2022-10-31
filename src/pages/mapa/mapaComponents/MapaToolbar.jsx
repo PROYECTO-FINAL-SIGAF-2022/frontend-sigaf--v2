@@ -1,11 +1,25 @@
+// import { useMap, useMapEvents } from "react-leaflet";
+import { useState } from "react";
+import { useMapEvent } from "react-leaflet";
 import Control from "react-leaflet-custom-control";
 const MapaToolbar = () => {
+  const [campania, setCampania] = useState("");
+
+  //   const map = useMap();
+  //   console.log("map center:", map.getCenter());
+
+  //   map.
+  useMapEvent("click", (e) => {
+    // console.log("first");
+    // console.log(e.latlng);
+  });
+
   return (
     <Control prepend position='topright'>
     <div className="row">
 
-    <select className="form-select mb-2">
-        <option selected>Campaña</option>
+    <select className="form-select mb-2" defaultValue={campania}>
+        <option value="">Campaña</option>
         <option value="2022">2022</option>
         <option value="2021">2021</option>
         <option value="2020">2020</option>

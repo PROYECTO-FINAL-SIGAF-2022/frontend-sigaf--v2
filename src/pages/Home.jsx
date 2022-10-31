@@ -3,13 +3,16 @@ import Footer from "../components/layouts/Footer";
 import LayoutContainer from "../components/layouts/LayoutContainer";
 import useGetUser from "../hooks/useGetUser";
 import { useSession, useSetSession } from "../context/SessionProvider";
+import { useEffect, useState } from "react";
+import { URL } from "../utils/getUrl";
+import { useFetch } from "../hooks/useFetch";
 
 function Home () {
   // const setSession = useSetSession();
 
   const session = useSession();
 
-  const { user, error, isLoading } = useGetUser(session);
+  const { user } = useGetUser(session);
 
   return (
     <LayoutContainer>
