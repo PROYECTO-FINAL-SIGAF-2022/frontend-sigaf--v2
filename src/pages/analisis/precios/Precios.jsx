@@ -10,6 +10,8 @@ import Tabs from "./Tabs";
 
 import PersonalTabContent from "./PersonalTabContent";
 import ProductosTabContent from "./ProductosTabContent";
+import MaquinasTabContent from "./MaquinasTabContent";
+import AlmacenesTabContent from "./AlmacenesTabContent";
 
 const Precios = () => {
   const [activeTab, setActiveTab] = useState("1");
@@ -30,11 +32,13 @@ const Precios = () => {
                 <PersonalTabContent/>
               </TabPane>
               <TabPane tabId='2'>
+                <MaquinasTabContent/>
               </TabPane>
               <TabPane tabId='3'>
                 <ProductosTabContent/>
               </TabPane>
               <TabPane tabId='4'>
+                <AlmacenesTabContent/>
               </TabPane>
             </TabContent>
             </Col>

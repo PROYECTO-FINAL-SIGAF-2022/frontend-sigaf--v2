@@ -5,11 +5,8 @@ import "./Precios.css";
 import { MDBBtn, MDBModal, MDBModalBody, MDBModalContent, MDBModalDialog, MDBModalHeader, MDBModalTitle } from "mdb-react-ui-kit";
 import { Field, Form, Formik } from "formik";
 
-const PersonalTabContent = () => {
-  /* const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true); */
+const AlmacenesTabContent = () => {
+    
   const [optSmModal, setOptSmModal] = useState(false);
 
   const toggleShow = () => setOptSmModal(!optSmModal);
@@ -22,7 +19,7 @@ const PersonalTabContent = () => {
             <thead>
                 <tr>
                     <th className="text-center" style={{ width: "40%" }}>
-                    <span>Personal</span>
+                    <span>Almacen</span>
                     </th>
                     <th className="text-center">
                     <span>Precio</span>
@@ -34,21 +31,21 @@ const PersonalTabContent = () => {
             <tr>
                 <td className="text-center" >
                 <a>
-                    Agustin Centurion
+                    Almacen 1
                 </a>
                 </td>
                 <td className="text-center">
                 <a onClick={toggleShow} className="user-link">
-                  $1500
+                  $150.000
                 </a>
                 <MDBModal staticBackdrop stabindex='-1' show={optSmModal} setShow={setOptSmModal}>
                   <MDBModalDialog centered>
                     <MDBModalContent>
                       <MDBModalHeader>
                         <MDBModalTitle>
-                          <i className="menu-icon tf-icons bx bx-group"></i>
-                            Agustin Centurion
-                        </MDBModalTitle>
+                        <i className="menu-icon tf-icons bx bx-building-house"></i>
+                         Almacen 1 
+                         </MDBModalTitle>
                         <MDBBtn className='btn-close' color='none' onClick={toggleShow}></MDBBtn>
                       </MDBModalHeader>
                       <MDBModalBody>
@@ -82,33 +79,9 @@ const PersonalTabContent = () => {
                       </div>
                       </div>
                       </div>
-                      {/* <MDBModalFooter>
-                        <MDBBtn color='secondary' onClick={toggleShow}>
-                          Close
-                        </MDBBtn>
-                        <MDBBtn>Save changes</MDBBtn>
-                      </MDBModalFooter> */}
                     </MDBModalContent>
                   </MDBModalDialog>
                 </MDBModal>
-                {/* <Modal show={show} onHide={handleClose}>
-                  <Modal.Header closeButton>
-                    <Modal.Title>
-                      <h4>Agustin Centurion</h4>
-                    </Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <h1>hola</h1>
-                  </Modal.Body>
-                  <Modal.Footer>
-                    <Button variant="primary" onClick={handleClose}>
-                      Guardar
-                    </Button>
-                    <Button variant="secondary" onClick={handleClose}>
-                      Salir
-                    </Button>
-                  </Modal.Footer>
-                </Modal> */}
                 </td>
             </tr>
         </tbody>
@@ -119,4 +92,4 @@ const PersonalTabContent = () => {
   );
 };
 
-export default PersonalTabContent;
+export default AlmacenesTabContent;

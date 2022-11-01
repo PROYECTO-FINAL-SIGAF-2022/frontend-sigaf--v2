@@ -45,7 +45,10 @@ const ProductosTabContent = () => {
                   <MDBModalDialog centered>
                     <MDBModalContent>
                       <MDBModalHeader>
-                        <MDBModalTitle>Fertilizante</MDBModalTitle>
+                        <MDBModalTitle>
+                          <i className="menu-icon tf-icons bx bx-spa"></i>
+                            Fertilizante
+                        </MDBModalTitle>
                         <MDBBtn className='btn-close' color='none' onClick={toggleShow}></MDBBtn>
                       </MDBModalHeader>
                       <MDBModalBody>
