@@ -24,7 +24,6 @@ const IndexMap = () => {
 
   const toggleShow = () => setOptSmModal(!optSmModal);
 
-  // const mapRef = useRef(null);
   const [center, setCenter] = useState({
     lat: "-26.18064675300086",
     lng: "-58.188628961794805"
@@ -33,53 +32,7 @@ const IndexMap = () => {
   const [setConfigFetchEstablecimiento, fetchDataEstablecimiento, loadingEstablecimiento, errorEstablecimiento] = useFetch();
 
   const mapRef = useRef();
-
-  const _onMounted = () => {
-    console.log("Cargar coordenadas establecimiento");
-    if (!mapRef.current) return;
-
-    const map = mapRef.current;
-
-    // const pointA = new L.LatLng(-25.820252909960004, -58.07477700699445);
-    // const pointB = new L.LatLng(-25.806884763425963,
-    //   -58.06910655012652);
-    // const pointC = new L.LatLng(-25.811675833328245,
-    //   -58.056820560246);
-    // const pointD = new L.LatLng(-25.825197969104742,
-    //   -58.06446708541639);
-    // const pointE = new L.LatLng(-25.821180124281224,
-    //   -58.073746014836644);
-
-    const array = [
-      {
-        lat: -25.825352498875056,
-        lng: -58.077182655362655
-      },
-      {
-        lat: -25.806807486517254,
-        lng: -58.077182655362655
-      },
-      {
-        lat: -25.806807486517254,
-        lng: -58.053641667759415
-      },
-      {
-        lat: -25.825352498875056,
-        lng: -58.053641667759415
-      }
-    ];
-
-    const pointList = array.map(({ lat, lng }) => new L.LatLng(lat, lng));
-
-    const firstpolyline = new L.Polygon(pointList, {
-      // color: "red",
-      color: "#03f", smoothFactor: 0, opacity: 0.0
-
-    });
-    firstpolyline.addTo(map);
-    ;
-    map.panTo(firstpolyline.getCenter());
-  };
+  const georeferenciaRef = useRef();
 
   const _onCreate = (e) => {
     const { layerType, layer } = e;
@@ -124,7 +77,6 @@ const IndexMap = () => {
   };
 
   const _onDeleted = (e) => {
-    // console.log(e);
     const {
       layers: { _layers }
     } = e;
@@ -133,7 +85,22 @@ const IndexMap = () => {
       setMapLayers((layers) => layers.filter((l) => l.id !== _leaflet_id));
     });
   };
-  // console.log(mapRef);
+
+  const addAreaToMap = () => {
+    if (!mapRef.current) return;
+    georeferenciaRef.current?.remove();
+
+    const map = mapRef.current;
+    const georeferencia = JSON.parse(fetchDataEstablecimiento.georeferencia);
+    const firstpolyline = new L.Polygon(georeferencia, {
+      color: "#F5A587",
+      weight: 0,
+      fillOpacity: 0.75
+    });
+    firstpolyline.addTo(map);
+    georeferenciaRef.current = firstpolyline;
+    map.panTo(firstpolyline.getCenter());
+  };
 
   useEffect(() => {
     setConfigFetchEstablecimiento({
@@ -144,8 +111,18 @@ const IndexMap = () => {
     });
   }, []);
 
+  useEffect(() => {
+    // eslint-disable-next-line no-useless-return
+    if (!fetchDataEstablecimiento) return;
+
+    addAreaToMap();
+  }, [fetchDataEstablecimiento]);
+
   return (
     <>
+    {
+      loadingEstablecimiento && <h5 className="text-center text-warning">Cargando Geolocalización del establecimiento</h5>
+    }
       <MapContainer style={{ zIndex: 1, width: "100%" }} center={center} zoom={14} ref={mapRef}>
         <FeatureGroup>
           <EditControl
@@ -164,7 +141,6 @@ const IndexMap = () => {
               circlemarker: false,
               marker: false
             }}
-            onMounted={_onMounted}
           />
           <MapaPopup toggleShow={toggleShow}/>
         </FeatureGroup>
