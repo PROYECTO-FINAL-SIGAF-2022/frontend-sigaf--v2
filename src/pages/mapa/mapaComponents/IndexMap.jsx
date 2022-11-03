@@ -1,11 +1,12 @@
 /* eslint-disable no-unused-vars */
 import { useState, useRef, useEffect, useCallback } from "react";
-import L, { point } from "leaflet";
+import L from "leaflet";
 
 import {
   MapContainer,
   TileLayer,
-  FeatureGroup
+  FeatureGroup,
+  Polygon
 } from "react-leaflet";
 
 import { EditControl } from "react-leaflet-draw";
@@ -24,68 +25,20 @@ const IndexMap = () => {
 
   const toggleShow = () => setOptSmModal(!optSmModal);
 
-  // const mapRef = useRef(null);
-  const [center, setCenter] = useState({
-    lat: "-26.18064675300086",
-    lng: "-58.188628961794805"
-  });
-  const [mapLayers, setMapLayers] = useState([]);
+  const [establecimiento, setEstablecimiento] = useState([]);
+  const [parcelas, setParcelas] = useState([]);
   const [setConfigFetchEstablecimiento, fetchDataEstablecimiento, loadingEstablecimiento, errorEstablecimiento] = useFetch();
 
+  const [setConfigFetchParcelas, fetchDataParcelas, loadingParcelas, errorParcelas] = useFetch();
+
   const mapRef = useRef();
-
-  const _onMounted = () => {
-    console.log("Cargar coordenadas establecimiento");
-    if (!mapRef.current) return;
-
-    const map = mapRef.current;
-
-    // const pointA = new L.LatLng(-25.820252909960004, -58.07477700699445);
-    // const pointB = new L.LatLng(-25.806884763425963,
-    //   -58.06910655012652);
-    // const pointC = new L.LatLng(-25.811675833328245,
-    //   -58.056820560246);
-    // const pointD = new L.LatLng(-25.825197969104742,
-    //   -58.06446708541639);
-    // const pointE = new L.LatLng(-25.821180124281224,
-    //   -58.073746014836644);
-
-    const array = [
-      {
-        lat: -25.825352498875056,
-        lng: -58.077182655362655
-      },
-      {
-        lat: -25.806807486517254,
-        lng: -58.077182655362655
-      },
-      {
-        lat: -25.806807486517254,
-        lng: -58.053641667759415
-      },
-      {
-        lat: -25.825352498875056,
-        lng: -58.053641667759415
-      }
-    ];
-
-    const pointList = array.map(({ lat, lng }) => new L.LatLng(lat, lng));
-
-    const firstpolyline = new L.Polygon(pointList, {
-      // color: "red",
-      color: "#03f", smoothFactor: 0, opacity: 0.0
-
-    });
-    firstpolyline.addTo(map);
-    ;
-    map.panTo(firstpolyline.getCenter());
-  };
+  const georeferenciaRef = useRef();
 
   const _onCreate = (e) => {
     const { layerType, layer } = e;
     // console.log(layerType);
     console.log(e);
-    if (layerType === "polygon") {
+    if (layerType === "rectangle") {
       // console.log(layer);
       const { _leaflet_id } = layer;
 
@@ -98,42 +51,68 @@ const IndexMap = () => {
       setOptSmModal(true);
 
       const seeArea = L.GeometryUtil.geodesicArea(layer.getLatLngs());
-      console.log(seeArea);
-      // setMapLayers((layers) => [
+      // setParcelas((layers) => [
       //   ...layers,
-      //   { id: _leaflet_id, latlngs: layer.getLatLngs()[0] }
+      //   { id: _leaflet_id, latlngs: layer.getLatLngs()[0], layer }
       // ]);
     }
   };
 
   const _onEdited = (e) => {
-    // console.log(e);
+    console.log(e);
     const {
       layers: { _layers }
     } = e;
 
-    Object.values(_layers).forEach(({ _leaflet_id, editing }) => {
-      setMapLayers((layers) =>
-        layers.map(
-          (l) => l.id === _leaflet_id
-          /* ? { ...l, latlngs: { ...editing.latlngs[0] } }
-                : l */
-        )
-      );
-    });
+    // Object.values(_layers).forEach(({ _leaflet_id, editing }) => {
+    //   setParcelas((layers) =>
+    //     layers.map(
+    //       (l) => l.id === _leaflet_id
+    //       /* ? { ...l, latlngs: { ...editing.latlngs[0] } }
+    //             : l */
+    //     )
+    //   );
+    // });
   };
 
   const _onDeleted = (e) => {
-    // console.log(e);
     const {
       layers: { _layers }
     } = e;
 
     Object.values(_layers).forEach(({ _leaflet_id }) => {
-      setMapLayers((layers) => layers.filter((l) => l.id !== _leaflet_id));
+      setParcelas((layers) => layers.filter((l) => l.id !== _leaflet_id));
     });
   };
-  // console.log(mapRef);
+
+  const addEstablecimientoToMap = () => {
+    if (!mapRef.current) return;
+    georeferenciaRef.current?.remove();
+    const map = mapRef.current;
+    const georeferencia = JSON.parse(fetchDataEstablecimiento.georeferencia);
+    map.panTo(L.latLngBounds(georeferencia).getCenter());
+    addParcelasToMap();
+  };
+
+  // mapRef.current?.on(L.Draw.Event.CREATED, function (e) {
+  //   const layer = e.layer;
+  // });
+
+  const addParcelasToMap = () => {
+    if (!mapRef.current) return;
+    if (fetchDataParcelas.length === 0) return;
+    const parcelas = fetchDataParcelas.map((parcela) => {
+      const georeferencia = JSON.parse(parcela.georeferencia);
+
+      return { id: parcela.id_parcela, georeferencia, superficie: parcela.superficie };
+    });
+    // console.log(parcelas);
+    setParcelas(parcelas);
+  };
+
+  const onClick = (e) => {
+    console.log(e);
+  };
 
   useEffect(() => {
     setConfigFetchEstablecimiento({
@@ -142,16 +121,57 @@ const IndexMap = () => {
         method: "GET"
       }
     });
+
+    setConfigFetchParcelas({
+      url: `${URL}/parcelas`,
+      headersRequest: {
+        method: "GET"
+      }
+    });
+
+    return () => {
+      setConfigFetchEstablecimiento(null);
+      setConfigFetchParcelas(null);
+      // remove rectangle from map
+      // establecimiento?.forEach(({ layer }) => {
+      //   mapRef.current?._layers[layer?._leaflet_id]?.remove();
+      //   // setParcelas(layers => layers?.filter(l => l?.id !== layer?._leaflet_id));
+      // });
+
+      setEstablecimiento([]);
+      setParcelas([]);
+    };
   }, []);
+
+  useEffect(() => {
+    // eslint-disable-next-line no-useless-return
+    if (!fetchDataEstablecimiento) return;
+
+    addEstablecimientoToMap();
+    setEstablecimiento(fetchDataEstablecimiento);
+    mapRef.current?.getCenter();
+  }, [fetchDataEstablecimiento]);
+
+  useEffect(() => {
+    // eslint-disable-next-line no-useless-return
+    if (!fetchDataParcelas) return;
+    addParcelasToMap();
+  }, [fetchDataParcelas]);
 
   return (
     <>
-      <MapContainer style={{ zIndex: 1, width: "100%" }} center={center} zoom={14} ref={mapRef}>
+    {
+      loadingEstablecimiento && <h5 className="text-center text-warning">Cargando Geolocalización del establecimiento</h5>
+    }
+      <MapContainer style={{ zIndex: 1, width: "100%" }} center={{
+        lat: "-26.18064675300086",
+        lng: "-58.188628961794805"
+      }} zoom={14} ref={mapRef}>
         <FeatureGroup>
           <EditControl
             position="topleft"
             onCreated={_onCreate}
-            // onEdited={_onEdited}
+            onEdited={_onEdited}
             // onDeleted={_onDeleted}
             draw={{
               rectangle: {
@@ -164,21 +184,33 @@ const IndexMap = () => {
               circlemarker: false,
               marker: false
             }}
-            onMounted={_onMounted}
           />
           <MapaPopup toggleShow={toggleShow}/>
+          <MapaToolbar/>
+
+          {
+            parcelas.length > 0 && parcelas.map(parcela => (
+              <Polygon key={parcela.id} color="red" positions={parcela.georeferencia} interactive={true} eventHandlers={{ click: onClick, add: onClick }}/>
+            ))
+          }
         </FeatureGroup>
+        {
+          ("georeferencia" in establecimiento) && (
+          <Polygon color="#F5A587" fillOpacity={"0.2"} positions={JSON.parse(establecimiento.georeferencia)} interactive={false} />
+          )
+       }
+
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
         {/* <MapaLayers/> */}
-        <MapaToolbar/>
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
       </MapContainer>
       <ModalDatosParcela
           optSmModal ={optSmModal}
           setOptSmModal ={setOptSmModal}
-          toggleShow ={toggleShow}
+          // toggleShow ={toggleShow}
           mapRef={mapRef}
+          establecimiento={establecimiento}
       />
       </>
   );

@@ -9,10 +9,10 @@ const MapaToolbar = () => {
   //   console.log("map center:", map.getCenter());
 
   //   map.
-  useMapEvent("click", (e) => {
-    // console.log("first");
-    // console.log(e.latlng);
-  });
+  //   useMapEvent("click", (e) => {
+  //     // console.log("first");
+  //     console.log(e.latlng);
+  //   });
 
   return (
     <Control prepend position='topright'>
