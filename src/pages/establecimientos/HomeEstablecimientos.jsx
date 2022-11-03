@@ -12,7 +12,7 @@ import * as yup from "yup";
 import { useFetch } from "../../hooks/useFetch";
 import { URL } from "../../utils/getUrl";
 import Loading from "../../components/layouts/Loading";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const HomeEstablecimientos = () => {
   const [center, setCenter] = useState({
@@ -39,7 +39,7 @@ const HomeEstablecimientos = () => {
     } = values;
 
     if (mapDraw.length === 0) {
-      setErrorMap("Debe dibujar su campo");
+      setErrorMap("Debe dibujar su establecimiento");
       return;
     }
 
@@ -153,6 +153,13 @@ const HomeEstablecimientos = () => {
                     } */}
                       Registrarse!
                     </button>
+
+                    <NavLink
+                      to="/perfiles-establecimientos"
+                      className="btn btn-danger form-control mt-3"
+                    >
+                      Volver Atrás
+                    </NavLink>
                   </Form>
                 )}
               </Formik>

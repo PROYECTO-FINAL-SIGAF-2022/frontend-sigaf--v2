@@ -122,7 +122,7 @@ const MapaEstablecimiento = ({ center, setCenter, setMapDraw, setErrorMap }) => 
 
   useEffect(() => {
     if (mapLayers.length > 1) {
-      setErrorMap("Solo puede dibujar 1 poligono");
+      setErrorMap("Solo puede dibujar 1 establecimiento");
       return;
     }
     setErrorMap("");
