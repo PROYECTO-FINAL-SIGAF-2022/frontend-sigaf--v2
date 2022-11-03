@@ -207,7 +207,7 @@ const Login = () => {
               )}
 
               <p className="text-center">
-                <span>No esta registrado? </span>
+                <span>¿No esta registrado? </span>
                 <Link to="/registrarse">
                   <span>Créese una cuenta</span>
                 </Link>

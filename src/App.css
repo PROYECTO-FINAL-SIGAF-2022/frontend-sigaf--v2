@@ -3,3 +3,7 @@
   height: 80vh;
   justify-content: center;
 }
+
+.menu-link.menu-toggle{
+  cursor: pointer !important;
+}

@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import img4 from '../../assets/img/icons/unicons/paypal.png';
-import img5 from '../../assets/img/icons/unicons/cc-primary.png';
+import { useState } from "react";
+import img4 from "../../assets/img/icons/unicons/paypal.png";
+import img5 from "../../assets/img/icons/unicons/cc-primary.png";
 
-function Card2() {
+function Card2 () {
   return (
     <div className="col-12 col-md-8 col-lg-4 order-3 order-md-2">
       <div className="row">
