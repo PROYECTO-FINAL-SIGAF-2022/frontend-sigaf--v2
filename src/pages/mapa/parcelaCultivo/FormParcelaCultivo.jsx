@@ -10,22 +10,21 @@ const FormParcelaCultivo = () => {
   const formikRef = useRef();
 
   const schemaFormParcelaCultivo = yup.object().shape({
-    nombre_parcela: yup.string().required("El nombre de la parcela es requerido"),
-    id_cultivo: yup.number().required("El cultivo es requerido"),
-    id_campania: yup.number().required("La la campaña es requerida"),
-    id_unidad_medida: yup.number().required("La unidad medida es requerida"),
-    cantidad_sembrada: yup.number().required("La cantidad sembrada es requerida")
-
+    nombre_parcela: yup.string().required("El nombre de la parcela es requerido")
+    // id_cultivo: yup.number().required("El cultivo es requerido"),
+    // id_campania: yup.number().required("La la campaña es requerida"),
+    // id_unidad_medida: yup.number().required("La unidad medida es requerida"),
+    // cantidad_sembrada: yup.number().required("La cantidad sembrada es requerida")
   });
 
   const handleSubmit = (values) => {
     console.log(values);
     const {
-      nombre_parcela,
-      id_cultivo,
-      id_campania,
-      id_unidad_medida,
-      cantidad_sembrada
+      nombre_parcela
+      // id_cultivo,
+      // id_campania,
+      // id_unidad_medida,
+      // cantidad_sembrada
     } = values;
 
     // setFetchParcelaCultivo({
@@ -53,11 +52,11 @@ const FormParcelaCultivo = () => {
         <Formik
               innerRef={formikRef}
                 initialValues={{
-                  nombre_parcela: "",
-                  id_cultivo: "",
-                  id_campania: "",
-                  id_unidad_medida: "",
-                  cantidad_sembrada: ""
+                  nombre_parcela: ""
+                  // id_cultivo: "",
+                  // id_campania: "",
+                  // id_unidad_medida: "",
+                  // cantidad_sembrada: ""
                 }}
               onSubmit={handleSubmit}
               validationSchema={schemaFormParcelaCultivo}
@@ -80,7 +79,7 @@ const FormParcelaCultivo = () => {
                     name="nombre_parcela"
                     className="alert alert-danger"
                 />
-                <div className="mb-3">
+                {/* <div className="mb-3">
                     <label className="form-label">
                     Cultivo
                     </label>
@@ -155,9 +154,9 @@ const FormParcelaCultivo = () => {
                 <MensajeErrorInput
                     name="cantidad_sembrada"
                     className="alert alert-danger"
-                />
+                /> */}
 
-                <button type="submit" disabled={!(isValid && dirty)} className="btn btn-success">
+                <button type="submit" disabled={!isValid && !dirty} className="btn btn-success">
                     Agregar Parcela
                 </button>
                 </Form>

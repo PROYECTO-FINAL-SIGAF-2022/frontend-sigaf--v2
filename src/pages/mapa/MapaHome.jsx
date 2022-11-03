@@ -14,6 +14,7 @@ function MapaHome () {
                 {/* <div className="d-flex align-items-end row">
                   <div className="col-sm-7"> */}
                   <IndexMap/>
+                  {/* <IndexMap2/> */}
                   {/* </div>
                 </div> */}
               </div>
