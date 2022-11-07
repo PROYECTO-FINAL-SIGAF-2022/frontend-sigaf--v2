@@ -1,7 +1,7 @@
 import { Card } from "reactstrap";
 import React, { useState, Fragment } from "react";
 import Button from "react-bootstrap/Button";
-import "./Precios.css";
+import "./Index.css";
 import { MDBBtn, MDBModal, MDBModalBody, MDBModalContent, MDBModalDialog, MDBModalHeader, MDBModalTitle } from "mdb-react-ui-kit";
 import { Field, Form, Formik } from "formik";
 
@@ -21,11 +21,17 @@ const ProductosTabContent = () => {
         <table className="table user-list">
             <thead>
                 <tr>
-                    <th className="text-center" style={{ width: "40%" }}>
+                    <th className="text-center">
                     <span>Producto</span>
                     </th>
                     <th className="text-center">
+                    <span>Cantidad</span>
+                    </th>
+                    <th className="text-center">
                     <span>Precio</span>
+                    </th>
+                    <th className="text-center">
+                    <span>Fecha de Compra</span>
                     </th>
 
                 </tr>
@@ -37,9 +43,14 @@ const ProductosTabContent = () => {
                     Fertilizante
                 </a>
                 </td>
+                <td className="text-center" >
+                <a>
+                    100kg
+                </a>
+                </td>
                 <td className="text-center">
                 <a onClick={toggleShow} className="user-link">
-                  $2500
+                  $250.000
                 </a>
                 <MDBModal staticBackdrop stabindex='-1' show={optSmModal} setShow={setOptSmModal}>
                   <MDBModalDialog centered>
@@ -82,33 +93,14 @@ const ProductosTabContent = () => {
                       </div>
                       </div>
                       </div>
-                      {/* <MDBModalFooter>
-                        <MDBBtn color='secondary' onClick={toggleShow}>
-                          Close
-                        </MDBBtn>
-                        <MDBBtn>Save changes</MDBBtn>
-                      </MDBModalFooter> */}
                     </MDBModalContent>
                   </MDBModalDialog>
                 </MDBModal>
-                {/* <Modal show={show} onHide={handleClose}>
-                  <Modal.Header closeButton>
-                    <Modal.Title>
-                      <h4>Agustin Centurion</h4>
-                    </Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <h1>hola</h1>
-                  </Modal.Body>
-                  <Modal.Footer>
-                    <Button variant="primary" onClick={handleClose}>
-                      Guardar
-                    </Button>
-                    <Button variant="secondary" onClick={handleClose}>
-                      Salir
-                    </Button>
-                  </Modal.Footer>
-                </Modal> */}
+                </td>
+                <td className="text-center" >
+                <a>
+                    21/11/2022
+                </a>
                 </td>
             </tr>
         </tbody>

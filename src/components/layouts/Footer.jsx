@@ -8,26 +8,8 @@ function Footer () {
         <script>
           document.write(new Date().getFullYear());
         </script>
-        , Copyright ❤️
-        <a href="#" target="_blank" className="footer-link fw-bolder"> AgrioFormosa</a>
-      </div>
-      <div>
-        <a href="#" className="footer-link me-4" target="_blank">IPF</a>
-        <a href="#" target="_blank" className="footer-link me-4">Alumnos</a>
-
-        <a
-          href="#"
-          target="_blank"
-          className="footer-link me-4"
-          >Documentacion</a
-        >
-
-        <a
-          href="#"
-          target="_blank"
-          className="footer-link me-4"
-          >Soporte</a
-        >
+          Copyright ❤️
+        <a href="#" target="_blank" className="footer-link fw-bolder"> AgustinB12</a>
       </div>
     </div>
   </footer>

@@ -1,8 +1,8 @@
 import { Fragment } from "react";
 import { Card } from "reactstrap";
-import "./Precios.css";
+import "./Index.css";
 
-const ProductosTabContent = () => {
+const AlmacenesTabContent = () => {
   return (
     <Fragment>
       <Card>
@@ -10,40 +10,33 @@ const ProductosTabContent = () => {
         <table className="table user-list">
             <thead>
                 <tr>
-                    <th className="text-center" style={{ width: "33%" }}>
-                    <span>Nombre Producto</span>
+                    <th className="text-center">
+                    <span>Nombre Almacen</span>
                     </th>
                     <th className="text-center">
-                    <span>Tipo de Producto</span>
+                    <span>Precio de Venta</span>
                     </th >
                     <th className="text-center">
-                    <span>Cantidad</span>
+                    <span>Fecha de Venta</span>
                     </th>
-                    <th className="text-center">
-                    <span>Precio</span>
-                    </th>
+
                 </tr>
             </thead>
         <tbody>
             <tr>
                 <td className="text-center" >
-                <a href="#" className="user-link">
-                    Fertilizante
+                <a href="#" className="label label-default">
+                    Almacen 1
                 </a>
                 </td>
                 <td className="text-center">
-                    <span className="user-link">
-                    Nutriente
+                    <span className="label label-default">
+                    $250.000
                 </span>
                 </td>
                 <td className="text-center">
                 <span className="label label-default">
-                    2
-                </span>
-                </td>
-                <td className="text-center">
-                <span className="label label-default">
-                    $1500
+                    22/10/2022
                 </span>
                 </td>
             </tr>
@@ -55,4 +48,4 @@ const ProductosTabContent = () => {
   );
 };
 
-export default ProductosTabContent;
+export default AlmacenesTabContent;

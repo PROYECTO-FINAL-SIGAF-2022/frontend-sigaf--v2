@@ -1,12 +1,11 @@
 import { Card } from "reactstrap";
 import React, { useState, Fragment } from "react";
 import Button from "react-bootstrap/Button";
-import "./Precios.css";
+import "./Index.css";
 import { MDBBtn, MDBModal, MDBModalBody, MDBModalContent, MDBModalDialog, MDBModalHeader, MDBModalTitle } from "mdb-react-ui-kit";
 import { Field, Form, Formik } from "formik";
 
-const AlmacenesTabContent = () => {
-    
+const MaquinasTabContent = () => {
   const [optSmModal, setOptSmModal] = useState(false);
 
   const toggleShow = () => setOptSmModal(!optSmModal);
@@ -18,8 +17,8 @@ const AlmacenesTabContent = () => {
         <table className="table user-list">
             <thead>
                 <tr>
-                    <th className="text-center" style={{ width: "40%" }}>
-                    <span>Almacen</span>
+                    <th className="text-center">
+                    <span>Maquina</span>
                     </th>
                     <th className="text-center">
                     <span>Precio</span>
@@ -31,21 +30,21 @@ const AlmacenesTabContent = () => {
             <tr>
                 <td className="text-center" >
                 <a>
-                    Almacen 1
+                    Tractor
                 </a>
                 </td>
                 <td className="text-center">
                 <a onClick={toggleShow} className="user-link">
-                  $150.000
+                  $25000
                 </a>
                 <MDBModal staticBackdrop stabindex='-1' show={optSmModal} setShow={setOptSmModal}>
                   <MDBModalDialog centered>
                     <MDBModalContent>
                       <MDBModalHeader>
                         <MDBModalTitle>
-                        <i className="menu-icon tf-icons bx bx-building-house"></i>
-                         Almacen 1 
-                         </MDBModalTitle>
+                          <i className="menu-icon tf-icons bx bx-rocket"></i>
+                            Tractor 
+                        </MDBModalTitle>
                         <MDBBtn className='btn-close' color='none' onClick={toggleShow}></MDBBtn>
                       </MDBModalHeader>
                       <MDBModalBody>
@@ -92,4 +91,4 @@ const AlmacenesTabContent = () => {
   );
 };
 
-export default AlmacenesTabContent;
+export default MaquinasTabContent;

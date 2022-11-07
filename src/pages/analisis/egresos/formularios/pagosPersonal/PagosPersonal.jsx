@@ -1,28 +1,52 @@
 import { Card } from "reactstrap";
 import React, { useState, Fragment } from "react";
 import Button from "react-bootstrap/Button";
-import "./Precios.css";
+import "../../Index.css";
 import { MDBBtn, MDBModal, MDBModalBody, MDBModalContent, MDBModalDialog, MDBModalHeader, MDBModalTitle } from "mdb-react-ui-kit";
 import { Field, Form, Formik } from "formik";
+import { Link } from "react-router-dom";
 
-const MaquinasTabContent = () => {
+const PagosPersonal = () => {
+  /* const [show, setShow] = useState(false);
 
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true); */
   const [optSmModal, setOptSmModal] = useState(false);
 
   const toggleShow = () => setOptSmModal(!optSmModal);
 
   return (
     <Fragment>
+      <div className="content-wrapper">
+      <div className="container-xxl flex-grow-1 container-p-y">
+      <div style={{ textAlign: "center" }}>
+        <Link to="/formulario-gastos">
+          <button
+            className="btn btn-success"
+            style={{ position: "relative", left: "-47%" }}
+          >
+            + Pago
+          </button>
+        </Link>
+      </div>
+      </div>
+      </div>
       <Card>
         <>
         <table className="table user-list">
             <thead>
                 <tr>
-                    <th className="text-center" style={{ width: "40%" }}>
-                    <span>Maquina</span>
+                    <th className="text-center">
+                    <span>Nombre Personal</span>
                     </th>
                     <th className="text-center">
-                    <span>Precio</span>
+                    <span>Tipo de Pago</span>
+                    </th>
+                    <th className="text-center">
+                    <span>Precio de Pago</span>
+                    </th>
+                    <th className="text-center">
+                    <span>Fecha de Pago</span>
                     </th>
 
                 </tr>
@@ -31,20 +55,25 @@ const MaquinasTabContent = () => {
             <tr>
                 <td className="text-center" >
                 <a>
-                    Tractor
+                    Agustin Centurion
+                </a>
+                </td>
+                <td className="text-center" >
+                <a>
+                    Mensual
                 </a>
                 </td>
                 <td className="text-center">
                 <a onClick={toggleShow} className="user-link">
-                  $25000
+                  $1500
                 </a>
                 <MDBModal staticBackdrop stabindex='-1' show={optSmModal} setShow={setOptSmModal}>
                   <MDBModalDialog centered>
                     <MDBModalContent>
                       <MDBModalHeader>
                         <MDBModalTitle>
-                          <i className="menu-icon tf-icons bx bx-rocket"></i>
-                            Tractor 
+                          <i className="menu-icon tf-icons bx bx-group"></i>
+                            Agustin Centurion
                         </MDBModalTitle>
                         <MDBBtn className='btn-close' color='none' onClick={toggleShow}></MDBBtn>
                       </MDBModalHeader>
@@ -79,9 +108,38 @@ const MaquinasTabContent = () => {
                       </div>
                       </div>
                       </div>
+                      {/* <MDBModalFooter>
+                        <MDBBtn color='secondary' onClick={toggleShow}>
+                          Close
+                        </MDBBtn>
+                        <MDBBtn>Save changes</MDBBtn>
+                      </MDBModalFooter> */}
                     </MDBModalContent>
                   </MDBModalDialog>
                 </MDBModal>
+                {/* <Modal show={show} onHide={handleClose}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>
+                      <h4>Agustin Centurion</h4>
+                    </Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <h1>hola</h1>
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <Button variant="primary" onClick={handleClose}>
+                      Guardar
+                    </Button>
+                    <Button variant="secondary" onClick={handleClose}>
+                      Salir
+                    </Button>
+                  </Modal.Footer>
+                </Modal> */}
+                </td>
+                <td className="text-center" >
+                <a>
+                    5/11/2022
+                </a>
                 </td>
             </tr>
         </tbody>
@@ -92,4 +150,4 @@ const MaquinasTabContent = () => {
   );
 };
 
-export default MaquinasTabContent;
+export default PagosPersonal;

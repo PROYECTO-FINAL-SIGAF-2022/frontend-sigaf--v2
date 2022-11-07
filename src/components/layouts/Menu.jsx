@@ -165,17 +165,17 @@ function Menu () {
               className="menu-link menu-toggle"
             >
               <i className="menu-icon tf-icons bx bx-lock-open-alt"></i>
-              <div data-i18n="Authentications">Costes</div>
+              <div data-i18n="Authentications">Contabilidad</div>
             </a>
             <ul className="menu-sub">
               <li className="menu-item">
-              <Link to="/Precios" className="menu-link">
-                  <div data-i18n="Connections">Precios</div>
+                <Link to="/Ingresos" className="menu-link">
+                  <div data-i18n="Connections">Ingresos</div>
                 </Link>
               </li>
               <li className="menu-item">
-                <Link to="/Costos" className="menu-link">
-                  <div data-i18n="Connections">Costos</div>
+              <Link to="/Egresos" className="menu-link">
+                  <div data-i18n="Connections">Egresos/Costos</div>
                 </Link>
               </li>
               <li className="menu-item">

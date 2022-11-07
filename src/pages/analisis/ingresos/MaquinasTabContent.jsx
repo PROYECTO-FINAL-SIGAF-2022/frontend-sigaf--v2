@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { Card } from "reactstrap";
-import "./Precios.css";
+import "./Index.css";
 
 const MaquinasTabContent = () => {
   return (
@@ -10,24 +10,32 @@ const MaquinasTabContent = () => {
         <table className="table user-list">
             <thead>
                 <tr>
-                    <th className="text-center" style={{ width: "40%" }}>
+                    <th className="text-center">
                     <span>Nombre Maquina</span>
                     </th>
                     <th className="text-center">
-                    <span>Precio</span>
+                    <span>Precio de Venta</span>
+                    </th >
+                    <th className="text-center">
+                    <span>Fecha de Venta</span>
                     </th >
                 </tr>
             </thead>
         <tbody>
             <tr>
                 <td className="text-center" >
-                <a href="#" className="user-link">
+                <a href="#" className="label label-default">
                     Tractor
                 </a>
                 </td>
                 <td className="text-center">
                 <span className="label label-default">
                     $1500
+                </span>
+                </td>
+                <td className="text-center">
+                <span className="label label-default">
+                    5/11/2022
                 </span>
                 </td>
             </tr>
