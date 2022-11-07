@@ -1,71 +1,120 @@
-import LayoutContainer from "../../components/layouts/LayoutContainer";
-import { Calendar, dateFnsLocalizer } from "react-big-calendar";
-import format from "date-fns/format";
-import parse from "date-fns/parse";
-import startOfWeek from "date-fns/startOfWeek";
-import getDay from "date-fns/getDay";
-import "react-big-calendar/lib/css/react-big-calendar.css";
-import React, { useEffect,useState } from "react";
-import DatePicker from "react-datepicker";
-import { useSession, useSetSession } from "../../context/SessionProvider";
-import { useFetch } from "../../hooks/useFetch";
-import { Link } from "react-router-dom";
-
-
-
-
-const locales = "date-fns/locale/es"
-const localizer = dateFnsLocalizer({
-  format,
-  parse,
-  startOfWeek,
-  getDay,
-  locales,
-})
-
-const events = [
-  {
-    title: "CUMPLE",
-    allDay: true,
-    start: new Date(2022, 9, 14),
-    end: new Date(2022, 9, 20)
-  },{
-    title: "CAS",
-    allDay: true,
-    start: new Date(2022, 9, 14),
-    end: new Date(2022, 9, 20)
-  },{
-    title: "casa",
-    allDay: true,
-    start: new Date(2022, 9, 14),
-    end: new Date(2022, 9, 20)
-  },{
-    title: "CUMPLE",
-    allDay: true,
-    start: new Date(2022, 9, 14),
-    end: new Date(2022, 9, 20)
-  },{
-    title: "CUMPLE",
-    allDay: true,
-    start: new Date(2022, 9, 14),
-    end: new Date(2022, 9, 20)
-  },
-]
+import React, { useRef, useState } from 'react'
+import '@fullcalendar/react/dist/vdom'; 
+import FullCalendar from '@fullcalendar/react'
+import dayGridPlugin from '@fullcalendar/daygrid'
+import AgregarEvento from './AgregarEvento';
+import LayoutContainer from '../../components/layouts/LayoutContainer'
+import interactionPlugin from "@fullcalendar/interaction";
+import esLocale from '@fullcalendar/core/locales/es';
+  
 
 
 function TuCalendario() {
+  const [modalOpen, setModalOpen] = useState(false);
+  const calendarRef = useRef(null);
+  const onEventAdded = event => {
+    let calendarApi = calendarRef.current.GetApi()
+    calendarApi.addEvent(event)
+  }
+
   return (
     <LayoutContainer>
-      
-      <Calendar localizer={localizer} events={events}
-        startAccessor="start" endAccessor="end"
-        style={{ heigth: 500, margin: "100px" }}
-      />
+      <div className="content-wrapper">
+        <div className="container-xxl flex-grow-1 container-p-y">
+          <div className="row">
+            <div className="col-lg-12 mb-4 order-0">
+              <div className="card">
+                <div className="d-flex align-items-end row">
+                  <div className="col-sm-7">
+                    <div className="card-body">
+
+                      {/* <button onClick={() => setModalOpen(true)}>Agregar Evento</button> */}
+                      <div style={{ width:'178%' }}>
+                        <FullCalendar
+                          locale={esLocale}
+                          fixedWeekCount={false}
+                          height={700}
+                          plugins={[dayGridPlugin, interactionPlugin]}
+                          initialView="dayGridMonth"
+                          
+                          headerToolbar={{
+                            start: 'prev today next',
+                            center: 'title',
+                            end: 'newAppointment',
+                            
+                          }}
+                          eventClick={
+                            function (arg) {
+                              alert(arg.event.title)
+                              alert(arg.event.start)
+                            }
+                          }
+                          /* footerToolbar={{
+                            center: 'toggleMonth toggleWeek toggleDay',
+                          }} */
+                          customButtons={{
+                            newAppointment: {
+                              text: 'Nueva Actividad',
+                              /* click: () => {
+                                dateClickHandler();
+                              }, */
+                            },
+                            /* toggleDay: {
+                              text: 'Hoy',
+                              click: () => {
+                                calendar.current.getApi().changeView('dayGridDay');
+                              }
+                            },
+                            toggleWeek: {
+                              text: 'Semana',
+                              click: () => {
+                                calendar.current.getApi().changeView('dayGridWeek');
+                              }
+                            },
+                            toggleMonth: {
+                              text: 'Mes',
+                              click: () => {
+                                calendar.current.getApi().changeView('dayGridMonth')
+                              }
+                            }, */
+                          }}
+                          events={[
+                            {
+                              title: 'Naranja',
+                              start:"2022-11-04",
+                              end:"2022-11-08"
+                            },
+                            {
+                              title: 'Algodon',
+                              start:"2022-11-04",
+                              end:"2022-11-08"
+                            },
+                            {
+                              title: 'Senora',
+                              start:"2022-11-15",
+                              end:"2022-11-20"
+                            },
+                          ]}
+                          
+                        />
+
+                      </div>
+                      {/* <AgregarEvento isOpen={modalOpen} onClose={() => setModalOpen(false)} onEventAdded={event => onEventAdded(event)} /> */}
+
+                    </div>
+                  </div>
+                  <div className="col-sm-5 text-center text-sm-left">
+                    <div className="card-body pb-0 px-0 px-md-4">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="content-backdrop fade"></div>
+      </div>
     </LayoutContainer>
   )
 }
-
 export default TuCalendario
-
-
-
