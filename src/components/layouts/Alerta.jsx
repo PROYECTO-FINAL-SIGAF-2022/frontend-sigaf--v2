@@ -5,12 +5,12 @@ const Alerta = ({ claseAlerta, mensajeAlerta }) => {
       role="alert"
     >
       {mensajeAlerta}
-      <button
+      {/* <button
         type="button"
         className="btn-close"
         data-bs-dismiss="alert"
         aria-label="Close"
-      ></button>
+      ></button> */}
     </div>
   );
 };
