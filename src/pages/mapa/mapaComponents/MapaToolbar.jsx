@@ -1,10 +1,8 @@
 // import { useMap, useMapEvents } from "react-leaflet";
-import { useState } from "react";
-import { useMapEvent } from "react-leaflet";
+// import { useState } from "react";
+// import { useMapEvent } from "react-leaflet";
 import Control from "react-leaflet-custom-control";
-const MapaToolbar = () => {
-  const [campania, setCampania] = useState("");
-
+const MapaToolbar = ({ campania, fetchDataCampanias, setCampania }) => {
   //   const map = useMap();
   //   console.log("map center:", map.getCenter());
 
@@ -14,15 +12,25 @@ const MapaToolbar = () => {
   //     console.log(e.latlng);
   //   });
 
+  //   useEffect(() => {
+  //     if (fetchDataCampanias.length === 0) return;
+  //   }, [fetchDataCampanias]);
+  const handleChangeSelect = (e) => {
+    // console.log(e.target.value);
+    setCampania(e.target.value);
+  };
   return (
     <Control prepend position='topright'>
     <div className="row">
 
-    <select className="form-select mb-2" defaultValue={campania}>
-        <option value="">Campaña</option>
-        <option value="2022">2022</option>
-        <option value="2021">2021</option>
-        <option value="2020">2020</option>
+    <select className="form-select mb-2" defaultValue={campania} onChange={handleChangeSelect}>
+        <option value="" disabled>Campaña</option>
+        {
+            fetchDataCampanias.map(campania => (
+
+        <option key={campania.id_campania} value={campania.descripcion_campania}>{campania.descripcion_campania}</option>
+            ))
+        }
     </select>
     </div>
     <div className="row d-inline mb-3">
@@ -32,7 +40,7 @@ const MapaToolbar = () => {
                 <i className="fa fa-solid fa-plus fa-stack-1x fa-inverse"></i>
             </span>
         </a>
-        <a href="#" className="table-link" data-bs-toggle="tooltip" title="Dibujar parcela">
+        {/* <a href="#" className="table-link" data-bs-toggle="tooltip" title="Dibujar parcela">
             <span className="fa-stack">
                 <i className="fa fa-square fa-stack-2x"></i>
                 <i className="fa fa-solid fa-pencil fa-stack-1x fa-inverse"></i>
@@ -43,10 +51,10 @@ const MapaToolbar = () => {
                 <i className="fa fa-square fa-stack-2x"></i>
                 <i className="fa fa-solid fa-tree fa-stack-1x fa-inverse"></i>
             </span>
-        </a>
+        </a> */}
     </div>
 
-    <div className="row mt-2" style={{ width: "200px" }}>
+    {/* <div className="row mt-2" style={{ width: "200px" }}>
         <div className="btn-group mb-2">
             <button className="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Cultivos
@@ -97,7 +105,7 @@ const MapaToolbar = () => {
                 ...
             </ul>
         </div>
-    </div>
+    </div> */}
   </Control>
   );
 };
