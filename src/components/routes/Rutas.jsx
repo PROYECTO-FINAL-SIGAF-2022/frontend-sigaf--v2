@@ -24,6 +24,9 @@ import { useEffect } from "react";
 import { useFetch } from "../../hooks/useFetch";
 import { URL } from "../../utils/getUrl";
 import FormGastosMaquinas from "../../pages/analisis/egresos/formularios/gastosMaquinas/FormGastosMaquinas";
+import FormVentasCosechas from "../../pages/analisis/ingresos/VentasCosechas/FormVentasCosechas";
+import FormVentasAlmacenes from "../../pages/analisis/ingresos/VentasAlmacenes/FormVentasAlmacenes";
+import FormVentasMaquinas from "../../pages/analisis/ingresos/VentasMaquinas/FormVentasMaquinas";
 function Rutas () {
   const session = useSession();
 
@@ -72,6 +75,9 @@ function Rutas () {
           <Route path='/Campos' exact element={<Campos/>} />
           <Route path='/Ingresos' exact element={<Ingresos/>} />
           <Route path='/Egresos' exact element={<Egresos/>} />
+          <Route path='/venta-cosecha' exact element={<FormVentasCosechas/>} />
+          <Route path='/venta-almacenes' exact element={<FormVentasAlmacenes/>} />
+          <Route path='/venta-maquinas' exact element={<FormVentasMaquinas/>} />
           <Route path="*" exact element={<Home />} />
         </Routes>
       );
