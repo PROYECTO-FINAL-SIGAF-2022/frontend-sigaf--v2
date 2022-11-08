@@ -1,15 +1,38 @@
-import React, { useRef, useState } from 'react'
-import '@fullcalendar/react/dist/vdom'; 
+import React, { useRef, useState, useEffect } from 'react'
+import '@fullcalendar/react/dist/vdom';
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import AgregarEvento from './AgregarEvento';
 import LayoutContainer from '../../components/layouts/LayoutContainer'
 import interactionPlugin from "@fullcalendar/interaction";
 import esLocale from '@fullcalendar/core/locales/es';
-  
+
+import { useFetch } from "../../hooks/useFetch";
+import { URL } from "../../utils/getUrl";
 
 
 function TuCalendario() {
+
+  const [setConfigFetchCampania, fetchDataCampania, loadingCampania, errorCampania] = useFetch()
+  const getCampania = () => {
+    setConfigFetchCampania({
+      url: `${URL}/campanias`,
+      headersRequest: {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      }
+    });
+  };
+
+
+  useEffect(() => {
+    getCampania();
+  }, []);
+
+  console.log(fetchDataCampania)
+
   const [modalOpen, setModalOpen] = useState(false);
   const calendarRef = useRef(null);
   const onEventAdded = event => {
@@ -29,37 +52,38 @@ function TuCalendario() {
                     <div className="card-body">
 
                       {/* <button onClick={() => setModalOpen(true)}>Agregar Evento</button> */}
-                      <div style={{ width:'178%' }}>
+                      <div style={{ width: '178%' }}>
                         <FullCalendar
                           locale={esLocale}
                           fixedWeekCount={false}
                           height={700}
                           plugins={[dayGridPlugin, interactionPlugin]}
                           initialView="dayGridMonth"
-                          
+
                           headerToolbar={{
                             start: 'prev today next',
                             center: 'title',
                             end: 'newAppointment',
-                            
+
                           }}
+
                           eventClick={
                             function (arg) {
                               alert(arg.event.title)
                               alert(arg.event.start)
                             }
                           }
-                          /* footerToolbar={{
+                          /*  footerToolbar={{
                             center: 'toggleMonth toggleWeek toggleDay',
-                          }} */
+                          }} 
                           customButtons={{
                             newAppointment: {
                               text: 'Nueva Actividad',
-                              /* click: () => {
+                              click: () => {
                                 dateClickHandler();
-                              }, */
+                              },
                             },
-                            /* toggleDay: {
+                            toggleDay: {
                               text: 'Hoy',
                               click: () => {
                                 calendar.current.getApi().changeView('dayGridDay');
@@ -76,27 +100,29 @@ function TuCalendario() {
                               click: () => {
                                 calendar.current.getApi().changeView('dayGridMonth')
                               }
-                            }, */
-                          }}
+                            },
+                          }} */
                           events={[
                             {
                               title: 'Naranja',
-                              start:"2022-11-04",
-                              end:"2022-11-08"
+                              start: "2022-11-04",
+                              end: "2022-11-08",
+                              color: "#da6200"
                             },
                             {
                               title: 'Algodon',
-                              start:"2022-11-04",
-                              end:"2022-11-08"
+                              start: "2022-11-04",
+                              end: "2022-11-08",
+                              color: "#07da00"
                             },
                             {
                               title: 'Senora',
-                              start:"2022-11-15",
-                              end:"2022-11-20"
+                              start: "2022-11-15",
+                              end: "2022-11-20",
+                              color: "#da0000"
                             },
                           ]}
-                          
-                        />
+                        />^
 
                       </div>
                       {/* <AgregarEvento isOpen={modalOpen} onClose={() => setModalOpen(false)} onEventAdded={event => onEventAdded(event)} /> */}
