@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { FeatureGroup, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import { EditControl } from "react-leaflet-draw";
 import L from "leaflet";
+import { AlertaModal } from "../../components/layouts/AlertaModal";
 
 const MapaEstablecimiento = ({ center, setCenter, setMapDraw, setErrorMap }) => {
   const map = useMap();
@@ -123,6 +124,12 @@ const MapaEstablecimiento = ({ center, setCenter, setMapDraw, setErrorMap }) => 
   useEffect(() => {
     if (mapLayers.length > 1) {
       setErrorMap("Solo puede dibujar 1 establecimiento");
+      AlertaModal({
+        tituloModal: 'Solo puede dibujar 1 establecimiento',
+        tipoModal: 'warning',
+        colorModal: '#f5b349',
+        tiempoModal: 2000
+      })
       return;
     }
     setErrorMap("");

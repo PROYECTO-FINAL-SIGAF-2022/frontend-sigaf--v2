@@ -172,3 +172,17 @@
 .table-stats .table-line-plus .status-social-icon {
 	color: #a75d54;
 }
+
+/* Detalles */
+@media (min-width: 992px){
+    .container, .container-fluid {
+        padding-right: 2rem;
+        padding-left: 2rem;
+    }
+}
+
+.ui-w-100 {
+    width: 100px !important;
+    height: auto;
+}
+

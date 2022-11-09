@@ -7,14 +7,33 @@ import { useFetch } from "../../hooks/useFetch";
 import { URL } from "../../utils/getUrl";
 import { Link } from "react-router-dom";
 import { useEffect  } from "react";
-
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import DetallesProductos from "./DetallesProductos";
 function Productos() {
+ 
+
   const [
     setConfigFetchProductos,
     fetchDataProductos,
     loadingProductos,
     errorProductos,
   ] = useFetch();
+
+  const [setConfigFetchTipoProductos, fetchDataTipoProductos] = useFetch();
+
+  const [setConfigFetchProductoEliminar] = useFetch();
+  const getTipoProductos = () => {
+    setConfigFetchTipoProductos({
+      url: `${URL}/tipo-productos`,
+      headersRequest: {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      }
+    })
+  }
 
   const getProductos = () => {
     setConfigFetchProductos({
@@ -30,7 +49,49 @@ function Productos() {
 
   useEffect(() => {
     getProductos();
+    getTipoProductos();
   }, []);
+
+  const MySwal = withReactContent(Swal)
+  const modalEliminar = (id) => {
+    id
+    //console.log(idEliminar)
+    return MySwal.fire({
+      title: 'Seguro que lo quiere eliminar?',
+      text: "Se eliminara permanentemente!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Si, eliminar!',
+      cancelButtonText: 'Cancelar!',
+    }).then((result) => {
+      console.log(result.isDismissed)
+      if (result.isConfirmed) {
+        //console.log(id)
+        setConfigFetchProductoEliminar({
+            url: `${URL}/productos/${id}`,
+            headersRequest: {
+              method: "DELETE",
+              headers: {
+                "Content-type": "application/json; charset=UTF-8"
+              }
+            }
+          }); 
+        Swal.fire(
+          'Eliminado!',
+          'El archivo fue eliminado.',
+          'success'
+        ).then((resultClose) => {
+          //console.log(resultClose)
+          getProductos()
+        })
+       
+      }
+    })
+  }
+
+ 
 
   //console.log(fetchDataProductos)
   if (!errorProductos) {
@@ -96,6 +157,8 @@ function Productos() {
                               fetchDataProductos?.map((item) => {
                                 const fecha = new Date(item.fecha_vencimiento_producto);
                                 const fechaConvertida = fecha.toLocaleDateString();
+                                //var descripcionTipoProducto;
+                                
                                 return( 
                                 <tr>
                                   <td>
@@ -121,24 +184,24 @@ function Productos() {
                                     </span>
                                   </td>
                                   <td className="text-center">
-                                    <span className="label label-default">
-                                      <a href="#">{item?.id_tipo_producto}</a>
+                                    <span className="label label-default" style={{textTransform: "uppercase"}}>
+                                      {item?.id_tipo_producto}
                                     </span>
                                   </td>
                                   <td style={{ width: "20%" }}>
-                                    <a href="#" className="table-link">
+                                    <Link className="table-link" to ={{pathname:'/detalles-producto/' + item.id_producto}} >
                                       <span className="fa-stack">
                                         <i className="fa fa-square fa-stack-2x"></i>
                                         <i className="fa fa-search-plus fa-stack-1x fa-inverse"></i>
                                       </span>
-                                    </a>
+                                    </Link>
                                     <a href="#" className="table-link">
                                       <span className="fa-stack">
                                         <i className="fa fa-square fa-stack-2x "></i>
                                         <i className="fa fa-pencil fa-stack-1x fa-inverse"></i>
                                       </span>
                                     </a>
-                                    <a href="#" className="table-link danger">
+                                    <a href="#" className="table-link danger" onClick={()=>{modalEliminar(item?.id_producto)}}>
                                       <span className="fa-stack">
                                         <i className="fa fa-square fa-stack-2x"></i>
                                         <i className="fa fa-trash-o fa-stack-1x fa-inverse"></i>

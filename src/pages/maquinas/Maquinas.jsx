@@ -1,32 +1,78 @@
 import Footer from "../../components/layouts/Footer";
 import LayoutContainer from "../../components/layouts/LayoutContainer";
 import "./Maquinas.css";
-/* import Loading from "../../components/layouts/Loading"; */
+import { useEffect, useState } from "react";
+
+import Alerta from "../../components/layouts/Alerta";
+import Loading from "../../components/layouts/Loading";
+
+import { useFetch } from "../../hooks/useFetch";
+import { URL } from "../../utils/getUrl";
+
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 import { Link } from "react-router-dom";
 
+
 function Maquinas () {
-  /*  const { setConfigFetch, fetchData, loading, error } = useFetch();
-  const session = useSession();
-  //console.log(session)
+  const [setConfigFetchMaquinas, fetchDataMaquinas, loadingMaquinas, errorMaquinas] = useFetch();
+  
+
+  const getMaquinas = () => {
+    setConfigFetchMaquinas({
+      url: `${URL}/maquinas`,
+      headersRequest: {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      }
+    });
+  };
+
   useEffect(() => {
-    if (session) {
-      setConfigFetch({
-        url: `${URL}/productos`,
-        headersRequest: {
-          method: "GET",
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-          },
-        },
-      });
-    }
+    getMaquinas();
   }, []);
 
-  //console.log()
-  if (!error) {
-    return <h1>Error</h1>;
-  } */
+  const MySwal = withReactContent(Swal)
+  const handleBounceIn = (id) => {
+    id
+    //console.log(idEliminar)
+    return MySwal.fire({
+      title: 'Seguro que lo quiere eliminar?',
+      text: "Se eliminara permanentemente!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Si, eliminar!',
+      cancelButtonText: 'Cancelar!',
+    }).then((result) => {
+      console.log(result.isDismissed)
+      if (result.isConfirmed) {
+        //console.log(id)
+          setConfigFetchProductos({
+            url: `${URL}/maquinas/${id}`,
+            headersRequest: {
+              method: "DELETE",
+              headers: {
+                "Content-type": "application/json; charset=UTF-8"
+              }
+            }
+          }); 
+        Swal.fire(
+          'Eliminado!',
+          'El archivo fue eliminado.',
+          'success'
+        ).then((resultClose) => {
+          //console.log(resultClose)
+          getProductos()
+        })
+       
+      }
+    })
+  }
 
   return (
     <LayoutContainer>
@@ -68,100 +114,70 @@ function Maquinas () {
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>
-                            <img
-                              src="https://pngimages.in/uploads/png-thumb/Tractor_png_photo_editing.png"
-                              alt=""
-                            />
-                            <a href="#" className="user-link">
-                              Tractor
-                            </a>
-                            <span className="user-subhead">Detalle</span>
-                          </td>
-                          <td className="text-center">
-                            <span className="label label-default">
-                              100.000$
-                            </span>
-                          </td>
-                          <td className="text-center">
-                            <span className="label label-default">
-                              12/10/2022
-                            </span>
-                          </td>
-                          <td className="text-center">
-                            <span className="label label-default">
-                              <a href="#">ACTIVO</a>
-                            </span>
-                          </td>
-                          <td style={{ width: "20%" }}>
-                            <a href="#" className="table-link">
-                              <span className="fa-stack">
-                                <i className="fa fa-square fa-stack-2x"></i>
-                                <i className="fa fa-search-plus fa-stack-1x fa-inverse"></i>
-                              </span>
-                            </a>
-                            <a href="#" className="table-link">
-                              <span className="fa-stack">
-                                <i className="fa fa-square fa-stack-2x "></i>
-                                <i className="fa fa-pencil fa-stack-1x fa-inverse"></i>
-                              </span>
-                            </a>
-                            <a href="#" className="table-link danger">
-                              <span className="fa-stack">
-                                <i className="fa fa-square fa-stack-2x"></i>
-                                <i className="fa fa-trash-o fa-stack-1x fa-inverse"></i>
-                              </span>
-                            </a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <img
-                              src="https://pngimages.in/uploads/png-thumb/Tractor_png_photo_editing.png"
-                              alt=""
-                            />
-                            <a href="#" className="user-link">
-                              Tractor
-                            </a>
-                            <span className="user-subhead">Detalle</span>
-                          </td>
-                          <td className="text-center">
-                            <span className="label label-default">90.000$</span>
-                          </td>
-                          <td className="text-center">
-                            <span className="label label-default">
-                              23/5/2010
-                            </span>
-                          </td>
-                          <td className="text-center">
-                            <span className="label label-default">
-                              <a href="#" style={{ color: "red" }}>
-                                MANTENIMIENTO
-                              </a>
-                            </span>
-                          </td>
-                          <td style={{ width: "20%" }}>
-                            <a href="#" className="table-link">
-                              <span className="fa-stack">
-                                <i className="fa fa-square fa-stack-2x"></i>
-                                <i className="fa fa-search-plus fa-stack-1x fa-inverse"></i>
-                              </span>
-                            </a>
-                            <a href="#" className="table-link">
-                              <span className="fa-stack">
-                                <i className="fa fa-square fa-stack-2x "></i>
-                                <i className="fa fa-pencil fa-stack-1x fa-inverse"></i>
-                              </span>
-                            </a>
-                            <a href="#" className="table-link danger">
-                              <span className="fa-stack">
-                                <i className="fa fa-square fa-stack-2x"></i>
-                                <i className="fa fa-trash-o fa-stack-1x fa-inverse"></i>
-                              </span>
-                            </a>
-                          </td>
-                        </tr>
+                      {loadingMaquinas && <Loading />}
+
+                      {errorMaquinas?.msg && (
+                      <Alerta claseAlerta="danger" mensajeAlerta={errorMaquinas?.msg} />
+                      )}
+                        {
+                        fetchDataMaquinas.length > 0 && (
+                        <>
+                        {
+                          //key={proveedor.id_proveedor}
+                          fetchDataMaquinas?.map(item => (
+                              <tr key={item.id_maquina}>
+                              <td>
+                                <img
+                                  src="https://pngimages.in/uploads/png-thumb/Tractor_png_photo_editing.png"
+                                  alt=""
+                                />
+                                <a href="#" className="user-link">
+                                 {item.descripcion_maquina}
+                                </a>
+                                <span className="user-subhead">Detalle</span>
+                              </td>
+                              <td className="text-center">
+                                <span className="label label-default">
+                                  {item.precio_adquisicion_maquina}
+                                </span>
+                              </td>
+                              <td className="text-center">
+                                <span className="label label-default">
+                                  {item.fecha_adquisicion_maquina}
+                                </span>
+                              </td>
+                              <td className="text-center">
+                                <span className="label label-default" style={{textTransform: "uppercase", color: "green" }}>
+                                    {item.tipo_adquisicion_maquina}
+                                </span>
+                              </td>
+                              <td style={{ width: "20%" }}>
+                                <a href="#" className="table-link">
+                                  <span className="fa-stack">
+                                    <i className="fa fa-square fa-stack-2x"></i>
+                                    <i className="fa fa-search-plus fa-stack-1x fa-inverse"></i>
+                                  </span>
+                                </a>
+                                <a href="#" className="table-link">
+                                  <span className="fa-stack">
+                                    <i className="fa fa-square fa-stack-2x "></i>
+                                    <i className="fa fa-pencil fa-stack-1x fa-inverse"></i>
+                                  </span>
+                                </a>
+                                <a href="#" className="table-link danger" onClick={()=>{handleBounceIn(item?.id_maquina)}}>
+                                  <span className="fa-stack">
+                                    <i className="fa fa-square fa-stack-2x"></i>
+                                    <i className="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+                                  </span>
+                                </a>
+                              </td>
+                            </tr>
+                              ))
+                            }
+                            </>
+                            )
+                        }
+                        
                       </tbody>
                     </table>
                   </div>

@@ -13,6 +13,7 @@ import { useFetch } from "../../hooks/useFetch";
 import { URL } from "../../utils/getUrl";
 import Loading from "../../components/layouts/Loading";
 import { NavLink, useNavigate } from "react-router-dom";
+import { AlertaModal } from "../../components/layouts/AlertaModal";
 
 const HomeEstablecimientos = () => {
   const [center, setCenter] = useState({
@@ -40,6 +41,12 @@ const HomeEstablecimientos = () => {
 
     if (mapDraw.length === 0) {
       setErrorMap("Debe dibujar su establecimiento");
+      AlertaModal({
+        tituloModal: 'Debe dibujar su establecimiento',
+        tipoModal: 'error',
+        colorModal: '#f4065e',
+        tiempoModal: 2000
+      })
       return;
     }
 

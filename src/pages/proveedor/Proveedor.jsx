@@ -10,8 +10,8 @@ import Loading from "../../components/layouts/Loading";
 import { useFetch } from "../../hooks/useFetch";
 import { URL } from "../../utils/getUrl";
 import { Link } from "react-router-dom";
-import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 function Proveedor () {
   const [setConfigFetchProveedores, fetchDataProveedores, loadingProveedores, errorProveedores] = useFetch();

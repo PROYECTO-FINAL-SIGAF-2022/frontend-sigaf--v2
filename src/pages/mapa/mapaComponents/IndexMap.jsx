@@ -21,6 +21,7 @@ import ModalDatosParcela from "../mapaLayouts/ModalDatosParcela";
 import { useFetch } from "../../../hooks/useFetch";
 import { URL } from "../../../utils/getUrl";
 import { useSession } from "../../../context/SessionProvider";
+import { AlertaModal } from "../../../components/layouts/AlertaModal";
 
 const IndexMap = () => {
   const [setConfigFetchEstablecimiento, fetchDataEstablecimiento, loadingEstablecimiento] = useFetch();
@@ -222,7 +223,7 @@ const IndexMap = () => {
       }
     });
   };
-
+  //console.log(fetchDataParcelas)
   const handleToggleParcela = (parcelaSelected) => {
     // console.log(parcelaSelected);
     setParcelaSelected(parcelaSelected);
@@ -308,10 +309,22 @@ const IndexMap = () => {
   return (
     <>
     {
-      editandoParcelas && <h5 className="text-center text-warning">Actualizando Georeferencias de Parcelas</h5>
+      editandoParcelas && AlertaModal(
+        {
+          tituloModal: 'Se modifico correctamente',
+          tipoModal: 'success',
+          colorModal: '#a5dc86'
+        }
+      )
     }
     {
-      loadingEstablecimiento && <h5 className="text-center text-warning">Cargando Geolocalización del establecimiento</h5>
+      loadingEstablecimiento && AlertaModal(
+        {
+          tituloModal: 'Cargando Georefencias',
+          tipoModal: 'info',
+          colorModal: '#3fc3ee'
+        }
+      )
     }
       <MapContainer style={{ zIndex: 1, width: "100%" }} center={{
         lat: "-26.18064675300086",
@@ -340,7 +353,7 @@ const IndexMap = () => {
 
           {
             parcelas.length > 0 && parcelas.map(parcela => (
-              <Rectangle key={parcela.id} color="red" bounds={parcela.georeferencia} interactive={true} eventHandlers={{
+              <Rectangle key={parcela.id} color="#1f6764" weight={"1"} bounds={parcela.georeferencia} interactive={true} eventHandlers={{
                 // click: () => onClick(parcela.id),
                 add: (e) => addParcelaToRef(parcela, e)
                 // baselayerchange: () => onClick("baselayerchange"),
@@ -369,13 +382,14 @@ const IndexMap = () => {
 
               }}>
                 <MapaPopup toggleShow={toggleShow} parcela={parcela} handleToggleParcela={handleToggleParcela}/>
+                
               </Rectangle>
             ))
           }
         </FeatureGroup>
         {
           ("georeferencia" in establecimiento) && (
-          <Polygon color="#F5A587" fillOpacity={"0.2"} positions={JSON.parse(establecimiento.georeferencia)} interactive={false} />
+          <Polygon color="#00b34c" fillOpacity={"0.2"} weight={"1"}  positions={JSON.parse(establecimiento.georeferencia)} interactive={false} />
           )
        }
 
