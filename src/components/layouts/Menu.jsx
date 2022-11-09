@@ -179,9 +179,9 @@ function Menu () {
                 </Link>
               </li>
               <li className="menu-item">
-                <a href="#" className="menu-link">
-                  <div data-i18n="Basic">Informe Resultados</div>
-                </a>
+                <Link to="/Informe-Resultado" className="menu-link">
+                  <div data-i18n="Connections">Informe Resultado</div>
+                </Link>
               </li>
             </ul>
           </li>

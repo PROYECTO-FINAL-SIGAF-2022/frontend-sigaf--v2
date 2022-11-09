@@ -37,29 +37,33 @@ const FormGastosMaquinas = () => {
                         </div>
                         <div className="mb-3">
                           <label className="form-label">
-                            Seleccione Maquina
+                            Seleccione Personal
                           </label>
                           <Field className="form-control" as="select">
-                            <option value="red">Tractor</option>
-                            <option value="green">Camion</option>
-                            <option value="blue">Cohete</option>
+                            <option value="red">Juan</option>
+                            <option value="green">Pablito</option>
+                            <option value="blue">Dibuneta</option>
                           </Field>
                         </div>
-                        <div className= "mb-3">
-                            <label className= "form-label">Observaciones</label>
-                            <Field
-                              type= "text"
-                              className= "form-control"
-                              placeholder= "Ingrese el detalle del gasto"
-                            />
+                        <div className="mb-3">
+                          <label className="form-label">
+                            Seleccione Tipo de Pago
+                          </label>
+                          <Field className="form-control" as="select">
+                            <option value="red">Mensual</option>
+                            <option value="green">Diario</option>
+                          </Field>
                         </div>
-                        <div className= "mb-3">
-                            <label className= "form-label">Precio</label>
-                            <Field
-                              type= "number"
-                              className= "form-control"
-                              placeholder= "Ingrese el precio del gasto"
-                            />
+                        <div className="mb-3">
+                          <label className="form-label">
+                            Monto
+                          </label>
+                          <Field
+                            type="number"
+                            className="form-control"
+                            placeholder= "Ingrese el valor del pago"
+                            aria-describedby="emailHelp"
+                          />
                         </div>
                         <div className="mb-3">
                           <label className="form-label">
