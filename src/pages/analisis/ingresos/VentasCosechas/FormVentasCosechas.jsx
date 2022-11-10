@@ -1,5 +1,6 @@
 import { Field, Form, Formik } from "formik";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { set } from "react-hook-form";
 
 import { Link } from "react-router-dom";
 import LayoutContainer from "../../../../components/layouts/LayoutContainer";
@@ -7,29 +8,58 @@ import { useFetch } from "../../../../hooks/useFetch";
 import { URL } from "../../../../utils/getUrl";
 
 const FormVentasCosechas = () => {
-  const [setFetchCampanias, fetchDataCampanias, loadingCampanias, errorCampanias, cleanStates] = useFetch([]);
+  const [cantidadCosechada, setCantidadCosechada] = useState("");
+
+  const [
+    setFetchCampanias,
+    fetchDataCampanias,
+    loadingCampanias,
+    errorCampanias,
+    cleanStatesCampanias
+  ] = useFetch([]);
+  const [
+    setFetchPacelasCultivos,
+    fetchDataPacelasCultivos,
+    loadingPacelasCultivos,
+    errorPacelasCultivos,
+    cleanStatesParcelasCultivos
+  ] = useFetch([]);
 
   const formikRef = useRef();
 
   const hanldeChangeCampania = (e) => {
-    console.log(e.target.value);
+    const idCampania = e.target.value;
+    setFetchPacelasCultivos({
+      url: `${URL}/contabilidad-ingresos/${idCampania}`,
+      headersRequest: {
+        method: "GET"
+      }
+    });
+  };
+
+  const hanldeChangeParcelaCultivo = (e) => {
+    const id = e.target.selectedIndex;
+    const option = e.target.querySelectorAll("option")[id];
+    const cantidadCosechada = option.getAttribute("data-cantidad-disponible");
+
+    console.log(cantidadCosechada);
+
+    if (cantidadCosechada === null) {
+      setCantidadCosechada("Aun no se ha realizado una cosecha");
+    } else {
+      setCantidadCosechada(cantidadCosechada);
+    }
+
+    // setFetchPacelasCultivos({
+    //   url: `${URL}/contabilidad-ingresos/${idCampania}`,
+    //   headersRequest: {
+    //     method: "GET"
+    //   }
+    // });
   };
 
   const handleSubmit = (values) => {
     console.log(values);
-    // setConfigFetch({
-    //   url: `${URL}/login`,
-    //   headersRequest: {
-    //     method: "POST",
-    //     body: JSON.stringify({
-    //       username_usuario,
-    //       password_usuario
-    //     }),
-    //     headers: {
-    //       "Content-type": "application/json; charset=UTF-8"
-    //     }
-    //   }
-    // });
   };
   useEffect(() => {
     setFetchCampanias({
@@ -58,55 +88,84 @@ const FormVentasCosechas = () => {
                     <div className="card-body">
                       <Formik
                         innerRef={formikRef}
-                        // initialValues={{
-                        // nombre_persona: "",
-                        // apellido_persona: "",
-                        // dni_persona: "",
-                        // fecha_nac_persona: "",
-                        // email_persona: "",
-                        // telefono_persona: "",
-                        // username_usuario: "",
-                        // password_usuario: ""
-                        // }}
+                        initialValues={{
+                          campania: ""
+                        }}
                         onSubmit={handleSubmit}
                         // validationSchema={schemaRegister}
                       >
-                      {({ isSubmitting, handleChange }) => (
-
-                        <Form id="formAuthentication" className="form-group">
-                          <div className="mb-3">
-                            <label className="form-label">
-                              Seleccione Campaña
-                            </label>
-                            <Field className="form-control" as="select" defaultValue={""} onChange={(e) => {
-                              handleChange(e);
-                              hanldeChangeCampania(e);
-                            }}>
-                              <option value="" disabled>
-                                Campaña
-                              </option>
-                              {fetchDataCampanias.map((campania) => (
-                                <option
-                                  key={campania.id_campania}
-                                  value={campania.id_campania}
-                                >
-                                  {campania.descripcion_campania}
+                        {({ isSubmitting, handleChange }) => (
+                          <Form id="formAuthentication" className="form-group">
+                            <div className="mb-3">
+                              <label className="form-label">
+                                Seleccione Campaña
+                              </label>
+                              <Field
+                                as="select"
+                                name="campania"
+                                id="campania"
+                                className="form-control"
+                                onChange={(e) => {
+                                  handleChange(e);
+                                  hanldeChangeCampania(e);
+                                }}
+                              >
+                                <option value="" disabled>
+                                  Campaña
                                 </option>
-                              ))}
-                            </Field>
-                          </div>
-                          <div className="mb-3">
-                            <label className="form-label">
-                              Seleccione Parcela Cultivo
-                            </label>
-                            <Field className="form-control" as="select" defaultValue={""}>
-                              <option value="">Seleccione una parcela cultivo</option>
-                              <option value="red">Parcela 1</option>
-                              <option value="green">Parcela 2</option>
-                              <option value="blue">Parcela 3</option>
-                            </Field>
-                          </div>
-                          {/* <div className="mb-3">
+                                {fetchDataCampanias.map((campania) => (
+                                  <option
+                                    key={campania.id_campania}
+                                    value={campania.id_campania}
+                                  >
+                                    {campania.descripcion_campania}
+                                  </option>
+                                ))}
+                              </Field>
+                            </div>
+                            <div className="mb-3">
+                              <label className="form-label">
+                                Seleccione Parcela Cultivo
+                              </label>
+                              <Field
+                                name="parcela_cultivo"
+                                className="form-control mb-2"
+                                as="select"
+                                defaultValue={""}
+                                onChange={(e) => {
+                                  handleChange(e);
+                                  hanldeChangeParcelaCultivo(e);
+                                }}
+                              >
+                                <option value="" disabled>
+                                  Seleccione una parcela cultivo
+                                </option>
+
+                                {fetchDataPacelasCultivos.map((parcelaCultivo) => (
+                                  <option
+                                    key={parcelaCultivo.id_parcela_cultivo}
+                                    value={parcelaCultivo.id_parcela_cultivo}
+                                    data-cantidad-disponible = {parcelaCultivo.cantidad_total_cosechada}
+                                  >
+                                    {parcelaCultivo.parcela.descripcion_parcela} {"-"}
+                                    ({parcelaCultivo.cultivo.descripcion_cultivo}){"-"}
+                                    ({parcelaCultivo.activo ? "Activo" : "Inactivo"})
+
+                                  </option>
+                                ))}
+                                {/* <option value="red">Parcela 1</option>
+                                <option value="green">Parcela 2</option>
+                                <option value="blue">Parcela 3</option> */}
+                              </Field>
+                              {
+                                loadingPacelasCultivos && <b className="text-danger">Cargando cultivos</b>
+                              }
+                              {
+                                !parseInt(cantidadCosechada) ? <span className="badge bg-danger">{cantidadCosechada}</span> : <span className="badge bg-success">Stock Disponible: {cantidadCosechada}</span>
+                              }
+
+                            </div>
+                            {/* <div className="mb-3">
                             <label className="form-label">
                               Seleccione Maquina
                             </label>
@@ -116,36 +175,41 @@ const FormVentasCosechas = () => {
                               <option value="blue">Cohete</option>
                             </Field>
                           </div> */}
-                          <div className="mb-3">
-                            <label className="form-label">Ingrese Cantidad Vendida</label>
-                            <Field
-                              type="text"
-                              className="form-control"
-                              placeholder="Ingrese la cantidad vendida"
-                            />
-                          </div>
-                          <div className="mb-3">
-                            <label className="form-label">Ingrese Monto Total</label>
-                            <Field
-                              type="number"
-                              className="form-control"
-                              placeholder="Por favor ingrese el monto total"
-                              aria-describedby="emailHelp"
-                            />
-                          </div>
-                          <br></br>
-                          <Link to="/Ingresos" state={{ tab: "tab2" }}>
-                            <button className="btn btn-danger mx-3">
-                              Volver
-                            </button>
-                          </Link>
-                          {/* <Link to="/Egresos"> */}
-                          <button className="btn btn-success">
-                            Guardar Venta
-                          </button>
-                          {/* </Link> */}
-                        </Form>
-                      )}
+                            <div className="mb-3">
+                              <label className="form-label">
+                                Ingrese Cantidad Vendida
+                              </label>
+                              <Field
+                                name="cantidad_vendida"
+                                type="text"
+                                className="form-control"
+                                placeholder="Ingrese la cantidad vendida"
+                              />
+                            </div>
+                            <div className="mb-3">
+                              <label className="form-label">
+                                Ingrese Monto Total
+                              </label>
+                              <Field
+                                name="monto_total_vendido"
+                                type="number"
+                                className="form-control"
+                                placeholder="Por favor ingrese el monto total"
+                                aria-describedby="emailHelp"
+                              />
+                            </div>
+                            <div className="mb-3">
+                              <Link to="/Ingresos" state={{ tab: "tab2" }}>
+                                <button className="btn btn-danger">
+                                  Volver
+                                </button>
+                              </Link>
+                              <button className="btn btn-success mx-2" disabled={!parseInt(cantidadCosechada)}>
+                                Guardar Venta
+                              </button>
+                            </div>
+                          </Form>
+                        )}
                       </Formik>
                     </div>
                   </div>

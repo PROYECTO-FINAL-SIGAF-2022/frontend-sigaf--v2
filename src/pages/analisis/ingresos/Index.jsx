@@ -19,7 +19,7 @@ import { useLocation } from "react-router-dom";
 
 const Costos = () => {
   const { state } = useLocation();
-  const [basicActive, setBasicActive] = useState(state.tab || "tab1");
+  const [basicActive, setBasicActive] = useState(state?.tab || "tab1");
 
   const handleBasicClick = (value) => {
     if (value === basicActive) {
