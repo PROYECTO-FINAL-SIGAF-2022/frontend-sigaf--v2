@@ -6,12 +6,29 @@ import Loading from "../../components/layouts/Loading";
 import { useFetch } from "../../hooks/useFetch";
 import { URL } from "../../utils/getUrl";
 import { Link } from "react-router-dom";
-import { useEffect  } from "react";
+import { useEffect, useState  } from "react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import DetallesProductos from "./DetallesProductos";
+import DetallesProductoModal from "./modalComponets/DetallesProductoModal";
+import UpdateProductoModal from "./modalComponets/UpdateProductoModal";
+
 function Productos() {
- 
+  const [optSmModalDetalles, setOptSmModalDetalles] = useState(false);
+  const [optSmModalEdit, setOptSmModalEdit] = useState(false);
+  const [datosProducto, setDatosProducto] = useState("");
+  const [datosProductoEdit, setDatosProductoEdit] = useState("");
+  const toggleShowDetalles = (item) => {
+    //console.log(item)
+    setDatosProducto(item);
+    setOptSmModalDetalles(!optSmModalDetalles);
+  };
+
+  const toggleShowEdit = (item) => {
+   // console.log(item)
+    setDatosProductoEdit(item);
+    setOptSmModalEdit(!optSmModalEdit);
+    //console.log(item)
+  };
 
   const [
     setConfigFetchProductos,
@@ -189,13 +206,17 @@ function Productos() {
                                     </span>
                                   </td>
                                   <td style={{ width: "20%" }}>
-                                    <Link className="table-link" to ={{pathname:'/detalles-producto/' + item.id_producto}} >
+                                    <a href="#" className="table-link" onClick={() => {
+                                    toggleShowDetalles(item);
+                                  }}>
                                       <span className="fa-stack">
                                         <i className="fa fa-square fa-stack-2x"></i>
                                         <i className="fa fa-search-plus fa-stack-1x fa-inverse"></i>
                                       </span>
-                                    </Link>
-                                    <a href="#" className="table-link">
+                                    </a>
+                                    <a href="#" className="table-link" onClick={() => {
+                                    toggleShowEdit(item);
+                                  }}>
                                       <span className="fa-stack">
                                         <i className="fa fa-square fa-stack-2x "></i>
                                         <i className="fa fa-pencil fa-stack-1x fa-inverse"></i>
@@ -216,6 +237,19 @@ function Productos() {
                       </tbody>
                     </table>
                   </div>
+                  <DetallesProductoModal
+                  optSmModalDetalles={optSmModalDetalles}
+                  setOptSmModalDetalles={setOptSmModalDetalles}
+                  toggleShowDetalles={toggleShowDetalles}
+                  item={datosProducto}
+                  />
+                  <UpdateProductoModal
+                  optSmModalEdit={optSmModalEdit}
+                  setOptSmModalEdit={setOptSmModalEdit}
+                  toggleShowEdit={toggleShowEdit}
+                  datosProducto = {datosProductoEdit}
+                  getProductos = {getProductos}
+                  />
                   <br></br>
                   <br></br>
                   <nav aria-label="Page navigation">

@@ -1,25 +1,32 @@
-import Footer from "../../components/layouts/Footer";
-import LayoutContainer from "../../components/layouts/LayoutContainer";
-import { Field, Form, Formik } from "formik";
-import { useEffect, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState, useRef } from "react";
 import * as yup from "yup";
-import MensajeErrorInput from "../../components/layouts/MensajeErrorInput";
+import MensajeErrorInput from "../../../components/layouts/MensajeErrorInput";
+import Loading from "../../../components/layouts/Loading";
+import Alerta from "../../../components/layouts/Alerta";
 
-import { useFetch } from "../../hooks/useFetch";
-import { URL } from "../../utils/getUrl";
-import Loading from "../../components/layouts/Loading";
-import Alerta from "../../components/layouts/Alerta";
+import { useFetch } from "../../../hooks/useFetch";
+import { URL } from "../../../utils/getUrl";
+import { Field, Form, Formik } from "formik";
+import {
+  MDBBtn,
+  MDBModal,
+  MDBModalBody,
+  MDBModalContent,
+  MDBModalDialog,
+  MDBModalHeader,
+  MDBModalTitle,
+} from "mdb-react-ui-kit";
 
-function FormProductos () {
-  const [setConfigFetchProductos, fetchDataProductos, loading, error] = useFetch();
+const UpdateProductoModal = ({optSmModalEdit,setoptSmModalEdit,toggleShowEdit,datosProducto, getProductos}) => {
+  //console.log(datosProducto);
+
+  const [setConfigFetchProductoPUT,fetchDataProductoPUT, loadingPUT, errorPut] = useFetch();
+
   const [setConfigFetchTipoProductos, fetchDataTipoProductos] = useFetch();
   const [setConfigFetchProveedores, fetchDataProveedores] = useFetch();
   const [setConfigFetchUnidadMedida, fetchDataUnidadMedida] = useFetch();
- 
-  const formikRef = useRef();
 
-  const navigate = useNavigate();
+  const formikRef = useRef();
 
   const schemaFormProductos = yup.object().shape({
     descripcion_producto: yup.string().required("La descripcion del producto es requerida"),
@@ -29,10 +36,7 @@ function FormProductos () {
     id_proveedor: yup.number().required("Seleccione un proveedor"),
     id_tipo_producto: yup.number().required("Seleccione un tipo de producto"),
     id_unidad_medida: yup.number().required("Seleccione una unidad de medida")
-
   });
-
- 
 
   const getUnidadMedida = () => {
     setConfigFetchUnidadMedida({
@@ -74,9 +78,10 @@ function FormProductos () {
     getUnidadMedida(),
     getProveedores()
   },[]);
-  //console.log(fetchDataTipoProductos)
-  const handleSubmit = (values) => {
-    console.log(values);
+
+
+    const handleSubmit = (values) => {
+    // console.log(values);
     const {
       descripcion_producto,
       fecha_vencimiento_producto,
@@ -86,61 +91,75 @@ function FormProductos () {
       id_tipo_producto,
       id_unidad_medida
     } = values;
-    
 
-   console.log(id_unidad_medida)
-     setConfigFetchProductos({
-       url: `${URL}/productos`,
-       headersRequest: {
-         method: "POST",
-         body: JSON.stringify({
-           descripcion_producto,
-           fecha_vencimiento_producto,
-          cantidad_producto,
-          precio_total_producto,
-          id_proveedor,
-           id_tipo_producto,
-           id_unidad_medida,
-          id_almacen: 1,
+    
+    setConfigFetchProductoPUT({
+      url: `${URL}/productos/${datosProducto.id_producto}`,
+      headersRequest: {
+        method: "PUT",
+        body: JSON.stringify({
+            descripcion_producto,
+            fecha_vencimiento_producto,
+            cantidad_producto,
+            precio_total_producto,
+            id_proveedor,
+            id_tipo_producto,
+            id_unidad_medida,
+            id_almacen:1
         })
       }
-    });
+    }); 
   };
-  //console.log(fetchDataProductos);
-  useEffect(() => {
-    formikRef.current.setSubmitting(false);
-    // console.log(error);
-  }, [error]);
 
-  useEffect(() => {
-    if (fetchDataProductos.length === 0) return;
-    navigate("/Productos");
-  }, [fetchDataProductos]);
+ useEffect(()=>{
+  getProductos()
+ },[fetchDataProductoPUT])
+
+ //console.log(datosProducto?.descripcion_producto)
+ /* const [fechaVencimiento, setFechaVencimiento] = useState('')
+ useEffect(()=>{
+
+ var fecha = new Date(datosProducto.fecha_vencimiento_producto);
+setFechaVencimiento(fecha.toLocaleDateString()) 
+ },[]) */
   return (
-    <LayoutContainer>
-      <div className="content-wrapper">
-        <div className="container-xxl flex-grow-1 container-p-y">
-          <div className="row">
-            <div className="col-lg-12 mb-4 order-0">
-              <div className="card">
-                <div className="d-flex align-items-end row">
-                  <div className="col-sm-7">
+    <MDBModal
+      staticBackdrop
+      stabindex="-1"
+      show={optSmModalEdit}
+      setShow={setoptSmModalEdit}
+    >
+      <MDBModalDialog centered>
+        <MDBModalContent>
+          <MDBModalHeader>
+            <MDBModalTitle>
+              <h5>Editar Datos del Producto:</h5>
+            </MDBModalTitle>
+            <MDBBtn
+              className="btn-close"
+              color="none"
+              onClick={toggleShowEdit}
+            ></MDBBtn>
+          </MDBModalHeader>
+          <MDBModalBody>
+                  <div >
                     <div className="card-body">
                     <Formik
                       innerRef={formikRef}
+                      enableReinitialize={true}
                       initialValues={{
-                        descripcion_producto: "",
-                        fecha_vencimiento_producto: "",
-                        cantidad_producto: "",
-                        precio_total_producto: "",
-                        id_proveedor:"",
-                        id_tipo_producto:"",
-                        id_unidad_medida:"",
+                        descripcion_producto: datosProducto?.descripcion_producto,
+                        fecha_vencimiento_producto: datosProducto?.fecha_vencimiento_producto,
+                        cantidad_producto: datosProducto?.cantidad_producto,
+                        precio_total_producto: datosProducto?.precio_total_producto,
+                        id_proveedor: datosProducto?.id_proveedor,
+                        id_tipo_producto: datosProducto?.id_tipo_producto,
+                        id_unidad_medida: datosProducto.id_unidad_medida,
                       }}
                       onSubmit={handleSubmit}
                       validationSchema={schemaFormProductos}
                     >
-                {({ isSubmitting }) => (
+                {({ isSubmitting, dirty }) => (
                       <Form id="formAuthentication" className="form-group">
                         <div className="mb-3">
                           <label  className="form-label">
@@ -288,20 +307,38 @@ function FormProductos () {
                             name="id_unidad_medida"
                             className="alert alert-danger"
                           />
-                        <Link to='/Productos'>
-                        <button className="btn btn-danger mx-3">
-                          Volver
-                        </button>
-                        </Link>
-                        <button type="submit" disabled={isSubmitting} className="btn btn-success">
-                          Agregar Producto
+                        
+                        <button type="submit" disabled={!dirty} className="btn btn-success">
+                          Editar Producto
                         </button>
                         </Form>
                 )}
               </Formik>
                     </div>
                   </div>
-                  {loading && <Loading />}
+                  {loadingPUT && <Loading />}
+
+                {errorPut?.errorPut &&
+                  errorPut?.errors.map((msgError, i) => (
+                    <Alerta
+                      claseAlerta="danger"
+                      key={i}
+                      mensajeAlerta={msgError?.msg}
+                    />
+                  ))}
+               
+          </MDBModalBody>
+        </MDBModalContent>
+      </MDBModalDialog>
+    </MDBModal>
+  );
+};
+
+export default UpdateProductoModal;
+
+{/* 
+
+{loading && <Loading />}
 
                 {error?.errors &&
                   error?.errors.map((msgError, i) => (
@@ -310,17 +347,5 @@ function FormProductos () {
                       key={i}
                       mensajeAlerta={msgError?.msg}
                     />
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <Footer />
-        <div className="content-backdrop fade"></div>
-      </div>
-    </LayoutContainer>
-  );
-}
-
-export default FormProductos;
+                    
+*/}

@@ -12,10 +12,21 @@ import { URL } from "../../utils/getUrl";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import UpdateProveedorModal from "./ModalComponents/UpdateProveedorModal";
 
-function Proveedor () {
-  const [setConfigFetchProveedores, fetchDataProveedores, loadingProveedores, errorProveedores] = useFetch();
-  
+function Proveedor() {
+  const [
+    setConfigFetchProveedores,
+    fetchDataProveedores,
+    loadingProveedores,
+    errorProveedores,
+  ] = useFetch();
+  const [optSmModal, setOptSmModal] = useState(false);
+  const [datoProveedor, setDatoProveedor] = useState("");
+  const toggleShow = (item) => {
+    setDatoProveedor(item);
+    setOptSmModal(!optSmModal);
+  };
 
   const getProveedores = () => {
     setConfigFetchProveedores({
@@ -23,9 +34,9 @@ function Proveedor () {
       headersRequest: {
         method: "GET",
         headers: {
-          "Content-type": "application/json; charset=UTF-8"
-        }
-      }
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      },
     });
   };
 
@@ -35,46 +46,41 @@ function Proveedor () {
 
   //console.log(fetchDataProveedores)
 
-  
-
-  const MySwal = withReactContent(Swal)
+  const MySwal = withReactContent(Swal);
   const handleBounceIn = (id) => {
-    const idEliminar = id
+    const idEliminar = id;
     //console.log(idEliminar)
     return MySwal.fire({
-      title: 'Seguro que lo quiere eliminar?',
+      title: "Seguro que lo quiere eliminar?",
       text: "Se eliminara permanentemente!",
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Si, eliminar!',
-      cancelButtonText: 'Cancelar!',
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Si, eliminar!",
+      cancelButtonText: "Cancelar!",
     }).then((result) => {
-      console.log(result.isDismissed)
+      console.log(result.isDismissed);
       if (result.isConfirmed) {
-        console.log(idEliminar)
-          setConfigFetchProveedores({
-            url: `${URL}/proveedores/${idEliminar}`,
-            headersRequest: {
-              method: "DELETE",
-              headers: {
-                "Content-type": "application/json; charset=UTF-8"
-              }
-            }
-          }); 
-        Swal.fire(
-          'Eliminado!',
-          'El archivo fue eliminado.',
-          'success'
-        ).then((resultClose) => {
-          console.log(resultClose)
-          getProveedores()
-        })
-       
+        console.log(idEliminar);
+        setConfigFetchProveedores({
+          url: `${URL}/proveedores/${idEliminar}`,
+          headersRequest: {
+            method: "DELETE",
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+            },
+          },
+        });
+        Swal.fire("Eliminado!", "El archivo fue eliminado.", "success").then(
+          (resultClose) => {
+            console.log(resultClose);
+            getProveedores();
+          }
+        );
       }
-    })
-  }
+    });
+  };
 
   return (
     <LayoutContainer>
@@ -84,10 +90,13 @@ function Proveedor () {
             <div className="row">
               <div className="col-lg-10 mx-auto mb-4">
                 <div className="section-title text-center ">
-                {loadingProveedores && <Loading />}
+                  {loadingProveedores && <Loading />}
 
                   {errorProveedores?.msg && (
-                  <Alerta claseAlerta="danger" mensajeAlerta={errorProveedores?.msg} />
+                    <Alerta
+                      claseAlerta="danger"
+                      mensajeAlerta={errorProveedores?.msg}
+                    />
                   )}
                   <h3 className="top-c-sep">LISTA DE PROVEEDORES</h3>
                   <p>Descripcion de lo que sea Texto.</p>
@@ -100,9 +109,7 @@ function Proveedor () {
                 <div className="career-search mb-60">
                   <div className="filter-result">
                     <div className="d-md-flex text-capitalize ">
-                      <p className="mb-30 ff-montserrat">
-                        Total De Clientes : 
-                      </p>
+                      <p className="mb-30 ff-montserrat">Total De Clientes :</p>
                     </div>
                     <div className="d-md-flex text-capitalize">
                       <Link to="/Formulario-proveedor" className="menu-link">
@@ -112,13 +119,15 @@ function Proveedor () {
                       </Link>
                     </div>
                     <br></br>
-                    {
-                        fetchDataProveedores.length > 0 && (
-                        <>
+                    {fetchDataProveedores.length > 0 && (
+                      <>
                         {
                           //key={proveedor.id_proveedor}
-                            fetchDataProveedores?.map(item => (
-                              <div className="job-box d-md-flex align-items-center justify-content-between mb-30" key={item.id_proveedor}>
+                          fetchDataProveedores?.map((item) => (
+                            <div
+                              className="job-box d-md-flex align-items-center justify-content-between mb-30"
+                              key={item.id_proveedor}
+                            >
                               <div className="job-left my-4 d-md-flex align-items-center flex-wrap">
                                 <div className="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
                                   {/* Modo Ejemplo */}
@@ -134,7 +143,7 @@ function Proveedor () {
                                       <i className="zmdi zmdi-pin mr-2"></i>{" "}
                                       {item?.direccion_proveedor}
                                     </li>
-  
+
                                     <li className="mr-md-4">
                                       <i className="zmdi zmdi-smartphone mr-2"></i>{" "}
                                       +54
@@ -144,27 +153,37 @@ function Proveedor () {
                                 </div>
                               </div>
                               <div className="d-md-flex text-capitalize ff-open-sans">
-                                
-                                <Link className="btn  d-block w-100  btn-info mx-3"  to ={{pathname:'/actualizar-proveedor/' + item.id_proveedor}}
+                                <button
+                                  className="btn  d-block w-100  btn-info mx-3"
+                                  onClick={() => {
+                                    toggleShow(item);
+                                  }}
                                 >
                                   Editar
-                                </Link>
-                                
+                                </button>
+
                                 <button
                                   className="btn  d-block w-100 btn-danger"
-                                  onClick={()=>{handleBounceIn(item?.id_proveedor)}}
+                                  onClick={() => {
+                                    handleBounceIn(item?.id_proveedor);
+                                  }}
                                 >
                                   Eliminar
                                 </button>
                               </div>
                             </div>
-                            ))
+                          ))
                         }
-                        </>
-                        )
-                    }
+                      </>
+                    )}
                   </div>
-                  
+                  <UpdateProveedorModal
+                    optSmModal={optSmModal}
+                    setOptSmModal={setOptSmModal}
+                    toggleShow={toggleShow}
+                    item={datoProveedor}
+                    getProveedores={getProveedores}
+                  />
                 </div>
 
                 <nav aria-label="Page navigation">

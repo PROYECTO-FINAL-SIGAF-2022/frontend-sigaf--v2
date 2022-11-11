@@ -15,7 +15,6 @@ import HomePerfilesEstablecimientos from "../../pages/perfilesEstablecimientos/H
 import HomeEstablecimientos from "../../pages/establecimientos/HomeEstablecimientos";
 import FormPersonal from "../../pages/personal/FormPersonal";
 import FormMaquinas from "../../pages/maquinas/FormMaquinas";
-import UpdateProveedor from "../../pages/proveedor/UpdateProveedor";
 import Explotaciones from "../../pages/explotaciones/Explotaciones";
 import Campos from "../../pages/campos/Campos";
 import Costos from "../../pages/analisis/costos/Costos";
@@ -65,8 +64,7 @@ function Rutas () {
           <Route path='/almacenes' exact element={<Almacenes/>} />
           <Route path='/personal' exact element={<Personal/>} />
           <Route path="/formulario-personal" exact element={<FormPersonal/>}/>
-          <Route path="/formulario-maquinas" exact element={<FormMaquinas/>}/>
-          <Route path="/actualizar-proveedor/:proid" exact element={<UpdateProveedor/>}/>   
+          <Route path="/formulario-maquinas" exact element={<FormMaquinas/>}/>   
           <Route path='/Explotaciones' exact element={<Explotaciones/>} />
           <Route path='/Campos' exact element={<Campos/>} />
           <Route path='/Costos' exact element={<Costos/>} />
