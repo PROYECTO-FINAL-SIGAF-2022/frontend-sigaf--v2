@@ -10,20 +10,22 @@ import { URL } from "../../../../utils/getUrl";
 const FormVentasCosechas = () => {
   const [cantidadCosechada, setCantidadCosechada] = useState("");
   const [cantidadSembrada, setCantidadSembrada] = useState("");
+  const [cantidadVendida, setCantidadVendida] = useState("");
+  const [cantidadDisponible, setCantidadDisponible] = useState("");
 
   const [
     setFetchCampanias,
     fetchDataCampanias,
     loadingCampanias,
-    errorCampanias,
-    cleanStatesCampanias
+    errorCampanias
+    // cleanStatesCampanias
   ] = useFetch([]);
   const [
     setFetchPacelasCultivos,
     fetchDataPacelasCultivos,
     loadingPacelasCultivos,
-    errorPacelasCultivos,
-    cleanStatesParcelasCultivos
+    errorPacelasCultivos
+    // cleanStatesParcelasCultivos
   ] = useFetch([]);
 
   const formikRef = useRef();
@@ -49,9 +51,11 @@ const FormVentasCosechas = () => {
     const cantidadSembrada = option.getAttribute("data-cantidad-sembrada");
     const unidadMedidaSembrada = option.getAttribute("data-unidad-medida-sembrada");
 
-    // console.log(cantidadCosechada);
-    // console.log(cantidadSembrada);
+    const cantidadTotalVendida = option.getAttribute("data-cantidad-vendida");
+    const cantidadTotalDisponible = option.getAttribute("data-cantidad-disponible");
 
+    console.log(cantidadTotalVendida);
+    console.log(cantidadTotalDisponible);
     if (cantidadCosechada === null) {
       setCantidadCosechada("Aun no se ha realizado una cosecha");
     } else {
@@ -63,6 +67,7 @@ const FormVentasCosechas = () => {
     // } else {
     // }
     setCantidadSembrada(`${cantidadSembrada} ${unidadMedidaSembrada}`);
+    setCantidadVendida();
 
     // setCantidadSembrada(cantidadSembrada);
     // if (cantidadSembrada === null) {
@@ -157,7 +162,7 @@ const FormVentasCosechas = () => {
                                 name="parcela_cultivo"
                                 className="form-control mb-2"
                                 as="select"
-                                defaultValue={errorPacelasCultivos ? "" : ""}
+                                // defaultValue={errorPacelasCultivos ? "" : ""}
                                 onChange={(e) => {
                                   handleChange(e);
                                   hanldeChangeParcelaCultivo(e);
@@ -179,12 +184,15 @@ const FormVentasCosechas = () => {
                                     data-cantidad-sembrada = {parcelaCultivo.cantidad_sembrada}
 
                                     data-unidad-medida-sembrada = {`${parcelaCultivo.unidadMedidaTotalSembrada.descripcion_unidad_medida}`}
+
+                                    data-cantidad-vendida = {parcelaCultivo.suma_total_cantidad_vendida}
+                                    data-cantidad-disponible = {(parcelaCultivo.cantidad_total_cosechada - parcelaCultivo.suma_total_cantidad_vendida).toString()}
                                   >
                                     {parcelaCultivo.parcela.descripcion_parcela} {"-"}
                                     ({parcelaCultivo.cultivo.descripcion_cultivo}){"-"}
                                     ({parcelaCultivo.activo ? "Activo" : "Inactivo"})
-
                                   </option>
+
                                 ))}
                               </Field>
                               {
@@ -238,7 +246,7 @@ const FormVentasCosechas = () => {
                         )}
                       </Formik>
               {
-                errorPacelasCultivos !== {} && (
+                errorPacelasCultivos && (
                   <h3>{errorPacelasCultivos}</h3>
                 )
               }
