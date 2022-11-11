@@ -1,8 +1,68 @@
 import { Field, Formik, Form } from "formik";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import LayoutContainer from "../../../../../components/layouts/LayoutContainer";
 
+import { useFetch } from "../../../../../hooks/useFetch";
+import { URL } from "../../../../../utils/getUrl";
+
 const FormGastosMaquinas = () => {
+  const [setConfigFetchPersonal, fetchDataPersonal] = useFetch();
+  // const [setConfigFetchContabilidad, fetchDataContabilidad] = useFetch();
+
+  // const [descripcionC, setDescripcionC] = useState("");
+
+  const seleccionarNombre = (e) => {
+    console.log(e.target.value);
+  };
+
+  useEffect(() => {
+    console.log(descripcionC);
+  }, [descripcionC]);
+
+  const formikRef = useRef();
+
+  const getPersonal = () => {
+    setConfigFetchPersonal({
+      url: `${URL}/usuarios`,
+      headersRequest: {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      }
+    });
+  };
+
+  const handleSubmit = (values) => {
+    const {
+      descripcion_contabilidad,
+      observacion_contabilidad,
+      monto_contabilidad
+    } = values;
+
+    /* const tipo_contabilidad = "egreso";
+    const descripcion_contabilidad = "se pago el personal " */
+
+    setConfigFetchContabilidad({
+      url: `${URL}/contabilidad`,
+      headersRequest: {
+        method: "POST",
+        body: JSON.stringify({
+          descripcion_contabilidad,
+          observacion_contabilidad,
+          monto_contabilidad
+        })
+      }
+    });
+  };
+
+  useEffect(() => {
+    getPersonal();
+  }, []);
+
+  // console.log(fetchDataContabilidad);
+
   return (
     <LayoutContainer>
       <div className="content-wrapper">
@@ -13,16 +73,33 @@ const FormGastosMaquinas = () => {
                 <div className="d-flex align-items-end row">
                   <div className="col-sm-7">
                     <div className="card-body">
-                    <Formik>
+                    <Formik
+                    innerRef={formikRef}
+                    initialValues={{
+                      descripcion_contabilidad: "",
+                      observacion_contabilidad: "",
+                      monto_contabilidad: "",
+                      tipo_contabilidad: "",
+                      fecha_contabilidad: "",
+                      personal: ""
+                    }}
+                    onSubmit={handleSubmit}
+                    >
                       <Form id="formAuthentication" className="form-group">
                         <div className="mb-3">
                           <label className="form-label">
                             Seleccione Personal
                           </label>
-                          <Field className="form-control" as="select">
-                            <option value="red">Juan</option>
-                            <option value="green">Pablito</option>
-                            <option value="blue">Dibuneta</option>
+                          <Field className="form-control" as="select" name="personal" onChange={(e) => { seleccionarNombre(e); }}>
+                            <option value="" disabled>Seleccionar Personal</option>
+                            {
+                              fetchDataPersonal?.map((item) => {
+                                return (
+                                  <option key={`${item.id_usuario}-personal`} value={item.id_usuario} >{item.nombre_persona}</option>
+                                );
+                              })
+                            }
+
                           </Field>
                         </div>
                         <div className="mb-3">
@@ -30,8 +107,9 @@ const FormGastosMaquinas = () => {
                             Seleccione Tipo de Pago
                           </label>
                           <Field className="form-control" as="select">
-                            <option value="red">Mensual</option>
-                            <option value="green">Diario</option>
+                            <option value="xs">Mensual</option>
+                            <option value="xd">Diario</option>
+
                           </Field>
                         </div>
                         <div className="mb-3">
@@ -42,16 +120,6 @@ const FormGastosMaquinas = () => {
                             type="number"
                             className="form-control"
                             placeholder= "Ingrese el valor del pago"
-                            aria-describedby="emailHelp"
-                          />
-                        </div>
-                        <div className="mb-3">
-                          <label className="form-label">
-                            Fecha
-                          </label>
-                          <Field
-                            type="date"
-                            className="form-control"
                             aria-describedby="emailHelp"
                           />
                         </div>

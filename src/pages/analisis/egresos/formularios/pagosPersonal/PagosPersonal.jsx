@@ -5,11 +5,6 @@ import { Link } from "react-router-dom";
 import Select from "react-select";
 
 const PagosPersonal = () => {
-  const optPersonal = [
-    { label: "Dibuneta" },
-    { label: "Juan" },
-    { label: "Carlos" }
-  ];
   const optFecha = [
     { label: "2021" },
     { label: "2022" },
@@ -37,14 +32,9 @@ const PagosPersonal = () => {
         </th>
         <th>
         <Select
-          placeholder="Personal"
-          options={optPersonal}
-        />
-        </th>
-        <th>
-        <Select
           placeholder="Fecha"
           options={optFecha}
+
           />
         </th>
       </tr>
@@ -55,7 +45,7 @@ const PagosPersonal = () => {
             <thead>
                 <tr>
                     <th className="text-center">
-                    <span>Nombre Personal</span>
+                    <span>Observacion</span>
                     </th>
                     <th className="text-center">
                     <span>Tipo</span>
@@ -73,7 +63,7 @@ const PagosPersonal = () => {
             <tr>
                 <td className="text-center">
                   <a className="text-center">
-                    Agustin Centurion
+                    Se pago al personal Agustin
                   </a>
                 </td>
                 <td className="text-center" >
