@@ -108,6 +108,15 @@ function Navbar () {
                     <div className="dropdown-divider"></div>
                   </li>
                   <li>
+                    <a className="dropdown-item" href="#">
+                      <i className="bx bxs-store me-2"></i>
+                      <span className="align-middle">Cambiar Perfil</span>
+                    </a>
+                  </li>
+                  <li>
+                    <div className="dropdown-divider"></div>
+                  </li>
+                  <li>
                     <button className="dropdown-item align-middle" onClick={handleChangeLogout}>
                       <i className="bx bx-power-off me-2"></i>
                       <span className="">Cerrar Sessión</span>

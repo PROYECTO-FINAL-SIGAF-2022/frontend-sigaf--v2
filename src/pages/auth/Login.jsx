@@ -9,7 +9,7 @@ import { URL } from "../../utils/getUrl";
 import Alerta from "../../components/layouts/Alerta";
 
 const Login = () => {
-  const { setConfigFetch, fetchData, loading, error } = useFetch();
+  const [setConfigFetch, fetchData, loading, error] = useFetch();
   const formikRef = useRef();
   const setToken = useSetSession();
   const navigate = useNavigate();
@@ -37,8 +37,10 @@ const Login = () => {
 
   useEffect(() => {
     if (fetchData.length === 0) return;
+    // console.log(fetchData.token);
+
     setToken(fetchData.token);
-    navigate("/");
+    navigate("/perfiles-establecimientos");
   }, [fetchData]);
 
   return (

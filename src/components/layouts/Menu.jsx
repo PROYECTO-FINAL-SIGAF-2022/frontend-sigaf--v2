@@ -76,9 +76,9 @@ function Menu () {
                         <mask id="mask-2" fill="white">
                           <use xlinkHref="#path-1"></use>
                         </mask>
-                        <use fill="#696cff" xlinkHref="#path-1"></use>
+                        <use fill="#25b805" xlinkHref="#path-1"></use>
                         <g id="Path-3" mask="url(#mask-2)">
-                          <use fill="#696cff" xlinkHref="#path-3"></use>
+                          <use fill="#25b805" xlinkHref="#path-3"></use>
                           <use
                             fillOpacity="0.2"
                             fill="#FFFFFF"
@@ -86,7 +86,7 @@ function Menu () {
                           ></use>
                         </g>
                         <g id="Path-4" mask="url(#mask-2)">
-                          <use fill="#696cff" xlinkHref="#path-4"></use>
+                          <use fill="#25b805" xlinkHref="#path-4"></use>
                           <use
                             fillOpacity="0.2"
                             fill="#FFFFFF"
@@ -98,7 +98,7 @@ function Menu () {
                         id="Triangle"
                         transform="translate(19.000000, 11.000000) rotate(-300.000000) translate(-19.000000, -11.000000) "
                       >
-                        <use fill="#696cff" xlinkHref="#path-5"></use>
+                        <use fill="#25b805" xlinkHref="#path-5"></use>
                         <use
                           fillOpacity="0.2"
                           fill="#FFFFFF"
@@ -127,10 +127,10 @@ function Menu () {
 
         <ul className="menu-inner py-1">
           <li className="menu-item">
-            <a href="#" className="menu-link">
+            <Link to="/" className="menu-link">
               <i className="menu-icon tf-icons bx bx-home-circle"></i>
               <div data-i18n="Analytics">Inicio</div>
-            </a>
+            </Link>
           </li>
 
           <li className="menu-item">
@@ -140,10 +140,10 @@ function Menu () {
             </a>
           </li>
           <li className="menu-item">
-            <a href="#" className="menu-link">
+            <Link to="/mapa" className="menu-link">
               <i className="menu-icon tf-icons bx bxs-map"></i>
               <div data-i18n="Analytics">Mapa</div>
-            </a>
+            </Link>
           </li>
 
           <li className="menu-item">
@@ -176,14 +176,14 @@ function Menu () {
             </a>
             <ul className="menu-sub">
               <li className="menu-item">
-                <a href="#" className="menu-link">
-                  <div data-i18n="Basic">Precio</div>
-                </a>
+              <Link to="/Precios" className="menu-link">
+                  <div data-i18n="Connections">Precios</div>
+                </Link>
               </li>
               <li className="menu-item">
-                <a href="#" className="menu-link">
-                  <div data-i18n="Basic">Costos Fijos</div>
-                </a>
+                <Link to="/Costos" className="menu-link">
+                  <div data-i18n="Connections">Costos</div>
+                </Link>
               </li>
               <li className="menu-item">
                 <a href="#" className="menu-link">
@@ -214,37 +214,37 @@ function Menu () {
             </a>
             <ul className="menu-sub">
               <li className="menu-item">
-                <a href="#" className="menu-link">
-                  <div data-i18n="Account">Explotaciones</div>
-                </a>
+                <Link to="/Explotaciones" className="menu-link">
+                  <div data-i18n="Connections">Explotaciones</div>
+                </Link>
               </li>
               <li className="menu-item">
-                <a href="#" className="menu-link">
-                  <div data-i18n="Notifications">Campos</div>
-                </a>
+                <Link to="/Campos" className="menu-link">
+                  <div data-i18n="Connections">Campos</div>
+                </Link>
               </li>
               <li className="menu-item">
-                <a href="#" className="menu-link">
+                <Link to="/maquinas" className="menu-link">
                   <div data-i18n="Connections">Máquinas</div>
-                </a>
+                </Link>
               </li>
 
               <li className="menu-item">
-                <a href="#" className="menu-link">
+              <Link to="/personal" className="menu-link">
                   <div data-i18n="Connections">Personal</div>
-                </a>
+                </Link>
               </li>
 
               <li className="menu-item">
-                <a href="#" className="menu-link">
+                <Link to="/productos" className="menu-link">
                   <div data-i18n="Connections">Productos</div>
-                </a>
+                </Link>
               </li>
 
               <li className="menu-item">
-                <a href="#" className="menu-link">
-                  <div data-i18n="Connections">Clientes</div>
-                </a>
+                <Link to="/proveedores" className="menu-link">
+                  <div data-i18n="Connections">Proveedores</div>
+                </Link>
               </li>
 
               <li className="menu-item">
@@ -253,9 +253,9 @@ function Menu () {
                 </a>
               </li>
               <li className="menu-item">
-                <a href="#" className="menu-link">
+              <Link to="/almacenes" className="menu-link">
                   <div data-i18n="Connections">Almacenes</div>
-                </a>
+                </Link>
               </li>
             </ul>
           </li>

@@ -10,7 +10,7 @@ import Loading from "../../components/layouts/Loading";
 import Alerta from "../../components/layouts/Alerta";
 
 const Register = () => {
-  const { setConfigFetch, fetchData, loading, error } = useFetch();
+  const [setConfigFetch, fetchData, loading, error] = useFetch();
   const formikRef = useRef();
   const setToken = useSetSession();
   const navigate = useNavigate();
