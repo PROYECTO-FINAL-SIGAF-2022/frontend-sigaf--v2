@@ -178,11 +178,6 @@ function Menu () {
                   <div data-i18n="Connections">Egresos/Costos</div>
                 </Link>
               </li>
-              <li className="menu-item">
-                <Link to="/Informe-Resultado" className="menu-link">
-                  <div data-i18n="Connections">Informe Resultado</div>
-                </Link>
-              </li>
             </ul>
           </li>
 

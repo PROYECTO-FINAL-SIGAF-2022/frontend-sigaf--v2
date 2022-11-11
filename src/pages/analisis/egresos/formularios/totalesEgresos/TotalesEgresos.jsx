@@ -4,21 +4,6 @@ import "../../Index.css";
 import { MDBCard } from "mdb-react-ui-kit";
 
 const TotalesEgresos = () => {
-  const optCampaña = [
-    { label: "2020" },
-    { label: "2021" },
-    { label: "2022" }
-  ];
-  const optParcela = [
-    { label: "Algodon" },
-    { label: "Maiz" },
-    { label: "Soja" }
-  ];
-  const optNombre = [
-    { label: "Tractor" },
-    { label: "Camion" },
-    { label: "Cohete" }
-  ];
   const optFecha = [
     { label: "22/10/2021" },
     { label: "05/06/2022" },
@@ -32,18 +17,6 @@ const TotalesEgresos = () => {
         </th>
         <th>
         <Select
-          placeholder="Campaña"
-          options={optCampaña}
-        />
-        </th>
-        <th>
-        <Select
-          placeholder="Parcela"
-          options={optParcela}
-        />
-        </th>
-        <th>
-        <Select
           placeholder="Fecha"
           options={optFecha}
           />
@@ -54,7 +27,7 @@ const TotalesEgresos = () => {
         <>
         <table className="table user-list">
             <thead>
-                <tr>
+                <tr className="text-center">
                     <th className="text-center">
                     <span>Descripcion</span>
                     </th>
@@ -65,12 +38,6 @@ const TotalesEgresos = () => {
                     <span>Precio</span>
                     </th>
                     <th className="text-center">
-                    <span>Campaña</span>
-                    </th>
-                    <th className="text-center">
-                    <span>Parcela</span>
-                    </th>
-                    <th className="text-center">
                     <span>Fecha</span>
                     </th>
                     <th>&nbsp;</th>
@@ -78,7 +45,7 @@ const TotalesEgresos = () => {
             </thead>
         <tbody>
             <tr>
-                <td>
+                <td className="text-center">
                   <a className="text-center">
                     Se pago el sueldo del empleado Agustin
                   </a>
@@ -91,16 +58,6 @@ const TotalesEgresos = () => {
                 <td className="text-center" >
                   <a>
                     $25000
-                  </a>
-                </td>
-                <td className="text-center" >
-                  <a>
-                    2022
-                  </a>
-                </td>
-                <td className="text-center">
-                  <a className="text-center">
-                    Parcela Algodon
                   </a>
                 </td>
                 <td className="text-center" >

@@ -17,26 +17,6 @@ const FormGastosMaquinas = () => {
                       <Form id="formAuthentication" className="form-group">
                         <div className="mb-3">
                           <label className="form-label">
-                            Seleccione Campaña
-                          </label>
-                          <Field className="form-control" as="select">
-                            <option value="red">2020</option>
-                            <option value="green">2021</option>
-                            <option value="blue">2023</option>
-                          </Field>
-                        </div>
-                        <div className="mb-3">
-                          <label className="form-label">
-                            Seleccione Parcela
-                          </label>
-                          <Field className="form-control" as="select">
-                            <option value="red">Parcela 1</option>
-                            <option value="green">Parcela 2</option>
-                            <option value="blue">Parcela 3</option>
-                          </Field>
-                        </div>
-                        <div className="mb-3">
-                          <label className="form-label">
                             Seleccione Maquina
                           </label>
                           <Field className="form-control" as="select">
@@ -79,7 +59,7 @@ const FormGastosMaquinas = () => {
                         </Link >
                         <Link to='/Egresos'>
                         <button className="btn btn-success">
-                          Agregar Personal
+                          Agregar Costo
                         </button>
                         </Link >
                         </Form>

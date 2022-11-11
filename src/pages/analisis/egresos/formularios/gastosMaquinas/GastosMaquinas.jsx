@@ -5,25 +5,15 @@ import { MDBCard } from "mdb-react-ui-kit";
 import { Link } from "react-router-dom";
 
 const GastosMaquinas = () => {
-  const optCampaña = [
-    { label: "2020" },
-    { label: "2021" },
-    { label: "2022" }
-  ];
-  const optParcela = [
-    { label: "Algodon" },
-    { label: "Maiz" },
-    { label: "Soja" }
-  ];
   const optMaquina = [
     { label: "Tractor" },
     { label: "Camion" },
     { label: "Cohete" }
   ];
   const optFecha = [
-    { label: "22/10/2021" },
-    { label: "05/06/2022" },
-    { label: "11/07/2022" }
+    { label: "2021" },
+    { label: "2022" },
+    { label: "2022" }
   ];
   return (
     <Fragment>
@@ -53,18 +43,6 @@ const GastosMaquinas = () => {
         </th>
         <th>
         <Select
-          placeholder="Campaña"
-          options={optCampaña}
-        />
-        </th>
-        <th>
-        <Select
-          placeholder="Parcela"
-          options={optParcela}
-          />
-        </th>
-        <th>
-        <Select
           placeholder="Fecha"
           options={optFecha}
           />
@@ -84,12 +62,6 @@ const GastosMaquinas = () => {
                     </th>
                     <th className="text-center">
                     <span>Precio</span>
-                    </th>
-                    <th className="text-center">
-                    <span>Campaña</span>
-                    </th>
-                    <th className="text-center">
-                    <span>Parcela</span>
                     </th>
                     <th className="text-center">
                     <span>Fecha</span>
@@ -117,16 +89,6 @@ const GastosMaquinas = () => {
                       <td className="text-center">
                         <span className="label label-default">
                           $2500
-                        </span>
-                      </td>
-                      <td className="text-center">
-                        <span className="label label-default">
-                          2022
-                        </span>
-                      </td>
-                      <td className="text-center">
-                        <span className="label label-default">
-                          Algodon
                         </span>
                       </td>
                       <td className="text-center">

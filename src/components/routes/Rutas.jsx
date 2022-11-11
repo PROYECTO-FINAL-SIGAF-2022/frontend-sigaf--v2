@@ -25,7 +25,6 @@ import { useFetch } from "../../hooks/useFetch";
 import { URL } from "../../utils/getUrl";
 import FormGastosMaquinas from "../../pages/analisis/egresos/formularios/gastosMaquinas/FormGastosMaquinas";
 import FormPagosPersonal from "../../pages/analisis/egresos/formularios/pagosPersonal/FormPagosPersonal";
-import InformeResultado from "../../pages/analisis/informeResultado/InformeResultado";
 
 function Rutas () {
   const session = useSession();
@@ -76,7 +75,6 @@ function Rutas () {
           <Route path='/Campos' exact element={<Campos/>} />
           <Route path='/Ingresos' exact element={<Ingresos/>} />
           <Route path='/Egresos' exact element={<Egresos/>} />
-          <Route path='/Informe-Resultado' exact element={<InformeResultado/>} />
           <Route path="*" exact element={<Home />} />
         </Routes>
       );
