@@ -1,6 +1,6 @@
 import { Field, Form, Formik } from "formik";
 import React, { useEffect, useRef, useState } from "react";
-import { set } from "react-hook-form";
+// import { set } from "react-hook-form";
 
 import { Link } from "react-router-dom";
 import LayoutContainer from "../../../../components/layouts/LayoutContainer";
@@ -9,6 +9,7 @@ import { URL } from "../../../../utils/getUrl";
 
 const FormVentasCosechas = () => {
   const [cantidadCosechada, setCantidadCosechada] = useState("");
+  const [cantidadSembrada, setCantidadSembrada] = useState("");
 
   const [
     setFetchCampanias,
@@ -35,20 +36,39 @@ const FormVentasCosechas = () => {
         method: "GET"
       }
     });
+    setCantidadCosechada("");
+    setCantidadSembrada("");
   };
 
   const hanldeChangeParcelaCultivo = (e) => {
     const id = e.target.selectedIndex;
     const option = e.target.querySelectorAll("option")[id];
-    const cantidadCosechada = option.getAttribute("data-cantidad-disponible");
+    const cantidadCosechada = option.getAttribute("data-cantidad-cosechada");
+    const unidadMedidaCosechada = option.getAttribute("data-unidad-medida-cosechada");
 
-    console.log(cantidadCosechada);
+    const cantidadSembrada = option.getAttribute("data-cantidad-sembrada");
+    const unidadMedidaSembrada = option.getAttribute("data-unidad-medida-sembrada");
+
+    // console.log(cantidadCosechada);
+    // console.log(cantidadSembrada);
 
     if (cantidadCosechada === null) {
       setCantidadCosechada("Aun no se ha realizado una cosecha");
     } else {
-      setCantidadCosechada(cantidadCosechada);
+      setCantidadCosechada(`${cantidadCosechada} ${unidadMedidaCosechada}`);
     }
+
+    // if (cantidadSembrada === null) {
+    //   setCantidadSembrada("Aun no se ha realizado una siembra");
+    // } else {
+    // }
+    setCantidadSembrada(`${cantidadSembrada} ${unidadMedidaSembrada}`);
+
+    // setCantidadSembrada(cantidadSembrada);
+    // if (cantidadSembrada === null) {
+    //   setCantidadSembrada("Aun no se ha realizado una cosecha");
+    // } else {
+    // }
 
     // setFetchPacelasCultivos({
     //   url: `${URL}/contabilidad-ingresos/${idCampania}`,
@@ -73,6 +93,7 @@ const FormVentasCosechas = () => {
       setFetchCampanias([]);
     };
   }, []);
+
   useEffect(() => {
     formikRef.current.setSubmitting(false);
   }, [errorCampanias]);
@@ -89,7 +110,8 @@ const FormVentasCosechas = () => {
                       <Formik
                         innerRef={formikRef}
                         initialValues={{
-                          campania: ""
+                          campania: "",
+                          parcela_cultivo: ""
                         }}
                         onSubmit={handleSubmit}
                         // validationSchema={schemaRegister}
@@ -113,7 +135,7 @@ const FormVentasCosechas = () => {
                                 <option value="" disabled>
                                   Campaña
                                 </option>
-                                {fetchDataCampanias.map((campania) => (
+                                {fetchDataCampanias?.map((campania) => (
                                   <option
                                     key={campania.id_campania}
                                     value={campania.id_campania}
@@ -122,16 +144,20 @@ const FormVentasCosechas = () => {
                                   </option>
                                 ))}
                               </Field>
+
+                              {
+                                loadingCampanias && <b className="text-warning">Cargando Campañas</b>
+                              }
                             </div>
                             <div className="mb-3">
                               <label className="form-label">
-                                Seleccione Parcela Cultivo
+                                Seleccione una parcela cultivo
                               </label>
                               <Field
                                 name="parcela_cultivo"
                                 className="form-control mb-2"
                                 as="select"
-                                defaultValue={""}
+                                defaultValue={errorPacelasCultivos ? "" : ""}
                                 onChange={(e) => {
                                   handleChange(e);
                                   hanldeChangeParcelaCultivo(e);
@@ -141,11 +167,18 @@ const FormVentasCosechas = () => {
                                   Seleccione una parcela cultivo
                                 </option>
 
-                                {fetchDataPacelasCultivos.map((parcelaCultivo) => (
+                                {fetchDataPacelasCultivos?.map((parcelaCultivo) => (
                                   <option
                                     key={parcelaCultivo.id_parcela_cultivo}
                                     value={parcelaCultivo.id_parcela_cultivo}
-                                    data-cantidad-disponible = {parcelaCultivo.cantidad_total_cosechada}
+
+                                    data-cantidad-cosechada = {parcelaCultivo.cantidad_total_cosechada}
+
+                                    data-unidad-medida-cosechada = {`${parcelaCultivo.unidadMedidaTotalCosechada.descripcion_unidad_medida}`}
+
+                                    data-cantidad-sembrada = {parcelaCultivo.cantidad_sembrada}
+
+                                    data-unidad-medida-sembrada = {`${parcelaCultivo.unidadMedidaTotalSembrada.descripcion_unidad_medida}`}
                                   >
                                     {parcelaCultivo.parcela.descripcion_parcela} {"-"}
                                     ({parcelaCultivo.cultivo.descripcion_cultivo}){"-"}
@@ -153,28 +186,11 @@ const FormVentasCosechas = () => {
 
                                   </option>
                                 ))}
-                                {/* <option value="red">Parcela 1</option>
-                                <option value="green">Parcela 2</option>
-                                <option value="blue">Parcela 3</option> */}
                               </Field>
                               {
-                                loadingPacelasCultivos && <b className="text-danger">Cargando cultivos</b>
+                                loadingPacelasCultivos && <b className="text-warning">Cargando Campañas</b>
                               }
-                              {
-                                !parseInt(cantidadCosechada) ? <span className="badge bg-danger">{cantidadCosechada}</span> : <span className="badge bg-success">Stock Disponible: {cantidadCosechada}</span>
-                              }
-
                             </div>
-                            {/* <div className="mb-3">
-                            <label className="form-label">
-                              Seleccione Maquina
-                            </label>
-                            <Field className="form-control" as="select">
-                              <option value="red">Tractor</option>
-                              <option value="green">Camion</option>
-                              <option value="blue">Cohete</option>
-                            </Field>
-                          </div> */}
                             <div className="mb-3">
                               <label className="form-label">
                                 Ingrese Cantidad Vendida
@@ -185,6 +201,16 @@ const FormVentasCosechas = () => {
                                 className="form-control"
                                 placeholder="Ingrese la cantidad vendida"
                               />
+
+                              {
+                                cantidadCosechada && cantidadSembrada && (
+                                  <>
+                                  <span className="badge rounded-pill bg-warning mt-2">Cantidad sembrada: {cantidadSembrada}</span>
+                                  <br />
+                                  <span className="badge rounded-pill bg-success mt-2">Cantidad cosechada: {cantidadCosechada}</span>
+                                  </>
+                                )
+                              }
                             </div>
                             <div className="mb-3">
                               <label className="form-label">
@@ -211,6 +237,11 @@ const FormVentasCosechas = () => {
                           </Form>
                         )}
                       </Formik>
+              {
+                errorPacelasCultivos !== {} && (
+                  <h3>{errorPacelasCultivos}</h3>
+                )
+              }
                     </div>
                   </div>
                 </div>

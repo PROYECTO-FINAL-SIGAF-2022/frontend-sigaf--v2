@@ -5,7 +5,7 @@ export const useFetch = () => {
   const [configFetch, setConfigFetch] = useState({});
   const [fetchData, setFetchData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState({});
+  const [error, setError] = useState(null);
   const session = useSession();
 
   const sendFetchData = async () => {
@@ -26,10 +26,12 @@ export const useFetch = () => {
       // console.log(data);
       if (!response.ok) {
         setLoading(false);
+        setFetchData();
         setError(data);
         return;
       }
       setFetchData(data);
+      setError("");
     } catch (error) {
       // Si hay un error ...
       console.error(error);
