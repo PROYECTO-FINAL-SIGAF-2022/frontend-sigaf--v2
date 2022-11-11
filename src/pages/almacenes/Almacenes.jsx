@@ -6,27 +6,7 @@ import Loading from "../../components/layouts/Loading";
 import { Link } from "react-router-dom";
 
 function Almacenes () {
-  /*  const { setConfigFetch, fetchData, loading, error } = useFetch();
-  const session = useSession();
-  //console.log(session)
-  useEffect(() => {
-    if (session) {
-      setConfigFetch({
-        url: `${URL}/productos`,
-        headersRequest: {
-          method: "GET",
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-          },
-        },
-      });
-    }
-  }, []);
 
-  //console.log()
-  if (!error) {
-    return <h1>Error</h1>;
-  } */
 
   return (
     <LayoutContainer>

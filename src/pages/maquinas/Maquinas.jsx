@@ -11,12 +11,34 @@ import { URL } from "../../utils/getUrl";
 
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import DetalleMaquinasModal from "./ModalComponets/DetalleMaquinasModal";
+import UpdateMaquinasModal from "./ModalComponets/UpdateMaquinasModal";
 
 import { Link } from "react-router-dom";
 
 
+
 function Maquinas () {
   const [setConfigFetchMaquinas, fetchDataMaquinas, loadingMaquinas, errorMaquinas] = useFetch();
+  const [setConfigFetchMaquinasDelete, fetchDataMaquinasDelete] = useFetch();
+  const [optSmModalDetalles, setOptSmModalDetalles] = useState(false);
+  const [optSmModalEdit, setOptSmModalEdit] = useState(false);
+
+  const [datosMaquina, setDatosMaquina] = useState("");
+  const [datosMaquinaEdit, setDatosMaquinaEdit] = useState("");
+
+  const toggleShowDetalles = (item) => {
+    //console.log(item)
+    setDatosMaquina(item);
+    setOptSmModalDetalles(!optSmModalDetalles);
+  };
+  const toggleShowEdit = (item) => {
+    // console.log(item)
+      setDatosMaquinaEdit(item);
+     setOptSmModalEdit(!optSmModalEdit);
+     //console.log(item)
+   };
+
   
 
   const getMaquinas = () => {
@@ -37,8 +59,8 @@ function Maquinas () {
 
   const MySwal = withReactContent(Swal)
   const handleBounceIn = (id) => {
-    id
-    //console.log(idEliminar)
+    
+    //console.log(id)
     return MySwal.fire({
       title: 'Seguro que lo quiere eliminar?',
       text: "Se eliminara permanentemente!",
@@ -49,10 +71,10 @@ function Maquinas () {
       confirmButtonText: 'Si, eliminar!',
       cancelButtonText: 'Cancelar!',
     }).then((result) => {
-      console.log(result.isDismissed)
+      //console.log(result.isDismissed)
       if (result.isConfirmed) {
         //console.log(id)
-          setConfigFetchProductos({
+        setConfigFetchMaquinasDelete({
             url: `${URL}/maquinas/${id}`,
             headersRequest: {
               method: "DELETE",
@@ -67,7 +89,7 @@ function Maquinas () {
           'success'
         ).then((resultClose) => {
           //console.log(resultClose)
-          getProductos()
+          getMaquinas()
         })
        
       }
@@ -108,7 +130,7 @@ function Maquinas () {
                             <span>Fecha de la compra</span>
                           </th>
                           <th className="text-center">
-                            <span>Estado</span>
+                            <span>TIPO</span>
                           </th>
                           <th>&nbsp;</th>
                         </tr>
@@ -152,13 +174,15 @@ function Maquinas () {
                                 </span>
                               </td>
                               <td style={{ width: "20%" }}>
-                                <a href="#" className="table-link">
+                                <a href="#" className="table-link" onClick={() => {
+                                    toggleShowDetalles(item);
+                                  }}>
                                   <span className="fa-stack">
                                     <i className="fa fa-square fa-stack-2x"></i>
                                     <i className="fa fa-search-plus fa-stack-1x fa-inverse"></i>
                                   </span>
                                 </a>
-                                <a href="#" className="table-link">
+                                <a href="#" className="table-link" onClick={()=>{toggleShowEdit(item)}}>
                                   <span className="fa-stack">
                                     <i className="fa fa-square fa-stack-2x "></i>
                                     <i className="fa fa-pencil fa-stack-1x fa-inverse"></i>
@@ -232,6 +256,19 @@ function Maquinas () {
             </div>
           </div>
         </div>
+        <DetalleMaquinasModal
+        optSmModalDetalles={optSmModalDetalles}
+        setOptSmModalDetalles={setOptSmModalDetalles}
+        toggleShowDetalles={toggleShowDetalles}
+        item={datosMaquina}
+        />
+        <UpdateMaquinasModal
+        optSmModalEdit={optSmModalEdit}
+        setOptSmModalEdit={setOptSmModalEdit}
+        toggleShowEdit={toggleShowEdit}
+        datosMaquina = {datosMaquinaEdit}
+        getMaquinas = {getMaquinas}
+        />
         <Footer />
         <div className="content-backdrop fade"></div>
       </div>

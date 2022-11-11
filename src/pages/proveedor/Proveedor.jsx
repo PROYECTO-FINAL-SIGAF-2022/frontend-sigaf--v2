@@ -114,7 +114,7 @@ function Proveedor() {
                     <div className="d-md-flex text-capitalize">
                       <Link to="/Formulario-proveedor" className="menu-link">
                         <button className="btn btn-infobtn  btn-outline-info">
-                          Agregar Nuevo Cliente
+                          Agregar Nuevo Proveedor
                         </button>
                       </Link>
                     </div>

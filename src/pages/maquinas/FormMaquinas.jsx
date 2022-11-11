@@ -12,51 +12,50 @@ import Loading from "../../components/layouts/Loading";
 import Alerta from "../../components/layouts/Alerta";
 
 function FormMaquinas () {
-  const [setConfigFetch, fetchData, loading, error] = useFetch();
+  const [setConfigFetchMaquina, fetchDataMaquina, loadingMaquina, errorMaquina] = useFetch();
   const formikRef = useRef();
 
   const navigate = useNavigate();
 
-  const schemaFormProductos = yup.object().shape({
-    descripcion_producto: yup.string().required("La descripcion del producto es requerida"),
-    fecha_vencimiento_producto: yup.date().required("La fecha de vencimiento es requerida"),
-    cantidad_producto: yup.number().required("La cantidad del producto es requerida")
+  const schemaFormMaquinas = yup.object().shape({
+      descripcion_maquina: yup.string().required("La descripcion de la maquina es requerida"),
+      tipo_adquisicion_maquina: yup.string().required("El tipo de la maquina es requerido"),
+      precio_adquisicion_maquina: yup.string().required("El precio de la maquina es requerido"),
+      fecha_adquisicion_maquina: yup.string().required("La fecha de la maquina es requerida")
   });
 
   const handleSubmit = (values) => {
     // console.log(values);
     const {
-      descripcion_producto,
-      fecha_vencimiento_producto,
-      cantidad_producto
+      descripcion_maquina,
+      tipo_adquisicion_maquina,
+      precio_adquisicion_maquina,
+      fecha_adquisicion_maquina
     } = values;
 
-    /* setConfigFetch({
-      url: `${URL}/productos`,
+    setConfigFetchMaquina({
+      url: `${URL}/maquinas`,
       headersRequest: {
         method: "POST",
         body: JSON.stringify({
-          descripcion_producto,
-          fecha_vencimiento_producto,
-          cantidad_producto,
-          id_proveedor: 1,
-          id_tipo_producto: 1,
-          id_usuario: 1,
-          id_unidad_medida: 1
+          descripcion_maquina,
+          tipo_adquisicion_maquina,
+          precio_adquisicion_maquina,
+          fecha_adquisicion_maquina
         })
       }
-    }); */
+    });
   };
-  console.log(fetchData);
+  
   useEffect(() => {
     formikRef.current.setSubmitting(false);
     // console.log(error);
-  }, [error]);
+  }, [errorMaquina]);
 
   useEffect(() => {
-    if (fetchData.length === 0) return;
-    navigate("/Productos");
-  }, [fetchData]);
+    if (fetchDataMaquina.length === 0) return;
+    navigate("/Maquinas");
+  }, [fetchDataMaquina]);
   return (
     <LayoutContainer>
       <div className="content-wrapper">
@@ -70,130 +69,100 @@ function FormMaquinas () {
                     <Formik
                       innerRef={formikRef}
                       initialValues={{
-                        descripcion_producto: "",
-                        fecha_vencimiento_producto: "",
-                        cantidad_producto: "",
-                        id_proveedor: "",
-                        id_tipo_producto: ""
+                        descripcion_maquina: "",
+                        tipo_adquisicion_maquina: "",
+                        precio_adquisicion_maquina: "",
+                        fecha_adquisicion_maquina: ""
                       }}
                       onSubmit={handleSubmit}
-                      validationSchema={schemaFormProductos}
+                      validationSchema={schemaFormMaquinas}
                     >
                 {({ isSubmitting }) => (
                       <Form id="formAuthentication" className="form-group">
-                        <div className="mb-3">
-                          <label className="form-label">
-                            Nombre De la Maquina
-                          </label>
-                          <Field
-                            type="text"
-                            className="form-control"
-                            id="descripcion_producto"
-                            name="descripcion_producto"
-                            placeholder="Por favor ingrese el nombre del producto"
-                            aria-describedby="emailHelp"
-                          />
-                          <div id="emailHelp" className="form-text">
-                            Agregar un nombre descriptivo
-                          </div>
-                        </div>
-                        <MensajeErrorInput
-                          name="descripcion_producto"
-                          className="alert alert-danger"
+                      <div className="mb-3">
+                        <label  className="form-label">
+                          Nombre De la maquina
+                        </label>
+                        <Field
+                          type="text"
+                          className="form-control"
+                          id="descripcion_maquina"
+                          name="descripcion_maquina"
+                          placeholder="Por favor ingrese el nombre de la maquina"
+                          
                         />
-                        <div className="mb-3">
-                          <label className="form-label">
-                            Fecha de Compra
-                          </label>
-                          <Field
-                            type="date"
-                            className="form-control"
-                            id="fecha_vencimiento_producto"
-                            name="fecha_vencimiento_producto"
-                            placeholder="Por favor ingrese el nombre del producto"
-                            aria-describedby="emailHelp"
-                          />
+                        <div id="emailHelp" className="form-text">
+                          Agregar un nombre descriptivo
                         </div>
-                        <MensajeErrorInput
-                          name="fecha_vencimiento_producto"
-                          className="alert alert-danger"
-                        />
-                        <div className="mb-3">
-                          <label className="form-label">
-                            Cantidad de maquinas
-                          </label>
-                          <Field
-                            type="number"
-                            className="form-control"
-                            id="cantidad_producto"
-                            name="cantidad_producto"
-                            placeholder="Por favor ingrese el nombre del producto"
-                            aria-describedby="emailHelp"
-                          />
-                        </div>
-                        <MensajeErrorInput
-                          name="cantidad_producto"
-                          className="alert alert-danger"
-                        />
-                        {/* <div className="mb-3">
-                          <label  className="form-label">
-                            Tipo De Producto
-                          </label>
-                          <Field
+                      </div>
+                      <MensajeErrorInput
+                        name="descripcion_maquina"
+                        className="alert alert-danger"
+                      />
+                      <div className="mb-3">
+                        <label className="form-label">
+                          Tipo De Maquina
+                        </label>
+                        <Field
                             as="select"
                             className="form-select"
-                            id="id_tipo_producto"
-                            name="id_tipo_producto"
+                            id="tipo_adquisicion_maquina"
+                            name="tipo_adquisicion_maquina"
+                            // defaultValue = ""
                           >
-                            <option disabled selected="selected">Lista Tipos Productos</option>
-                            <option value="1">Fertilizante</option>
-                            <option value="2">Vehiculo</option>
-                            <option value="3">Edificio</option>
-                          </Field>
-
-                        </div>
-                        <MensajeErrorInput
-                          name="id_tipo_producto"
-                          className="alert alert-danger"
+                            <option disabled value="">Lista Tipos Productos</option>
+                            <option key="compra" value="compra">Comprado</option>
+                            <option key="alquiler" value="alquiler">Alquilado</option>
+                        </Field>
+                      </div>
+                      <MensajeErrorInput
+                        name="tipo_adquisicion_maquina"
+                        className="alert alert-danger"
+                      />
+                      <div className="mb-3">
+                        <label className="form-label">
+                          Precio de la maquina
+                        </label>
+                        <Field
+                          type="number"
+                          className="form-control"
+                          id="precio_adquisicion_maquina"
+                          name="precio_adquisicion_maquina"
+                          placeholder="Por favor ingrese el precio de la adquisicion de la maquina"
                         />
-                        <div className="mb-3">
-                          <label  className="form-label">
-                            Proveedor
-                          </label>
-                          <Field
-                            as="select"
-                            className="form-select"
-                            id="id_proveedor"
-                            name="id_proveedor"
-                          >
-                            <option disabled selected="selected">Lista Proveedores</option>
-                            <option value="1">Proveedor 1</option>
-                            <option value="2">Proveedor 2</option>
-                            <option value="3">Proveedor 3</option>
-                          </Field>
-                        </div>
-                        <MensajeErrorInput
-                          name="id_proveedor"
-                          className="alert alert-danger"
-                        /> */}
-                        <br></br>
-                        <Link to='/maquinas'>
-                        <button className="btn btn-danger mx-3">
-                          Volver
-                        </button>
-                        </Link>
-                        <button type="submit" disabled={isSubmitting} className="btn btn-success">
-                          Agregar Personal
-                        </button>
-                        </Form>
+                      </div>
+                      <MensajeErrorInput
+                        name="precio_adquisicion_maquina"
+                        className="alert alert-danger"
+                      />
+                      <div className="mb-3">
+                        <label className="form-label">
+                          Fecha de la adquisicion
+                        </label>
+                        <Field
+                          type="date"
+                          className="form-control"
+                          id="fecha_adquisicion_maquina"
+                          name="fecha_adquisicion_maquina"
+                          placeholder="Por favor ingrese la fecha de adquisicion"
+                        />
+                      </div>
+                      <MensajeErrorInput
+                        name="fecha_adquisicion_maquina"
+                        className="alert alert-danger"
+                      />
+                      <button type="submit" disabled={isSubmitting} className="btn btn-success">
+                        Agregar Maquina
+                      </button>
+                      </Form>
                 )}
               </Formik>
                     </div>
                   </div>
-                  {loading && <Loading />}
+                  {loadingMaquina && <Loading />}
 
-                {error?.errors &&
-                  error?.errors.map((msgError, i) => (
+                {errorMaquina?.errors &&
+                  errorMaquina?.errors.map((msgError, i) => (
                     <Alerta
                       claseAlerta="danger"
                       key={i}
