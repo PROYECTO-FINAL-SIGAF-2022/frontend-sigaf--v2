@@ -98,6 +98,15 @@ const VentasCosechas = () => {
         }
       });
     }
+    if (campania === "" && parcela !== "") {
+      // console.log("filtrado por parcela");
+      setFetchVentasCosechas({
+        url: `${URL}/cosechas-campania-parcelas/0/${parcela}`,
+        headersRequest: {
+          method: "GET"
+        }
+      });
+    }
 
     if (campania !== "" && parcela !== "") {
       // console.log("Filtrado por campania y parcela");

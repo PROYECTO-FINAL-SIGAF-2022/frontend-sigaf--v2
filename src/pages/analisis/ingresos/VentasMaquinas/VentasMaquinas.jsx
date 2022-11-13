@@ -80,7 +80,7 @@ const VentasMaquinas = () => {
           <tbody>
           {fetchDataMaquinas?.length > 0 &&
               fetchDataMaquinas.map((maquina) => (
-                <tr key={maquina.id_cosecha}>
+                <tr key={maquina.id_maquina}>
                   <td className="text-center">
                     <span className="label label-default">
                       {maquina.descripcion_maquina}
