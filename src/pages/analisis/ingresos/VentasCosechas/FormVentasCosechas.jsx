@@ -1,9 +1,9 @@
 import { Field, Form, Formik } from "formik";
 import React, { useEffect, useRef, useState } from "react";
-// import { set } from "react-hook-form";
-
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import * as yup from "yup";
 import LayoutContainer from "../../../../components/layouts/LayoutContainer";
+import MensajeErrorInput from "../../../../components/layouts/MensajeErrorInput";
 import { useFetch } from "../../../../hooks/useFetch";
 import { URL } from "../../../../utils/getUrl";
 
@@ -12,23 +12,55 @@ const FormVentasCosechas = () => {
   const [cantidadSembrada, setCantidadSembrada] = useState("");
   const [cantidadVendida, setCantidadVendida] = useState("");
   const [cantidadDisponible, setCantidadDisponible] = useState("");
+  const [unidadMedidaVender, setUnidadMedidaVender] = useState("");
+  const [nombreCultivo, setNombreCultivo] = useState("");
+
+  const [errorStock, setErrorStock] = useState("");
 
   const [
     setFetchCampanias,
     fetchDataCampanias,
     loadingCampanias,
     errorCampanias
-    // cleanStatesCampanias
   ] = useFetch([]);
   const [
     setFetchPacelasCultivos,
     fetchDataPacelasCultivos,
     loadingPacelasCultivos,
     errorPacelasCultivos
-    // cleanStatesParcelasCultivos
+  ] = useFetch([]);
+
+  const [
+    setFetchVentaCosecha,
+    fetchDataVentaCosecha,
+    // loadingVentaCosecha,
+    errorVentaCosecha
+  ] = useFetch([]);
+
+  const [
+    setFetchVentaContabilidad,
+    fetchDataVentaContabilidad,
+    // loadingVentaContabilidad,
+    errorVentaContabilidad
   ] = useFetch([]);
 
   const formikRef = useRef();
+  const navigate = useNavigate();
+
+  const schemaIngresosCultivos = yup.object().shape({
+    campania: yup.string().required("La campaña es requerida"),
+    parcela_cultivo: yup.string().required("La parcela cultivo es requerido"),
+    cantidad_vendida: yup
+      .number()
+      .typeError("La cantidad a vender debe ser numerica")
+      .min(1, "La cantidad a vender no puede ser menor a 1")
+      .required("La cantidad a vender es requerida"),
+    monto_total_vendido: yup
+      .number()
+      .typeError("El monto total a vender debe ser numerica")
+      .min(1, "El monto a vender no puede ser menor a 1")
+      .required("El monto a vender es requerida")
+  });
 
   const hanldeChangeCampania = (e) => {
     const idCampania = e.target.value;
@@ -40,51 +72,88 @@ const FormVentasCosechas = () => {
     });
     setCantidadCosechada("");
     setCantidadSembrada("");
+    setCantidadVendida("");
+    setCantidadDisponible("");
+    setCantidadDisponible("");
+    setUnidadMedidaVender("");
+    setNombreCultivo("");
+    formikRef.current.setFieldValue("parcela_cultivo", "");
   };
 
   const hanldeChangeParcelaCultivo = (e) => {
     const id = e.target.selectedIndex;
     const option = e.target.querySelectorAll("option")[id];
     const cantidadCosechada = option.getAttribute("data-cantidad-cosechada");
-    const unidadMedidaCosechada = option.getAttribute("data-unidad-medida-cosechada");
-
     const cantidadSembrada = option.getAttribute("data-cantidad-sembrada");
-    const unidadMedidaSembrada = option.getAttribute("data-unidad-medida-sembrada");
-
     const cantidadTotalVendida = option.getAttribute("data-cantidad-vendida");
+    const cantidadUnidadMedidaVender = option.getAttribute("data-unidad-medida");
     const cantidadTotalDisponible = option.getAttribute("data-cantidad-disponible");
+    const nombreCultivo = option.getAttribute("data-nombre-cultivo");
+    // const unidadMedidaCosechada = option.getAttribute("data-unidad-medida-cosechada");
 
-    console.log(cantidadTotalVendida);
-    console.log(cantidadTotalDisponible);
-    if (cantidadCosechada === null) {
+    // const unidadMedidaSembrada = option.getAttribute("data-unidad-medida-sembrada");
+
+    if (!JSON.parse(cantidadCosechada.split("-")[0])) {
       setCantidadCosechada("Aun no se ha realizado una cosecha");
     } else {
-      setCantidadCosechada(`${cantidadCosechada} ${unidadMedidaCosechada}`);
+      setCantidadCosechada(cantidadCosechada);
     }
 
-    // if (cantidadSembrada === null) {
-    //   setCantidadSembrada("Aun no se ha realizado una siembra");
-    // } else {
-    // }
-    setCantidadSembrada(`${cantidadSembrada} ${unidadMedidaSembrada}`);
-    setCantidadVendida();
+    if (!JSON.parse(cantidadSembrada.split("-")[0])) {
+      setCantidadSembrada("Aun no se ha realizado una siembra");
+    } else {
+      setCantidadSembrada(cantidadSembrada);
+    }
 
-    // setCantidadSembrada(cantidadSembrada);
-    // if (cantidadSembrada === null) {
-    //   setCantidadSembrada("Aun no se ha realizado una cosecha");
-    // } else {
-    // }
+    setCantidadVendida(cantidadTotalVendida);
+    setCantidadDisponible(cantidadTotalDisponible);
+    setUnidadMedidaVender(cantidadUnidadMedidaVender);
+    setNombreCultivo(nombreCultivo);
+  };
 
-    // setFetchPacelasCultivos({
-    //   url: `${URL}/contabilidad-ingresos/${idCampania}`,
-    //   headersRequest: {
-    //     method: "GET"
-    //   }
-    // });
+  const handleChangeCantidadVenta = (e) => {
+    const cantiadadAVender = e.target.value;
+
+    if (cantiadadAVender > parseInt(cantidadDisponible.split("-")[0])) {
+      setErrorStock("El monto a vender es mayor al stock disponible");
+      return;
+    }
+    setErrorStock("");
   };
 
   const handleSubmit = (values) => {
-    console.log(values);
+    const {
+      cantidad_vendida,
+      monto_total_vendido,
+      parcela_cultivo
+    } = values;
+
+    setFetchVentaCosecha({
+      url: `${URL}/cosechas`,
+      headersRequest: {
+        method: "POST",
+        body: JSON.stringify({
+          cantidad_total_vendida: cantidad_vendida,
+          precio_venta: monto_total_vendido,
+          id_parcela_cultivo: parcela_cultivo,
+          id_unidad_medida: unidadMedidaVender
+        })
+      }
+    });
+
+    setFetchVentaContabilidad({
+      url: `${URL}/contabilidad`,
+      headersRequest: {
+        method: "POST",
+        body: JSON.stringify({
+          descripcion_contabilidad: `Se realizo la venta de ${cantidad_vendida}-${unidadMedidaVender} del cultivo de ${nombreCultivo}`,
+          observacion_contabilidad: "-",
+          tipo_contabilidad: "ingreso",
+          monto_contabilidad: monto_total_vendido,
+          id_parcela_cultivo: parcela_cultivo
+        })
+      }
+    });
   };
   useEffect(() => {
     setFetchCampanias({
@@ -102,6 +171,17 @@ const FormVentasCosechas = () => {
   useEffect(() => {
     formikRef.current.setSubmitting(false);
   }, [errorCampanias]);
+
+  useEffect(() => {
+    formikRef.current.setSubmitting(false);
+  }, [errorCampanias]);
+
+  useEffect(() => {
+    if ("cosechaCreado" in fetchDataVentaCosecha) {
+      alert("Venta guardada exitosamente");
+      navigate("/Ingresos", { state: { tab: "tab2" } });
+    }
+  }, [fetchDataVentaContabilidad]);
   return (
     <LayoutContainer>
       <div className="content-wrapper">
@@ -116,13 +196,15 @@ const FormVentasCosechas = () => {
                         innerRef={formikRef}
                         initialValues={{
                           campania: "",
-                          parcela_cultivo: ""
+                          parcela_cultivo: "",
+                          cantidad_vendida: "",
+                          monto_total_vendido: ""
                         }}
                         onSubmit={handleSubmit}
-                        // validationSchema={schemaRegister}
+                        validationSchema={schemaIngresosCultivos}
                       >
-                        {({ isSubmitting, handleChange }) => (
-                          <Form id="formAuthentication" className="form-group">
+                        {({ isSubmitting, handleChange, isDirty, isValid }) => (
+                          <Form className="form-group">
                             <div className="mb-3">
                               <label className="form-label">
                                 Seleccione Campaña
@@ -150,9 +232,15 @@ const FormVentasCosechas = () => {
                                 ))}
                               </Field>
 
-                              {
-                                loadingCampanias && <b className="text-warning">Cargando Campañas</b>
-                              }
+                              <MensajeErrorInput
+                                name="campania"
+                                className="alert alert-danger mt-2"
+                              />
+                              {loadingCampanias && (
+                                <b className="text-warning">
+                                  Cargando Campañas
+                                </b>
+                              )}
                             </div>
                             <div className="mb-3">
                               <label className="form-label">
@@ -172,53 +260,99 @@ const FormVentasCosechas = () => {
                                   Seleccione una parcela cultivo
                                 </option>
 
-                                {fetchDataPacelasCultivos?.map((parcelaCultivo) => (
-                                  <option
-                                    key={parcelaCultivo.id_parcela_cultivo}
-                                    value={parcelaCultivo.id_parcela_cultivo}
+                                {fetchDataPacelasCultivos?.map(
+                                  (parcelaCultivo) => (
+                                    <option
+                                      key={parcelaCultivo.id_parcela_cultivo}
+                                      value={parcelaCultivo.id_parcela_cultivo}
+                                      data-cantidad-cosechada={`${parcelaCultivo.cantidad_total_cosechada}-${parcelaCultivo.unidadMedidaTotalCosechada.descripcion_unidad_medida}`}
+                                      data-cantidad-sembrada={`${parcelaCultivo.cantidad_sembrada}-${parcelaCultivo.unidadMedidaTotalSembrada.descripcion_unidad_medida}`}
+                                      data-cantidad-vendida={
+                                        parcelaCultivo.sumaTotalCantidadVendida
+                                      }
+                                      data-cantidad-disponible={
+                                        parcelaCultivo.sumaTotalCantidadStock
+                                      }
 
-                                    data-cantidad-cosechada = {parcelaCultivo.cantidad_total_cosechada}
+                                      data-unidad-medida={
+                                        parcelaCultivo.unidadMedidaTotalCosechada.id_unidad_medida
+                                      }
 
-                                    data-unidad-medida-cosechada = {`${parcelaCultivo.unidadMedidaTotalCosechada.descripcion_unidad_medida}`}
-
-                                    data-cantidad-sembrada = {parcelaCultivo.cantidad_sembrada}
-
-                                    data-unidad-medida-sembrada = {`${parcelaCultivo.unidadMedidaTotalSembrada.descripcion_unidad_medida}`}
-
-                                    data-cantidad-vendida = {parcelaCultivo.suma_total_cantidad_vendida}
-                                    data-cantidad-disponible = {(parcelaCultivo.cantidad_total_cosechada - parcelaCultivo.suma_total_cantidad_vendida).toString()}
-                                  >
-                                    {parcelaCultivo.parcela.descripcion_parcela} {"-"}
-                                    ({parcelaCultivo.cultivo.descripcion_cultivo}){"-"}
-                                    ({parcelaCultivo.activo ? "Activo" : "Inactivo"})
-                                  </option>
-
-                                ))}
+                                      data-nombre-cultivo={
+                                        parcelaCultivo.cultivo.descripcion_cultivo
+                                      }
+                                    >
+                                      {parcelaCultivo.parcela.descripcion_parcela}{" "}
+                                      {"-"}
+                                      (
+                                      {
+                                        parcelaCultivo.cultivo.descripcion_cultivo
+                                      }
+                                      ){"-"}({parcelaCultivo.activo ? "Activo" : "Inactivo"})
+                                    </option>
+                                  )
+                                )}
                               </Field>
-                              {
-                                loadingPacelasCultivos && <b className="text-warning">Cargando Campañas</b>
-                              }
+                              {loadingPacelasCultivos && (
+                                <b className="text-warning">
+                                  Cargando Campañas
+                                </b>
+                              )}
+
+                              {cantidadCosechada &&
+                                cantidadSembrada &&
+                                cantidadVendida &&
+                                cantidadDisponible && (
+                                  <>
+                                    <span className="badge rounded-pill bg-warning mt-2">
+                                      Cantidad sembrada: {cantidadSembrada}
+                                    </span>
+                                    <br />
+                                    <span className="badge rounded-pill bg-success mt-2">
+                                      Cantidad cosechada: {cantidadCosechada}
+                                    </span>
+
+                                    <br />
+                                    <span className="badge rounded-pill bg-success mt-2">
+                                      Cantidad vendida: {cantidadVendida}
+                                    </span>
+
+                                    <br />
+                                    <span className="badge rounded-pill bg-success mt-2">
+                                      Cantidad disponible: {cantidadDisponible}
+                                    </span>
+                                  </>
+                              )}
+                              <MensajeErrorInput
+                                name="parcela_cultivo"
+                                className="alert alert-danger mt-4"
+                              />
                             </div>
                             <div className="mb-3">
                               <label className="form-label">
-                                Ingrese Cantidad Vendida
+                                Ingrese Cantidad A Vender
                               </label>
                               <Field
                                 name="cantidad_vendida"
-                                type="text"
+                                type="number"
                                 className="form-control"
                                 placeholder="Ingrese la cantidad vendida"
+                                onChange={(e) => {
+                                  handleChange(e);
+                                  handleChangeCantidadVenta(e);
+                                }}
                               />
 
-                              {
-                                cantidadCosechada && cantidadSembrada && (
-                                  <>
-                                  <span className="badge rounded-pill bg-warning mt-2">Cantidad sembrada: {cantidadSembrada}</span>
-                                  <br />
-                                  <span className="badge rounded-pill bg-success mt-2">Cantidad cosechada: {cantidadCosechada}</span>
-                                  </>
-                                )
-                              }
+                              <MensajeErrorInput
+                                name="cantidad_vendida"
+                                className="alert alert-danger mt-2"
+                              />
+
+                              {errorStock && (
+                                <div className="alert alert-danger mt-2" role="alert">
+                                  {errorStock}
+                                </div>
+                              )}
                             </div>
                             <div className="mb-3">
                               <label className="form-label">
@@ -231,6 +365,10 @@ const FormVentasCosechas = () => {
                                 placeholder="Por favor ingrese el monto total"
                                 aria-describedby="emailHelp"
                               />
+                              <MensajeErrorInput
+                                name="monto_total_vendido"
+                                className="alert alert-danger mt-2"
+                              />
                             </div>
                             <div className="mb-3">
                               <Link to="/Ingresos" state={{ tab: "tab2" }}>
@@ -238,18 +376,28 @@ const FormVentasCosechas = () => {
                                   Volver
                                 </button>
                               </Link>
-                              <button className="btn btn-success mx-2" disabled={!parseInt(cantidadCosechada)}>
-                                Guardar Venta
-                              </button>
+                              <input
+                                type="submit"
+                                className="btn btn-success mx-2"
+                                disabled={!parseInt(cantidadCosechada) || isSubmitting || !isValid}
+                                value="Guardar Venta"
+                              />
                             </div>
                           </Form>
                         )}
                       </Formik>
-              {
-                errorPacelasCultivos && (
-                  <h3>{errorPacelasCultivos}</h3>
-                )
-              }
+                      {errorPacelasCultivos && <h3>{errorPacelasCultivos}</h3>}
+                      {/* {
+                        ("cosechaCreado" in fetchDataVentaCosecha && "contabilidadAgregada" in fetchDataVentaContabilidad) && (
+                          <h3 className="text-success"></h3>
+                        )
+                      } */}
+                      {
+                        (errorVentaContabilidad?.length > 0 && errorVentaCosecha?.length > 0) && (
+                          <h3 className="text-danger">Error al guardar la venta</h3>
+                        )
+                      }
+
                     </div>
                   </div>
                 </div>
