@@ -21,6 +21,7 @@ import ModalDatosParcela from "../mapaLayouts/ModalDatosParcela";
 import { useFetch } from "../../../hooks/useFetch";
 import { URL } from "../../../utils/getUrl";
 import { useSession } from "../../../context/SessionProvider";
+import pointInPolygon from "point-in-polygon";
 
 const IndexMap = () => {
   const [setConfigFetchEstablecimiento, fetchDataEstablecimiento, loadingEstablecimiento] = useFetch();
@@ -33,16 +34,18 @@ const IndexMap = () => {
   const [editandoParcelas, setEditandoParcelas] = useState(false);
   const [parcelaSelected, setParcelaSelected] = useState({});
   const [campania, setCampania] = useState("");
+  const [errorMapa, setErrorMapa] = useState("");
 
   const mapRef = useRef();
   const parcelasRef = useRef([]);
+  const mapaEstablecimientoGeoreferenciaRef = useRef();
 
   const session = useSession();
 
   const toggleShow = () => setOptSmModal(!optSmModal);
 
   const _onCreate = async (e) => {
-    setEditandoParcelas(true);
+    setErrorMapa("");
     const { layerType, layer } = e;
 
     if (layerType === "rectangle") {
@@ -57,6 +60,18 @@ const IndexMap = () => {
       const superficieResult = (L.GeometryUtil.geodesicArea(arrayOfCoordinates) / 10000).toFixed(2);
       // console.log(result);
 
+      const resultValidacion = validarPoligonoInEstablecimiento(resultGeoreferencia, "crear");
+      if (resultValidacion) {
+        // console.log();
+        setErrorMapa("No puede crear una parcela fuera del establecimiento o dentro de otra ya creada");
+        mapRef.current.removeLayer(e.layer);
+        return;
+      }
+      setEditandoParcelas(true);
+
+      // console.log(resultGeoreferencia);
+
+      // console.log();
       const response = await fetch(`${URL}/parcelas`, {
         method: "POST",
         body: JSON.stringify({
@@ -82,15 +97,46 @@ const IndexMap = () => {
   };
 
   const _onEdited = (e) => {
-    setEditandoParcelas(true);
+    setErrorMapa("");
+
     const {
       layers: { _layers }
     } = e;
+
+    const parcelasEditadas = Object.values(_layers);
+
+    // validar geolocalizaciones de edicion de parcelas
+    for (let i = 0; i < parcelasEditadas.length; i++) {
+      const { _leaflet_id, _latlngs } = parcelasEditadas[i];
+      const arrayOfCoordinates = _latlngs[0];
+
+      // convertir array de coordenadas
+      const resultGeoreferencia = arrayOfCoordinates.map(({ lat, lng }) => (
+        [lat, lng]
+      ));
+      const parcelaEditada = parcelasRef.current.filter(parcela => parcela._leaflet_id === _leaflet_id)[0];
+      // obtener parcelas no editadas
+      const parcelasNoEditadas = parcelasRef.current.filter(parcela => parcela.id !== parcelaEditada.id);
+
+      const resultValidacion = validarPoligonoInEstablecimiento(resultGeoreferencia, "editar", parcelasNoEditadas);
+
+      // console.log(resultValidacion);
+      if (resultValidacion) {
+        // parcelasRef.current = parcelas;
+        // setParcelas(parcelasRef.current);
+        setErrorMapa("No puede editar una parcela por fuera del establecimiento o por encima de otra");
+        // valido = false;
+        // mapRef.current.removeLayer(e.layer);
+        loadParcelas();
+        return;
+      }
+    }
 
     const parcelasEditadasParaGuardar = [];
 
     Object.values(_layers).forEach(({ _leaflet_id, _latlngs }) => {
       // calcular area
+      setEditandoParcelas(true);
       const arrayOfCoordinates = _latlngs[0];
       const resultArea = (L.GeometryUtil.geodesicArea(arrayOfCoordinates) / 10000).toFixed(2);
 
@@ -98,15 +144,17 @@ const IndexMap = () => {
       const resultGeoreferencia = arrayOfCoordinates.map(({ lat, lng }) => (
         [lat, lng]
       ));
+      // console.log(resultGeoreferencia);
       // obtener parcela editada
       const parcelaEditada = parcelasRef.current.filter(parcela => parcela._leaflet_id === _leaflet_id)[0];
+
+      // obtener parcelas no editadas
+      const parcelasNoEditadas = parcelasRef.current.filter(parcela => parcela.id !== parcelaEditada.id);
 
       // editar parcela
       parcelaEditada.superficie = resultArea;
       parcelaEditada.georeferencia = resultGeoreferencia;
 
-      // obtener parcelas no editadas
-      const parcelasNoEditadas = parcelasRef.current.filter(parcela => parcela.id !== parcelaEditada.id);
       // console.log(parcelaEditada);
       parcelasNoEditadas.push(parcelaEditada);
       parcelasRef.current = parcelasNoEditadas;
@@ -126,6 +174,7 @@ const IndexMap = () => {
       });
       parcelasEditadasParaGuardar.push(promisesParcela);
     });
+    // console.log(parcelasEditadasParaGuardar);
     Promise.allSettled(parcelasEditadasParaGuardar)
       .then(function handleData (data) {
         setEditandoParcelas(false);
@@ -176,6 +225,45 @@ const IndexMap = () => {
   //   console.log(e);
   // };
 
+  const validarPoligonoInEstablecimiento = (georeferencia, opcion, parcelasNoEditadas = []) => {
+    // validar que este en el establecimiento
+    for (let i = 0; i < georeferencia.length; i++) {
+      const puntoPoligono = georeferencia[i];
+      if (!pointInPolygon(puntoPoligono, mapaEstablecimientoGeoreferenciaRef.current)) {
+        return "Por favor cree la parcela dentro del establecimiento";
+      }
+    }
+
+    if (opcion === "crear") {
+      for (let z = 0; z < georeferencia.length; z++) {
+        const puntoPoligono = georeferencia[z];
+
+        for (let j = 0; j < parcelasRef.current.length; j++) {
+          const parcela = parcelasRef.current[j];
+          if (pointInPolygon(puntoPoligono, parcela.georeferencia)) {
+            return "No puede crear una parcela encima de otra, por favor intente nuevamente";
+          }
+        }
+      }
+    } else {
+      // console.log(georeferencia);
+      // console.log(`230 ${georeferencia}`);
+      for (let z = 0; z < georeferencia.length; z++) {
+        const puntoPoligono = georeferencia[z];
+        // console.log(`233 ${puntoPoligono}`);
+
+        for (let j = 0; j < parcelasNoEditadas.length; j++) {
+          const parcela = parcelasNoEditadas[j];
+
+          if (pointInPolygon(puntoPoligono, parcela.georeferencia)) {
+            return "No puede crear una parcela encima de otra, por favor intente nuevamente";
+          }
+        }
+      }
+    }
+
+    // validar que no este por encima de otros poligonos
+  };
   // ** cargar establacimientos y parcelas al estado
   const addEstablecimientoToMap = () => {
     if (!mapRef.current) return;
@@ -233,7 +321,7 @@ const IndexMap = () => {
     parcelasRef.current = parcelas;
   };
 
-  // mapRef.current?.on(L.Draw.Event.EDITED, function (e) {
+  // mapRef.current?.on(L.Draw.Event.DRAWSTOP, function (e) {
   //   const layer = e.layer;
   //   console.log("first");
   // });
@@ -241,8 +329,10 @@ const IndexMap = () => {
   //   console.log("dragend");
   // });
 
-  // mapRef.current?.on("mousedown", function (e) {
-  //   console.log("mousedown");
+  // mapRef.current?.on("mousemove", function (e) {
+  // console.log("mousemove");
+  // console.log(e.latlng.lat);
+  // console.log(e.latlng.lng);
   // });
 
   // mapRef.current?.on("mouseup", function (e) {
@@ -297,6 +387,10 @@ const IndexMap = () => {
     addEstablecimientoToMap();
     setEstablecimiento(fetchDataEstablecimiento);
     mapRef.current?.getCenter();
+    // console.log(fetchDataEstablecimiento);
+    if ("georeferencia" in establecimiento) {
+      mapaEstablecimientoGeoreferenciaRef.current = JSON.parse(fetchDataEstablecimiento.georeferencia);
+    }
   }, [fetchDataEstablecimiento]);
 
   useEffect(() => {
@@ -307,6 +401,9 @@ const IndexMap = () => {
 
   return (
     <>
+    {
+      errorMapa && <h5 className="text-center text-danger">{errorMapa}</h5>
+    }
     {
       editandoParcelas && <h5 className="text-center text-warning">Actualizando Georeferencias de Parcelas</h5>
     }
