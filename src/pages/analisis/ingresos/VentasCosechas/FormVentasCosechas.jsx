@@ -172,9 +172,9 @@ const FormVentasCosechas = () => {
     formikRef.current.setSubmitting(false);
   }, [errorCampanias]);
 
-  useEffect(() => {
-    formikRef.current.setSubmitting(false);
-  }, [errorCampanias]);
+  // useEffect(() => {
+  //   formikRef.current.setSubmitting(false);
+  // }, [errorCampanias]);
 
   useEffect(() => {
     if ("cosechaCreado" in fetchDataVentaCosecha) {
