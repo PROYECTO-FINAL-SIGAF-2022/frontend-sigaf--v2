@@ -13,6 +13,7 @@ import {
   MDBTabsPane
 } from "mdb-react-ui-kit";
 import { useState } from "react";
+import ListadoActividades from "../actividades/ListadoActividades";
 import ListadoCultivos from "../cultivos/ListadoCultivos";
 // import { useFetch } from "../../../hooks/useFetch";
 // import { URL } from "../../../utils/getUrl";
@@ -123,7 +124,7 @@ const ModalDatosParcela = ({
                 <ListadoCultivos parcelaSelected={parcelaSelected} campania={campania}/>
               </MDBTabsPane>
               <MDBTabsPane show={basicActive === "tab3"}>
-                Tab 3 content
+               <ListadoActividades parcelaSelected={parcelaSelected} campania={campania}/>
               </MDBTabsPane>
             </MDBTabsContent>
           </MDBModalBody>
