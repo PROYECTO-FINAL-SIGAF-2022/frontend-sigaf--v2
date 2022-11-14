@@ -25,6 +25,7 @@ import Precios from "../../pages/analisis/precios/Precios";
 import { useEffect } from "react";
 import { useFetch } from "../../hooks/useFetch";
 import { URL } from "../../utils/getUrl";
+import AgregarActividad from "../../pages/calendarioActividades/AgregarActividad";
 function Rutas() {
   const session = useSession();
 
@@ -75,6 +76,7 @@ function Rutas() {
           <Route path='/Precios' exact element={<Precios/>} />
           <Route path="/calendario" exact element={<Calendario/>} />
           <Route path="/tuCalendario" exact element={<TuCalendario/>} />
+          <Route path="/AgregarActividad" exact element={<AgregarActividad/>} />
           <Route path="*" exact element={<Home />} />
         </Routes>
       );
