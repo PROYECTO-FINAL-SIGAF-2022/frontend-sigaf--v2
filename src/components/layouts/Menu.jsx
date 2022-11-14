@@ -147,10 +147,17 @@ function Menu () {
           </li>
 
           <li className="menu-item">
-            <a href="#" className="menu-link">
+            <Link to="/calendario" className="menu-link">
               <i className="menu-icon tf-icons bx bx-calendar"></i>
               <div data-i18n="Analytics">Calendario Cultivos</div>
-            </a>
+              </Link>
+          </li>
+
+          <li className="menu-item">
+            <Link to="/tucalendario" className="menu-link">
+              <i className="menu-icon tf-icons bx bx-calendar"></i>
+              <div data-i18n="Analytics">Actividades Cultivos</div>
+              </Link>
           </li>
 
           <li className="menu-item">

@@ -3,6 +3,8 @@ import { useSession } from "../../context/SessionProvider";
 import Login from "../../pages/auth/Login";
 import Register from "../../pages/auth/Register";
 import Home from "../../pages/Home";
+import Calendario from "../../pages/calendarioCultivo/Calendario";
+import TuCalendario from "../../pages/calendarioActividades/TuCalendario";
 import Proveedor from "../../pages/proveedor/Proveedor";
 import FormCliente from "../../pages/proveedor/FormProveedor";
 import Productos from "../../pages/productos/Productos";
@@ -27,10 +29,10 @@ import { URL } from "../../utils/getUrl";
 import FormGastosMaquinas from "../../pages/analisis/egresos/formularios/gastosMaquinas/FormGastosMaquinas";
 import FormPagosPersonal from "../../pages/analisis/egresos/formularios/pagosPersonal/FormPagosPersonal";
 
-function Rutas () {
+function Rutas() {
   const session = useSession();
 
-  const [setConfigFetchVerifyToken, fetchDataVerifyToken,,, cleanStates] = useFetch();
+  const [setConfigFetchVerifyToken, fetchDataVerifyToken, , , cleanStates] = useFetch();
   useEffect(() => {
     if (session) {
       // console.log("first");
@@ -53,6 +55,7 @@ function Rutas () {
   // console.log(fetchDataVerifyToken);
   // console.log(errorVerifyToken);
   if (session != null) {
+
     // console.log(fetchDataVerifyToken);
     if (fetchDataVerifyToken?.length > 0) {
       return (
@@ -71,12 +74,14 @@ function Rutas () {
           <Route path='/personal' exact element={<Personal/>} />
           <Route path="/formulario-personal" exact element={<FormPersonal/>}/>
           <Route path="/formulario-maquinas" exact element={<FormMaquinas/>}/>
-          <Route path="/actualizar-proveedor/:proid" exact element={<UpdateProveedor/>}/>   
+          <Route path="/actualizar-proveedor/:proid" exact element={<UpdateProveedor/>}/>
           <Route path='/Explotaciones' exact element={<Explotaciones/>} />
           <Route path='/Campos' exact element={<Campos/>} />
           <Route path='/Ingresos' exact element={<Ingresos/>} />
           <Route path='/Egresos' exact element={<Egresos/>} />
           <Route path='/formulario-almacen' exact element={<FormAlmacen/>} />
+          <Route path="/calendario" exact element={<Calendario/>} />
+          <Route path="/tuCalendario" exact element={<TuCalendario/>} />
           <Route path="*" exact element={<Home />} />
         </Routes>
       );
@@ -89,6 +94,7 @@ function Rutas () {
         </Routes>
       );
     }
+
   }
 
   return (
