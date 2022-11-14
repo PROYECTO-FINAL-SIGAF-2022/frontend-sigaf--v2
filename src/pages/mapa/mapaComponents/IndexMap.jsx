@@ -374,8 +374,9 @@ const IndexMap = () => {
     });
 
     const campaniaActiva = fetchDataCampanias.filter(campania => campania.activo === 1)[0];
+    // console.log(campaniaActiva);
     if (campaniaActiva) {
-      setCampania(campaniaActiva.descripcion_campania);
+      setCampania(campaniaActiva.id_campania);
     }
     loadParcelas();
   }, [fetchDataCampanias]);
