@@ -129,7 +129,7 @@ function Personal() {
         <tr key={item.id_persona}>
           <td key={"img" + item.id_persona}>
             <img
-              src="https://iconarchive.com/download/i6148/custom-icon-design/pretty-office-4/female-user-info.ico"
+              src="https://www.pngmart.com/files/22/User-Avatar-Profile-PNG.png"
               alt=""
             />
             <a href="#" className="user-link">

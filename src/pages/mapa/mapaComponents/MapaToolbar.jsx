@@ -28,7 +28,7 @@ const MapaToolbar = ({ campania, fetchDataCampanias, setCampania }) => {
         {
             fetchDataCampanias.map(campania => (
 
-        <option key={campania.id_campania} value={campania.descripcion_campania}>{campania.descripcion_campania}</option>
+        <option key={campania.id_campania} value={campania.id_campania}>{campania.descripcion_campania}</option>
             ))
         }
     </select>

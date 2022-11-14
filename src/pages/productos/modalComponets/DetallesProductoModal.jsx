@@ -89,32 +89,107 @@ const DetallesProductoModal = ({item,optSmModalDetalles,setOptSmModalDetalles,to
           ></MDBBtn>
         </MDBModalHeader>
         <MDBModalBody>
-          <div className="container">
-            <div>
-            <h4>Nombre del Producto: <b>{item.descripcion_producto}</b></h4>
+          <div >
+              <div className="d-flex justify-content-start">
+                <div className="image-container">
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/512/2713/2713463.png"
+                    id="imgProfile"
+                    style={{ width: "150px", height: "150px" }}
+                    className="img-thumbnail"
+                  />
+                </div>
+                <div className="userData ml-3 mx-4 my-4">
+                  <h2
+                    className="d-block"
+                    style={{ fontSize: "1.5rem", fontWeight: "bold" }}
+                  >
+                    <a href="#">{item.descripcion_producto}</a>
+                  </h2>
+                  <h6 className="d-block">
+                    <a href="#">Tipo:</a>{" "}
+                    <strong >
+                    {fetchDataTipoProductos.descripcion_tipo_producto}
+                    </strong>
+                  </h6>
+                  <h6 className="d-block">
+                    <a href="#">Cantidad Comprada:</a>{" "}
+                    <strong >
+                    {item.cantidad_producto} {fetchDataUnidadMedida.descripcion_unidad_medida}
+                    </strong>
+                  </h6>
+                  {/* <h6 className="d-block"><a href="#">300</a> Blog Posts</h6> */}
+                </div>
+                <div className="ml-auto">
+                  <input
+                    type="button"
+                    className="btn btn-primary d-none"
+                    id="btnDiscard"
+                    value="Discard Changes"
+                  />
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="">
+                  <div className="tab-content ml-1" id="myTabContent">
+                    <div
+                      className="tab-pane fade show active"
+                      id="basicInfo"
+                      role="tabpanel"
+                      aria-labelledby="basicInfo-tab"
+                    >
+                      <div className="row">
+                        <div className="">
+                          <label style={{ fontWeight: "bold" }}>
+                            Fecha de Compra:
+                          </label>
+                        </div>
+                        <div className="col-md-8 col-6">
+                        {fechaCompaState}
+                        </div>
+                      </div>
+                      <hr />
+
+                      <div className="row">
+                        <div className="">
+                          <label style={{ fontWeight: "bold" }}>
+                            Fecha de Vencimiento:
+                          </label>
+                        </div>
+                        <div className="col-md-8 col-6">
+                        {fechaVencimientoState}
+                        </div>
+                      </div>
+                      <hr />
+                      <div className="row">
+                        <div className="">
+                          <label style={{ fontWeight: "bold" }}>
+                            Almacen Guardado: 
+                          </label>
+                        </div>
+                        <div className="col-md-8 col-6">
+                        {fetchDataAlmacen.descripcion_almacen}
+                        </div>
+                      </div>
+                      <hr />
+                      <div className="row">
+                        <div className="">
+                          <label style={{ fontWeight: "bold" }}>
+                            Proveedor del producto: 
+                          </label>
+                        </div>
+                        <div className="col-md-8 col-6">
+                        {fetchDataProveedor.nombre_proveedor}
+                        </div>
+                      </div>
+                      <hr />
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
             </div>
-            <div>
-            <h4>Cantidad: <b>{item.cantidad_producto}</b></h4>
-            </div>
-            <div>
-            <h4>Fecha de Compra: <b>{fechaCompaState}</b></h4>
-            </div>
-            <div>
-            <h4>Fecha de Vencimiento: <b>{fechaVencimientoState}</b></h4>
-            </div>
-            <div>
-            <h4>Almacen: <b>{fetchDataAlmacen.descripcion_almacen}</b></h4>
-            </div>
-            <div>
-            <h4>Proveedor: <b>{fetchDataProveedor.nombre_proveedor}</b></h4>
-            </div>
-            <div>
-            <h4>Tipo de producto: <b>{fetchDataTipoProductos.descripcion_tipo_producto}</b></h4>
-            </div>
-            <div>
-            <h4>Unidad De Medida: <b>{fetchDataUnidadMedida.descripcion_unidad_medida}</b></h4>
-            </div>
-          </div>
         </MDBModalBody>
       </MDBModalContent>
     </MDBModalDialog>
