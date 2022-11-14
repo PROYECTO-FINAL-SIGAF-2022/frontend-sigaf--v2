@@ -3,7 +3,7 @@ import { useSession } from "../../context/SessionProvider";
 import Login from "../../pages/auth/Login";
 import Register from "../../pages/auth/Register";
 import Home from "../../pages/Home";
-import Proveedor from '../../pages/proveedor/Proveedor';
+import Proveedor from "../../pages/proveedor/Proveedor";
 import FormCliente from "../../pages/proveedor/FormProveedor";
 import Productos from "../../pages/productos/Productos";
 import FormProductos from "../../pages/productos/FormProductos";
@@ -17,12 +17,16 @@ import FormPersonal from "../../pages/personal/FormPersonal";
 import FormMaquinas from "../../pages/maquinas/FormMaquinas";
 import Explotaciones from "../../pages/explotaciones/Explotaciones";
 import Campos from "../../pages/campos/Campos";
-import Costos from "../../pages/analisis/costos/Costos";
-import Precios from "../../pages/analisis/precios/Precios";
+import Ingresos from "../../pages/analisis/ingresos/Index";
+import Egresos from "../../pages/analisis/egresos/Index";
 import FormAlmacen from "../../pages/almacenes/FormAlmacen";
+import UpdateProveedor from "../../pages/proveedor/ModalComponents/UpdateProveedorModal"
 import { useEffect } from "react";
 import { useFetch } from "../../hooks/useFetch";
 import { URL } from "../../utils/getUrl";
+import FormGastosMaquinas from "../../pages/analisis/egresos/formularios/gastosMaquinas/FormGastosMaquinas";
+import FormPagosPersonal from "../../pages/analisis/egresos/formularios/pagosPersonal/FormPagosPersonal";
+
 function Rutas () {
   const session = useSession();
 
@@ -60,15 +64,18 @@ function Rutas () {
           <Route path='/productos' exact element={<Productos/>} />
           <Route path='/mapa' exact element={<MapaHome/>} />
           <Route path='/formulario-productos' exact element={<FormProductos/>} />
+          <Route path='/formulario-gastos' exact element={<FormGastosMaquinas/>} />
+          <Route path='/formulario-pagos-personal' exact element={<FormPagosPersonal/>} />
           <Route path='/maquinas' exact element={<Maquinas/>} />
           <Route path='/almacenes' exact element={<Almacenes/>} />
           <Route path='/personal' exact element={<Personal/>} />
           <Route path="/formulario-personal" exact element={<FormPersonal/>}/>
-          <Route path="/formulario-maquinas" exact element={<FormMaquinas/>}/>   
+          <Route path="/formulario-maquinas" exact element={<FormMaquinas/>}/>
+          <Route path="/actualizar-proveedor/:proid" exact element={<UpdateProveedor/>}/>   
           <Route path='/Explotaciones' exact element={<Explotaciones/>} />
           <Route path='/Campos' exact element={<Campos/>} />
-          <Route path='/Costos' exact element={<Costos/>} />
-          <Route path='/Precios' exact element={<Precios/>} />
+          <Route path='/Ingresos' exact element={<Ingresos/>} />
+          <Route path='/Egresos' exact element={<Egresos/>} />
           <Route path='/formulario-almacen' exact element={<FormAlmacen/>} />
           <Route path="*" exact element={<Home />} />
         </Routes>

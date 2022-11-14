@@ -5,7 +5,7 @@ const Tabs = ({ activeTab, toggleTab }) => {
     <Nav pills className='mb-2' justified='true' tabs='true' >
       <NavItem>
         <NavLink active={activeTab === "1"} onClick={() => toggleTab("1")}>
-          <span className='fw-bold'>Personal</span>
+          <span className='fw-bold'>Cosecha</span>
         </NavLink>
       </NavItem>
       <NavItem>
@@ -15,11 +15,6 @@ const Tabs = ({ activeTab, toggleTab }) => {
       </NavItem>
       <NavItem>
         <NavLink active={activeTab === "3"} onClick={() => toggleTab("3")}>
-          <span className='fw-bold'>Productos</span>
-        </NavLink>
-      </NavItem>
-      <NavItem>
-        <NavLink active={activeTab === "4"} onClick={() => toggleTab("4")}>
           <span className='fw-bold'>Almacenes</span>
         </NavLink>
       </NavItem>

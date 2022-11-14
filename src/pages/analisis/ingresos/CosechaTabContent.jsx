@@ -1,8 +1,8 @@
 import { Fragment } from "react";
 import { Card } from "reactstrap";
-import "./Precios.css";
+import "./Index.css";
 
-const AlmacenesTabContent = () => {
+const CosechaTabContent = () => {
   return (
     <Fragment>
       <Card>
@@ -10,33 +10,40 @@ const AlmacenesTabContent = () => {
         <table className="table user-list">
             <thead>
                 <tr>
-                    <th className="text-center" style={{ width: "30%" }}>
-                    <span>Nombre Almacen</span>
+                    <th className="text-center">
+                    <span>Parcela</span>
                     </th>
                     <th className="text-center">
-                    <span>Descripcion</span>
-                    </th >
+                    <span>Cantidad Vendida</span>
+                    </th>
                     <th className="text-center">
                     <span>Precio</span>
                     </th>
-
+                    <th className="text-center">
+                    <span>Fecha de Venta</span>
+                    </th>
                 </tr>
             </thead>
         <tbody>
             <tr>
                 <td className="text-center" >
-                <a href="#" className="user-link">
-                    Almacen 1
+                <a href="#" className="label label-default">
+                    Algodon
                 </a>
                 </td>
                 <td className="text-center">
-                    <span className="user-link">
-                    Deposito de Herramientas
+                    <span className="label label-default">
+                    1000 kg
                 </span>
                 </td>
                 <td className="text-center">
                 <span className="label label-default">
-                    $15000
+                    $150.000
+                </span>
+                </td>
+                <td className="text-center">
+                <span className="label label-default">
+                    3/11/2022
                 </span>
                 </td>
             </tr>
@@ -48,4 +55,4 @@ const AlmacenesTabContent = () => {
   );
 };
 
-export default AlmacenesTabContent;
+export default CosechaTabContent;
