@@ -11,37 +11,38 @@ import { URL } from "../../utils/getUrl";
 import Loading from "../../components/layouts/Loading";
 import Alerta from "../../components/layouts/Alerta";
 
-function FormMaquinas () {
-  const [setConfigFetchMaquina, fetchDataMaquina, loadingMaquina, errorMaquina] = useFetch();
+function FormAlmacen () {
+
+  const [setConfigFetchAlmacen, fetchDataAlmacen, loadingMaquinaAlmacen, errorAlmacen] = useFetch();
   const formikRef = useRef();
 
   const navigate = useNavigate();
 
-  const schemaFormMaquinas = yup.object().shape({
-      descripcion_maquina: yup.string().required("La descripcion de la maquina es requerida"),
-      tipo_adquisicion_maquina: yup.string().required("El tipo de la maquina es requerido"),
-      precio_adquisicion_maquina: yup.string().required("El precio de la maquina es requerido"),
-      fecha_adquisicion_maquina: yup.string().required("La fecha de la maquina es requerida")
+  const schemaFormAlmacen = yup.object().shape({
+      descripcion_almacen: yup.string().required("La descripcion del almacen es requerida"),
+      tipo_adquisicion: yup.string().required("El tipo del almacen es requerido"),
+      precio_adquisicion: yup.string().required("El precio del almacen es requerido"),
+      fecha_adquisicion: yup.string().required("La fecha del almacen es requerida")
   });
 
   const handleSubmit = (values) => {
     // console.log(values);
     const {
-      descripcion_maquina,
-      tipo_adquisicion_maquina,
-      precio_adquisicion_maquina,
-      fecha_adquisicion_maquina
+        descripcion_almacen,
+        tipo_adquisicion,
+        precio_adquisicion,
+        fecha_adquisicion
     } = values;
 
-    setConfigFetchMaquina({
-      url: `${URL}/maquinas`,
+    setConfigFetchAlmacen({
+      url: `${URL}/almacenes`,
       headersRequest: {
         method: "POST",
         body: JSON.stringify({
-          descripcion_maquina,
-          tipo_adquisicion_maquina,
-          precio_adquisicion_maquina,
-          fecha_adquisicion_maquina
+            descripcion_almacen,
+            tipo_adquisicion,
+            precio_adquisicion,
+            fecha_adquisicion
         })
       }
     });
@@ -50,12 +51,12 @@ function FormMaquinas () {
   useEffect(() => {
     formikRef.current.setSubmitting(false);
     // console.log(error);
-  }, [errorMaquina]);
+  }, [errorAlmacen]);
 
   useEffect(() => {
-    if (fetchDataMaquina.length === 0) return;
-    navigate("/Maquinas");
-  }, [fetchDataMaquina]);
+    if (fetchDataAlmacen.length === 0) return;
+    navigate("/almacenes");
+  }, [fetchDataAlmacen]);
   return (
     <LayoutContainer>
       <div className="content-wrapper">
@@ -69,26 +70,26 @@ function FormMaquinas () {
                     <Formik
                       innerRef={formikRef}
                       initialValues={{
-                        descripcion_maquina: "",
-                        tipo_adquisicion_maquina: "",
-                        precio_adquisicion_maquina: "",
-                        fecha_adquisicion_maquina: ""
+                        descripcion_almacen: "",
+                        tipo_adquisicion: "",
+                        precio_adquisicion: "",
+                        fecha_adquisicion: ""
                       }}
                       onSubmit={handleSubmit}
-                      validationSchema={schemaFormMaquinas}
+                      validationSchema={schemaFormAlmacen}
                     >
                 {({ isSubmitting }) => (
                       <Form id="formAuthentication" className="form-group">
                       <div className="mb-3">
                         <label  className="form-label">
-                          Nombre De la maquina
+                          Nombre Del almacen
                         </label>
                         <Field
                           type="text"
                           className="form-control"
-                          id="descripcion_maquina"
-                          name="descripcion_maquina"
-                          placeholder="Por favor ingrese el nombre de la maquina"
+                          id="descripcion_almacen"
+                          name="descripcion_almacen"
+                          placeholder="Por favor ingrese el nombre del almacen"
                           
                         />
                         <div id="emailHelp" className="form-text">
@@ -96,7 +97,7 @@ function FormMaquinas () {
                         </div>
                       </div>
                       <MensajeErrorInput
-                        name="descripcion_maquina"
+                        name="descripcion_almacen"
                         className="alert alert-danger"
                       />
                       <div className="mb-3">
@@ -106,33 +107,33 @@ function FormMaquinas () {
                         <Field
                             as="select"
                             className="form-select"
-                            id="tipo_adquisicion_maquina"
-                            name="tipo_adquisicion_maquina"
+                            id="tipo_adquisicion"
+                            name="tipo_adquisicion"
                             // defaultValue = ""
                           >
-                            <option disabled value="">Lista Tipos Productos</option>
+                            <option disabled value="">Lista Tipos De Adquisicion</option>
                             <option key="compra" value="compra">Comprado</option>
                             <option key="alquiler" value="alquiler">Alquilado</option>
                         </Field>
                       </div>
                       <MensajeErrorInput
-                        name="tipo_adquisicion_maquina"
+                        name="tipo_adquisicion"
                         className="alert alert-danger"
                       />
                       <div className="mb-3">
                         <label className="form-label">
-                          Precio de la maquina
+                          Precio del almacen
                         </label>
                         <Field
                           type="number"
                           className="form-control"
-                          id="precio_adquisicion_maquina"
-                          name="precio_adquisicion_maquina"
-                          placeholder="Por favor ingrese el precio de la adquisicion de la maquina"
+                          id="precio_adquisicion"
+                          name="precio_adquisicion"
+                          placeholder="Por favor ingrese el precio de la adquisicion del almacen"
                         />
                       </div>
                       <MensajeErrorInput
-                        name="precio_adquisicion_maquina"
+                        name="precio_adquisicion"
                         className="alert alert-danger"
                       />
                       <div className="mb-3">
@@ -142,32 +143,34 @@ function FormMaquinas () {
                         <Field
                           type="date"
                           className="form-control"
-                          id="fecha_adquisicion_maquina"
-                          name="fecha_adquisicion_maquina"
+                          id="fecha_adquisicion"
+                          name="fecha_adquisicion"
                           placeholder="Por favor ingrese la fecha de adquisicion"
                         />
                       </div>
                       <MensajeErrorInput
-                        name="fecha_adquisicion_maquina"
+                        name="fecha_adquisicion"
                         className="alert alert-danger"
                       />
-                      <Link to='/maquinas'>
+                      <Link to='/almacenes'>
                         <button className="btn btn-danger mx-3">
                           Volver
                         </button>
-                        </Link>
+                    </Link>
+
                       <button type="submit" disabled={isSubmitting} className="btn btn-success">
-                        Agregar Maquina
+                        Agregar Almacen
                       </button>
+                      
                       </Form>
                 )}
               </Formik>
                     </div>
                   </div>
-                  {loadingMaquina && <Loading />}
+                  {loadingMaquinaAlmacen && <Loading />}
 
-                {errorMaquina?.errors &&
-                  errorMaquina?.errors.map((msgError, i) => (
+                {errorAlmacen?.errors &&
+                  errorAlmacen?.errors.map((msgError, i) => (
                     <Alerta
                       claseAlerta="danger"
                       key={i}
@@ -186,4 +189,4 @@ function FormMaquinas () {
   );
 }
 
-export default FormMaquinas;
+export default FormAlmacen;

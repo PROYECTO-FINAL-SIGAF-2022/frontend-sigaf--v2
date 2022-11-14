@@ -8,13 +8,36 @@ import withReactContent from "sweetalert2-react-content";
 import { useFetch } from "../../hooks/useFetch";
 import { URL } from "../../utils/getUrl";
 import Alerta from "../../components/layouts/Alerta";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-import DetalleMaquinasModal from "../maquinas/ModalComponets/DetalleMaquinasModal";
+import DetallePersonalModal from "./ModalComponts/DetallesPersonalModal";
+import UpdatePersonalModal from "./ModalComponts/UpdatePersonalModal";
 
 function Personal() {
-  const [setConfigFetchPersonal, fetchDataPersonal, loadingPersonal, errorPersonal] = useFetch();
+  const [
+    setConfigFetchPersonal,
+    fetchDataPersonal,
+    loadingPersonal,
+    errorPersonal,
+  ] = useFetch();
 
+  const [optSmModalDetalles, setOptSmModalDetalles] = useState(false);
+  const [optSmModalEdit, setOptSmModalEdit] = useState(false);
+
+  const [datosPersonal, setDatosPersonal] = useState("");
+  const [datosPersonalEdit, setDatosPersonalEdit] = useState("");
+
+  const toggleShowDetalles = (item) => {
+    //console.log(item)
+    setDatosPersonal(item);
+    setOptSmModalDetalles(!optSmModalDetalles);
+  };
+  const toggleShowEdit = (item) => {
+    // console.log(item)
+      setDatosPersonalEdit(item);
+     setOptSmModalEdit(!optSmModalEdit);
+     //console.log(item)
+   };
 
   const getPersonal = () => {
     setConfigFetchPersonal({
@@ -22,15 +45,15 @@ function Personal() {
       headersRequest: {
         method: "GET",
         headers: {
-          "Content-type": "application/json; charset=UTF-8"
-        }
-      }
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      },
     });
   };
 
-  useEffect(()=>{
-    getPersonal()
-  },[])
+  useEffect(() => {
+    getPersonal();
+  }, []);
 
   const MySwal = withReactContent(Swal);
 
@@ -74,7 +97,7 @@ function Personal() {
                   <div className="table-responsive">
                     <table className="table user-list">
                       <thead>
-                        <tr>
+                        <tr key={"Tabla"}>
                           <th className="text-center">
                             <span>Nombre Completo</span>
                           </th>
@@ -93,75 +116,113 @@ function Personal() {
                       <tbody>
                       {loadingPersonal && <Loading />}
 
-                        {errorPersonal?.msg && (
-                        <Alerta claseAlerta="danger" mensajeAlerta={errorPersonal?.msg} />
-                        )}
-                        {
-                          fetchDataPersonal.length > 0 && (
-                            <>
-                            {
-                          fetchDataPersonal?.map((item)=>{
-                            return(
-                              <tr>
-                          <td>
-                            <img
-                              src="https://iconarchive.com/download/i6148/custom-icon-design/pretty-office-4/female-user-info.ico"
-                              alt=""
-                            />
-                            <a href="#" className="user-link">
-                              {item.nombre_persona}  {item.apellido_persona}
-                            </a>
-                            <span className="user-subhead">Detalle</span>
-                          </td>
-                          <td className="text-center">
-                            <span className="label label-default">
-                              {item.dni_persona}
-                            </span>
-                          </td>
-                          <td className="text-center">
-                            <span className="label label-default">
-                              +54 {item.telefono_persona}
-                            </span>
-                          </td>
-                          <td className="text-center">
-                            <span className="label label-default">
-                            {item.tipo_usuario.descripcion_tipo_usuario}
-                            </span>
-                          </td>
-                          <td style={{ width: "20%" }}>
-                            <a href="#" className="table-link">
-                              <span className="fa-stack">
-                                <i className="fa fa-square fa-stack-2x"></i>
-                                <i className="fa fa-search-plus fa-stack-1x fa-inverse"></i>
-                              </span>
-                            </a>
-                            <a href="#" className="table-link">
-                              <span className="fa-stack">
-                                <i className="fa fa-square fa-stack-2x "></i>
-                                <i className="fa fa-pencil fa-stack-1x fa-inverse"></i>
-                              </span>
-                            </a>
-                            <a
-                              href="#"
-                              className="table-link danger"
-                              onClick={handleBounceIn}
-                            >
-                              <span className="fa-stack">
-                                <i className="fa fa-square fa-stack-2x"></i>
-                                <i className="fa fa-trash-o fa-stack-1x fa-inverse"></i>
-                              </span>
-                            </a>
-                          </td>
-                        </tr>
-                            )
-                          })
-                        }
-                            </>
-                          )
-                        }
+{errorPersonal?.msg && (
+  <Alerta
+    claseAlerta="danger"
+    mensajeAlerta={errorPersonal?.msg}
+  />
+)}
+{fetchDataPersonal.length > 0 && (
+  <>
+    {fetchDataPersonal?.map((item) => {
+      return (
+        <tr key={item.id_persona}>
+          <td key={"img" + item.id_persona}>
+            <img
+              src="https://iconarchive.com/download/i6148/custom-icon-design/pretty-office-4/female-user-info.ico"
+              alt=""
+            />
+            <a href="#" className="user-link">
+              {item.nombre_persona}{" "}
+              {item.apellido_persona}
+            </a>
+            <span className="user-subhead">
+              Detalle
+            </span>
+          </td>
+          <td
+            className="text-center"
+            key={item.dni_persona}
+          >
+            <span className="label label-default">
+              {item.dni_persona}
+            </span>
+          </td>
+          <td
+            className="text-center"
+            key={item.telefono_persona}
+          >
+            <span className="label label-default">
+              +54 {item.telefono_persona}
+            </span>
+          </td>
+          <td
+            className="text-center"
+            key={
+              item.tipo_usuario.descripcion_tipo_usuario
+            }
+          >
+            <span className="label label-default">
+              {
+                item.tipo_usuario
+                  .descripcion_tipo_usuario
+              }
+            </span>
+          </td>
+          <td
+            style={{ width: "20%" }}
+            key={"btn" + item.id_persona}
+          >
+            <a
+              href="#"
+              className="table-link"
+              onClick={() => {
+                toggleShowDetalles(item);
+              }}
+            >
+              <span className="fa-stack">
+                <i className="fa fa-square fa-stack-2x"></i>
+                <i className="fa fa-search-plus fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+            <a href="#" className="table-link" onClick={()=>{toggleShowEdit(item)}}>
+              <span className="fa-stack">
+                <i className="fa fa-square fa-stack-2x "></i>
+                <i className="fa fa-pencil fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+            <a
+              href="#"
+              className="table-link danger"
+              onClick={handleBounceIn}
+            >
+              <span className="fa-stack">
+                <i className="fa fa-square fa-stack-2x"></i>
+                <i className="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </td>
+        </tr>
+      );
+    })}
+  </>
+)}
                       </tbody>
                     </table>
                   </div>
+                  <UpdatePersonalModal
+                  optSmModalEdit={optSmModalEdit}
+                  setOptSmModalEdit={setOptSmModalEdit}
+                  toggleShowEdit={toggleShowEdit}
+                  datosPersonal={datosPersonalEdit}
+                  />
+                  <DetallePersonalModal
+                    optSmModalDetalles={optSmModalDetalles}
+                    setOptSmModalDetalles={setOptSmModalDetalles}
+                    toggleShowDetalles={toggleShowDetalles}
+                    item={datosPersonal}
+                    getPersonal={getPersonal}
+                  />
                   <br></br>
                   <br></br>
                   <nav aria-label="Page navigation">

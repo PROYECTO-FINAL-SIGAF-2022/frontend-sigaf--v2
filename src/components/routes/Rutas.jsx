@@ -19,7 +19,7 @@ import Explotaciones from "../../pages/explotaciones/Explotaciones";
 import Campos from "../../pages/campos/Campos";
 import Costos from "../../pages/analisis/costos/Costos";
 import Precios from "../../pages/analisis/precios/Precios";
-import DetallesProductos from "../../pages/productos/DetallesProductos";
+import FormAlmacen from "../../pages/almacenes/FormAlmacen";
 import { useEffect } from "react";
 import { useFetch } from "../../hooks/useFetch";
 import { URL } from "../../utils/getUrl";
@@ -69,7 +69,7 @@ function Rutas () {
           <Route path='/Campos' exact element={<Campos/>} />
           <Route path='/Costos' exact element={<Costos/>} />
           <Route path='/Precios' exact element={<Precios/>} />
-          <Route path="/detalles-producto/:productoID" exact element={<DetallesProductos/>}/>
+          <Route path='/formulario-almacen' exact element={<FormAlmacen/>} />
           <Route path="*" exact element={<Home />} />
         </Routes>
       );

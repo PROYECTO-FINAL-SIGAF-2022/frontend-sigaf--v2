@@ -1,70 +1,62 @@
-import Footer from "../../components/layouts/Footer";
-import LayoutContainer from "../../components/layouts/LayoutContainer";
-import { Field, Form, Formik } from "formik";
-import { useEffect, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import * as yup from "yup";
-import MensajeErrorInput from "../../components/layouts/MensajeErrorInput";
+import {
+    MDBBtn,
+    MDBModal,
+    MDBModalBody,
+    MDBModalContent,
+    MDBModalDialog,
+    MDBModalHeader,
+    MDBModalTitle,
+  } from "mdb-react-ui-kit";
+  import * as yup from "yup";
+  import { useEffect, useState, useRef  } from "react";
+  import { Field, Form, Formik } from "formik";
+  import MensajeErrorInput from "../../../components/layouts/MensajeErrorInput";
+  import { useFetch } from "../../../hooks/useFetch";
+  import { URL } from "../../../utils/getUrl";
+  import Loading from "../../../components/layouts/Loading";
+  import Alerta from "../../../components/layouts/Alerta";
 
-import { useFetch } from "../../hooks/useFetch";
-import { URL } from "../../utils/getUrl";
-import Loading from "../../components/layouts/Loading";
-import Alerta from "../../components/layouts/Alerta";
+const UpdatePersonalModal = ({optSmModalEdit,setoptSmModalEdit,toggleShowEdit,datosPersonal, getPersonal}) => {
+    const formikRef = useRef();
 
-function FormPersonal() {
-  const [
-    setConfigFetchPersonal,
-    fetchDataPersonal,
-    loadingPersonal,
-    errorPersonal,
-  ] = useFetch();
-  const formikRef = useRef();
+    const [
+        setConfigFetchPersonalPUT,
+        fetchDataPersonalPUT,
+        loadingPersonalPUT,
+        errorPersonalPUT,
+      ] = useFetch();
 
-  const navigate = useNavigate();
-  const schemaRegisterPersonal = yup.object().shape({
-    nombre_persona: yup.string().required("Su nombre es requerido"),
-    apellido_persona: yup.string().required("Su apellido es requerido"),
-    dni_persona: yup
-      .string()
-      .required("El dni es requerido")
-      .min(8, "EL dni debe tener como minimo 8 numeros")
-      .max(8, "El dni debe tener como maximo 8 numeros"),
-    fecha_nac_persona: yup
-      .date()
-      .required("La fecha de nacimiento es requerido"),
-    email_persona: yup
-      .string()
-      .email("El correo ingresado no tiene un formato valido")
-      .required("El correo electronico es requerido"),
-    telefono_persona: yup
-      .string()
-      .required("Su nombre es requerido")
-      .min(10, "El numero de telefono debe tener como minimo 10 caracteres")
-      .max(10, "El numero de telefono debe tener como maximo 10 caracteres"),
-    username_usuario: yup
-      .string()
-      .required("El nombre de usuario es requerido"),
-    password_usuario: yup.string().required("La contraseña es requerido"),
-  });
 
-  const handleSubmit = (values) => {
-    // console.log(values);
-    const {
-      nombre_persona,
-      apellido_persona,
-      dni_persona,
-      fecha_nac_persona,
-      email_persona,
-      telefono_persona,
-      username_usuario,
-      password_usuario,
-    } = values;
+      const schemaEditarPersonal = yup.object().shape({
+        nombre_persona: yup.string().required("Su nombre es requerido"),
+        apellido_persona: yup.string().required("Su apellido es requerido"),
+        dni_persona: yup
+          .string()
+          .required("El dni es requerido")
+          .min(8, "EL dni debe tener como minimo 8 numeros")
+          .max(8, "El dni debe tener como maximo 8 numeros"),
+        fecha_nac_persona: yup
+          .date()
+          .required("La fecha de nacimiento es requerido"),
+        email_persona: yup
+          .string()
+          .email("El correo ingresado no tiene un formato valido")
+          .required("El correo electronico es requerido"),
+        telefono_persona: yup
+          .string()
+          .required("Su nombre es requerido")
+          .min(10, "El numero de telefono debe tener como minimo 10 caracteres")
+          .max(10, "El numero de telefono debe tener como maximo 10 caracteres"),
+        username_usuario: yup
+          .string()
+          .required("El nombre de usuario es requerido"),
+        password_usuario: yup.string().required("La contraseña es requerido"),
+      });
 
-    setConfigFetchPersonal({
-      url: `${URL}/usuarios`,
-      headersRequest: {
-        method: "POST",
-        body: JSON.stringify({
+
+      const handleSubmit = (values) => {
+         console.log(values);
+        const {
           nombre_persona,
           apellido_persona,
           dni_persona,
@@ -72,48 +64,72 @@ function FormPersonal() {
           email_persona,
           telefono_persona,
           username_usuario,
-          password_usuario,
-        }),
-      },
-    });
-  };
+          password_usuario
+        } = values;
+    
+        setConfigFetchPersonalPUT({
+          url: `${URL}/usuarios/${datosPersonal.id_persona}`,
+          headersRequest: {
+            method: "PUT",
+            body: JSON.stringify({
+              nombre_persona,
+              apellido_persona,
+              dni_persona,
+              fecha_nac_persona,
+              email_persona,
+              telefono_persona,
+              username_usuario,
+              password_usuario
+            }),
+          },
+        });
+      };
 
-  useEffect(() => {
-    formikRef.current.setSubmitting(false);
-    // console.log(error);
-  }, [errorPersonal]);
-
-  useEffect(() => {
-    if (fetchDataPersonal.length === 0) return;
-    navigate("/");
-  }, [fetchDataPersonal]);
-
-  return (
-    <LayoutContainer>
-      <div className="content-wrapper">
-        <div className="container-xxl flex-grow-1 container-p-y">
-          <div className="row">
-            <div className="col-lg-12 mb-4 order-0">
-              <div className="card">
-                <div className="d-flex align-items-end row">
-                  <div className="col-sm-7">
-                    <div className="card-body">
-                      <Formik
+      useEffect(()=>{
+        console.log(fetchDataPersonalPUT)
+      },[fetchDataPersonalPUT])
+      useEffect(() => {
+        formikRef.current.setSubmitting(false);
+        // console.log(error);
+      }, [errorPersonalPUT]);
+  
+    return (
+        <MDBModal
+        staticBackdrop
+        stabindex="-1"
+        show={optSmModalEdit}
+        setShow={setoptSmModalEdit}
+      >
+        <MDBModalDialog centered>
+          <MDBModalContent>
+            <MDBModalHeader>
+              <MDBModalTitle>
+                <h5>Editar Datos Del Personal:</h5>
+              </MDBModalTitle>
+              <MDBBtn
+                className="btn-close"
+                color="none"
+                onClick={toggleShowEdit}
+              ></MDBBtn>
+            </MDBModalHeader>
+            <MDBModalBody>
+            <Formik
                         innerRef={formikRef}
+                        enableReinitialize={true}
                         initialValues={{
-                          nombre_persona: "",
-                          apellido_persona: "",
-                          dni_persona: "",
-                          fecha_nac_persona: "",
-                          email_persona: "",
-                          telefono_persona: "",
-                          username_usuario: "",
-                          password_usuario: "",
+                          nombre_persona: datosPersonal ? datosPersonal.nombre_persona : '',
+                          apellido_persona: datosPersonal ? datosPersonal.apellido_persona : '',
+                          dni_persona: datosPersonal ? datosPersonal.dni_persona : '',
+                          fecha_nac_persona: datosPersonal ? datosPersonal.fecha_nac_persona : '',
+                          email_persona: datosPersonal ? datosPersonal.email_persona : '',
+                          telefono_persona: datosPersonal ? datosPersonal.telefono_persona : '',
+                          username_usuario: datosPersonal ? datosPersonal.username_usuario : '',
+                          password_usuario: '123456'
                         }}
                         onSubmit={handleSubmit}
-                        validationSchema={schemaRegisterPersonal}
+                        validationSchema={schemaEditarPersonal}
                       >
-                        {({ isSubmitting }) => (
+                        {({ isSubmitting, dirty }) => (
                           <Form id="formAuthentication" className="form-group">
                             <div className="mb-3">
                               <label className="form-label">
@@ -244,67 +260,54 @@ function FormPersonal() {
                             <MensajeErrorInput
                               name="username_usuario"
                               className="alert alert-danger"
-                            />
-                            <div className="mb-3 form-password-toggle">
+                            />           
+                            <div className="mb-3">
                               <label
-                                className="form-label"
                                 htmlFor="password_usuario"
+                                className="form-label"
                               >
-                                Password
+                                Contraseña
                               </label>
-                              <div className="input-group input-group-merge">
-                                <Field
-                                  type="password"
-                                  id="password_usuario"
-                                  className="form-control"
-                                  name="password_usuario"
-                                  placeholder="Por favor ingrese una contraseña para su usuario"
-                                  aria-describedby="password_usuario"
-                                />
-                              </div>
+                              <Field
+                                type="text"
+                                className="form-control"
+                                id="password_usuario"
+                                name="password_usuario"
+                                placeholder="Por favor ingrese la contraseña"
+                              />
                             </div>
                             <MensajeErrorInput
                               name="password_usuario"
                               className="alert alert-danger"
-                            />
+                            />           
                             <br></br>
-                            <Link to="/personal">
-                              <button className="btn btn-danger mx-3">
-                                Volver
-                              </button>
-                            </Link>
+                            
                             <button
                               type="submit"
-                              disabled={isSubmitting}
+                              disabled={!dirty}
                               className="btn btn-success"
                             >
-                              Agregar Personal
+                              Editar Personal
                             </button>
                           </Form>
                         )}
                       </Formik>
-                    </div>
-                  </div>
-                  {loadingPersonal && <Loading />}
+                  {loadingPersonalPUT && <Loading />}
 
-                  {errorPersonal?.errors &&
-                    errorPersonal?.errors.map((msgError, i) => (
+                  {errorPersonalPUT?.errors &&
+                    errorPersonalPUT?.errors.map((msgError, i) => (
                       <Alerta
                         claseAlerta="danger"
                         key={i}
                         mensajeAlerta={msgError?.msg}
                       />
                     ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <Footer />
-        <div className="content-backdrop fade"></div>
-      </div>
-    </LayoutContainer>
-  );
+            </MDBModalBody>
+          </MDBModalContent>
+        </MDBModalDialog>
+      </MDBModal>
+    
+  )
 }
 
-export default FormPersonal;
+export default UpdatePersonalModal

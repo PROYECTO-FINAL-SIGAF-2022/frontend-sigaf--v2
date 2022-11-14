@@ -43,7 +43,7 @@ const UpdateMaquinasModal = ({optSmModalEdit,setoptSmModalEdit,toggleShowEdit,da
 
     
     setConfigFetchMaquinasPUT({
-      url: `${URL}/maquinass/${datosMaquina.id_maquina}`,
+      url: `${URL}/maquinas/${datosMaquina.id_maquina}`,
       headersRequest: {
         method: "PUT",
         body: JSON.stringify({

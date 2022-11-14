@@ -318,7 +318,7 @@ setFechaVencimiento(fecha.toLocaleDateString())
                   </div>
                   {loadingPUT && <Loading />}
 
-                {errorPut?.errorPut &&
+                {errorPut?.errors &&
                   errorPut?.errors.map((msgError, i) => (
                     <Alerta
                       claseAlerta="danger"
