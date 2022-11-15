@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect, Component } from 'react'
 import '@fullcalendar/react/dist/vdom';
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
@@ -11,12 +11,15 @@ import { URL } from "../../utils/getUrl";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Link } from "react-router-dom"
+import { elementClosest } from 'fullcalendar';
+
 
 function TuCalendario() {
 
   const [setConfigFetchParcelaCultivo, fetchDataParcelaCultivo] = useFetch()
   const [setConfigFetchParcela, fetchDataParcela] = useFetch()
   const [setConfigFetchHistorialParcela, fetchDataHistorialParcela] = useFetch()
+  const [setConfigFetchActividades, fetchDataActividades] = useFetch()
 
   const getParcelaCultivo = () => {
     setConfigFetchParcelaCultivo({
@@ -51,36 +54,31 @@ function TuCalendario() {
       }
     });
   };
+  const getActividades = () => {
+    setConfigFetchActividades({
+      url: `${URL}/actividades`,
+      headersRequest: {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      }
+    });
+  };
 
   useEffect(() => {
     getParcelaCultivo();
     getParcela();
     getHistorialParcela();
+    getActividades();
   }, []);
 
+  //console.log(fetchDataParcelaCultivo)
+  //console.log(fetchDataParcela)
+  //console.log(fetchDataHistorialParcela)
+  console.log(fetchDataActividades)
 
 
-  const found = fetchDataParcelaCultivo.find(item => item.id_parcela === fetchDataParcela.descripcion_parcela);
-
-  const right = []
-  // Recorres ambos arreglos y aplicas la condición que deseas
-  fetchDataParcelaCultivo.filter((id_parcela_cultivo) => {
-    fetchDataParcela.filter((id_parcela) => {
-      if (id_parcela_cultivo.fetchDataParcelaCultivo === id_parcela.fetchDataParcela) {
-        right.push(id_parcela_cultivo)
-      }
-    })
-  })
-  
-  const wrong = fetchDataParcelaCultivo.filter(id_parcela_cultivo => !right.includes(id_parcela_cultivo))
-
- //console.log(right)
-  //console.log(wrong)
-
-  console.log(fetchDataParcelaCultivo)
-  5164.47
-  console.log(fetchDataParcela)
-  console.log(fetchDataHistorialParcela)
 
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -104,9 +102,13 @@ function TuCalendario() {
                       {/* filtro */}
                       <select className="form-select" aria-label="Default select example">
                         <option disabled='true' selected>Seleccione una Parcela</option>
-                        <option value="1">Parcela1</option>
-                        <option value="2">Parcela2</option>
-                        <option value="3">Parcela3</option>
+                        {fetchDataParcela?.map(elemento => {
+                         return(
+                          <option key={elemento?.id_parcela} value={elemento?.id_parcela}>{elemento?.descripcion_parcela}</option>
+                         ) 
+                        }
+
+                        )}
                       </select>
                       <Link to="/AgregarActividad">
                         <button
@@ -139,48 +141,47 @@ function TuCalendario() {
                             }
 
                           }
-                          footerToolbar={{
-                            center: 'toggleMonth toggleWeek toggleDay',
-                          }}
-                          /* 
-                                                    customButtons={{
-                                                      newAppointment: {
-                                                        text: 'Nueva Actividad',
-                                                        click: () => {
-                                                          dateClickHandler();
-                                                        },
-                          
-                                                      },
-                                                      toggleDay: {
-                                                        text: 'Hoy',
-                                                        click: () => {
-                                                          calendar.current.getApi().changeView('dayGridDay');
-                                                        }
-                                                      },
-                                                      toggleWeek: {
-                                                        text: 'Semana',
-                                                        click: () => {
-                                                          calendar.current.getApi().changeView('dayGridWeek');
-                                                        }
-                                                      },
-                                                      toggleMonth: {
-                                                        text: 'Mes',
-                                                        click: () => {
-                                                          calendar.current.getApi().changeView('dayGridMonth')
-                                                        }
-                                                      },
-                                                    }}
-                           */
-                          events={fetchDataParcelaCultivo.map(items => ({
-                            title: items.id_parcela,
-                            description: items.id_campania,
-                            start: items.fecha_inicio,
-                            end: items.fecha_final,
+                          /*       footerToolbar={{
+                                  center: 'toggleMonth toggleWeek toggleDay',
+                                }}
+      
+                                customButtons={{
+                                  newAppointment: {
+                                    text: 'Nueva Actividad',
+                                    click: () => {
+                                      dateClickHandler();
+                                    },
+      
+                                  },
+                                  toggleDay: {
+                                    text: 'Hoy',
+                                    click: () => {
+                                      calendar.current.getApi().changeView('dayGridDay');
+                                    }
+                                  },
+                                  toggleWeek: {
+                                    text: 'Semana',
+                                    click: () => {
+                                      calendar.current.getApi().changeView('dayGridWeek');
+                                    }
+                                  },
+                                  toggleMonth: {
+                                    text: 'Mes',
+                                    click: () => {
+                                      calendar.current.getApi().changeView('dayGridMonth')
+                                    }
+                                  },
+                                }} */
+
+                          events={fetchDataHistorialParcela.map(items => ({
+                            title: items.id_actividad,
+                            start: items.fecha_historial,
+                            end: items.fecha_historial,
                             color: "#00da41"
-                             }))
+                          }))
                           }
 
-                        />^
+                        />
 
                       </div>
                       {/* <AgregarEvento isOpen={modalOpen} onClose={() => setModalOpen(false)} onEventAdded={event => onEventAdded(event)} /> */}
