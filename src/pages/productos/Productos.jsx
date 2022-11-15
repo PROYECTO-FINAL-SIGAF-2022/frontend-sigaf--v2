@@ -110,7 +110,7 @@ function Productos() {
 
  
 
-  //console.log(fetchDataProductos)
+  console.log(fetchDataProductos)
   if (!errorProductos) {
     return <h1>Error</h1>;
   }
@@ -174,15 +174,34 @@ function Productos() {
                               fetchDataProductos?.map((item) => {
                                 const fecha = new Date(item.fecha_vencimiento_producto);
                                 const fechaConvertida = fecha.toLocaleDateString();
-                                //var descripcionTipoProducto;
+                                
+                                var descripcionTipoProducto;
+                               // console.info(fetchDataProductos.length)
+
+                                for (var i = 0; i < fetchDataProductos?.length; i++) {
+                                  if(item?.id_tipo_producto === fetchDataTipoProductos[i]?.id_tipo_producto){
+                                    descripcionTipoProducto= fetchDataTipoProductos[i]?.descripcion_tipo_producto
+                                  }
+                                }
+                                console.log(descripcionTipoProducto)
                                 
                                 return( 
                                 <tr>
                                   <td>
-                                    <img
+                                    {
+                                      descripcionTipoProducto == "Fertilizante" ? 
+                                      <img
                                       src="https://cdn-icons-png.flaticon.com/512/2713/2713463.png"
                                       alt=""
-                                    />
+                                      />
+                                      :
+                                      <img
+                                        src="https://cdn-icons-png.flaticon.com/512/2674/2674327.png"
+                                        alt=""
+                                      />
+                                    }
+
+                                   
                                     <a href="#" className="user-link">
                                       {item?.descripcion_producto}
                                     </a>
@@ -202,7 +221,7 @@ function Productos() {
                                   </td>
                                   <td className="text-center">
                                     <span className="label label-default" style={{textTransform: "uppercase"}}>
-                                      {item?.id_tipo_producto}
+                                    {descripcionTipoProducto ? descripcionTipoProducto : item?.id_tipo_producto}
                                     </span>
                                   </td>
                                   <td style={{ width: "20%" }}>

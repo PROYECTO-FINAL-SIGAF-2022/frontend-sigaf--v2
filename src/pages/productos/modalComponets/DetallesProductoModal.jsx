@@ -92,12 +92,23 @@ const DetallesProductoModal = ({item,optSmModalDetalles,setOptSmModalDetalles,to
           <div >
               <div className="d-flex justify-content-start">
                 <div className="image-container">
-                  <img
-                    src="https://cdn-icons-png.flaticon.com/512/2713/2713463.png"
+                  {
+                    fetchDataTipoProductos.descripcion_tipo_producto == "Fertilizante"
+                    ?
+                    <img
+                      src="https://cdn-icons-png.flaticon.com/512/2713/2713463.png"
+                      id="imgProfile"
+                      style={{ width: "150px", height: "150px" }}
+                      className="img-thumbnail"
+                    />
+                    :
+                    <img
+                    src="https://cdn-icons-png.flaticon.com/512/2674/2674327.png"
                     id="imgProfile"
                     style={{ width: "150px", height: "150px" }}
                     className="img-thumbnail"
                   />
+                  }
                 </div>
                 <div className="userData ml-3 mx-4 my-4">
                   <h2

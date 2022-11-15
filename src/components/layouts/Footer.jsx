@@ -9,7 +9,7 @@ function Footer () {
           document.write(new Date().getFullYear());
         </script>
           Copyright ❤️
-        <a href="#" target="_blank" className="footer-link fw-bolder"> AgustinB12</a>
+        <a href="#" target="_blank" className="footer-link fw-bolder"> Sigaf</a>
       </div>
     </div>
   </footer>
