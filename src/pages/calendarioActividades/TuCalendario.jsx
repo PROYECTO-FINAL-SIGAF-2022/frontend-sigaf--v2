@@ -1,20 +1,26 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect, Component } from 'react'
 import '@fullcalendar/react/dist/vdom';
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
-import AgregarEvento from './AgregarEvento';
+//import AgregarEvento from './AgregarEvento';
 import LayoutContainer from '../../components/layouts/LayoutContainer'
 import interactionPlugin from "@fullcalendar/interaction";
 import esLocale from '@fullcalendar/core/locales/es';
 import { useFetch } from "../../hooks/useFetch";
 import { URL } from "../../utils/getUrl";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import { Link } from "react-router-dom"
+import { elementClosest } from 'fullcalendar';
+import DetallesModal from './DetalllesEventos.jsx/DetallesModal';
 
 
 function TuCalendario() {
 
-  const [setConfigFetchParcelaCultivo, fetchDataParcelaCultivo, loadingParcelaCultivo, errorParcelaCultivo] = useFetch()
-  const [setConfigFetchParcela, fetchDataParcela, loadingParcela, errorParcela] = useFetch()
-  const [setConfigFetchHistorialParcela, fetchDataHistorialParcela, loadingHistorialParcela, errorHistorialParcela] = useFetch()
+  const [setConfigFetchParcelaCultivo, fetchDataParcelaCultivo] = useFetch()
+  const [setConfigFetchParcela, fetchDataParcela] = useFetch()
+  const [setConfigFetchHistorialParcela, fetchDataHistorialParcela] = useFetch()
+  const [setConfigFetchActividades, fetchDataActividades] = useFetch()
 
   const getParcelaCultivo = () => {
     setConfigFetchParcelaCultivo({
@@ -49,26 +55,44 @@ function TuCalendario() {
       }
     });
   };
+  const getActividades = () => {
+    setConfigFetchActividades({
+      url: `${URL}/actividades`,
+      headersRequest: {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      }
+    });
+  };
 
   useEffect(() => {
     getParcelaCultivo();
     getParcela();
+    getHistorialParcela();
+    getActividades();
   }, []);
 
-  //console.log(fetchDataParcelaCultivo)
-  console.log(fetchDataParcela)
+  console.log(fetchDataParcelaCultivo)
+  //console.log(fetchDataParcela)
   //console.log(fetchDataHistorialParcela)
+  //console.log(fetchDataActividades)
+
+  const [optSmModalDetalles, setOptSmModalDetalles] = useState(false);
+  const toggleShowDetalles = () => setOptSmModalDetalles(!optSmModalDetalles);
+ 
+
+
 
   const [modalOpen, setModalOpen] = useState(false);
-  
+
   const calendarRef = useRef(null);
-  
+
   const onEventAdded = event => {
     let calendarApi = calendarRef.current.GetApi()
     calendarApi.addEvent(event)
   }
-  
-
   return (
     <LayoutContainer>
       <div className="content-wrapper">
@@ -82,17 +106,21 @@ function TuCalendario() {
 
                       {/* filtro */}
                       <select className="form-select" aria-label="Default select example">
-                        <option selected></option>
-                        <option value="1">Parcela1</option>
-                        <option value="2">Parcela2</option>
-                        <option value="3">Parcela3</option>
-                      </select>
+                        <option disabled='true' selected>Seleccione una Parcela</option>
+                        {fetchDataParcela?.map(elemento => {
+                         return(
+                          <option key={elemento?.id_parcela} value={elemento?.id_parcela}>{elemento?.descripcion_parcela}</option>
+                         ) 
+                        }
 
+                        )}
+                      </select>
+                      
                       <p></p>
-                      {/* <button onClick={() => setModalOpen(true)}>Agregar Evento</button> */}
+
+
                       <div style={{ width: '178%' }}>
                         <FullCalendar
-
                           locale={esLocale}
                           fixedWeekCount={false}
                           height={700}
@@ -105,66 +133,28 @@ function TuCalendario() {
                             end: 'newAppointment',
                           }}
 
-                          eventClick={
-                            function (arg) {
-                              alert(arg.event.title)
-                              alert(arg.event.start)
-                            }
-                          }
-                          /* footerToolbar={{
-                           center: 'toggleMonth toggleWeek toggleDay',
-                         }} 
-                         customButtons={{
-                           newAppointment: {
-                             text: 'Nueva Actividad',
-                             click: () => {
-                               dateClickHandler();
-                             },
-                           },
-                           toggleDay: {
-                             text: 'Hoy',
-                             click: () => {
-                               calendar.current.getApi().changeView('dayGridDay');
-                             }
-                           },
-                           toggleWeek: {
-                             text: 'Semana',
-                             click: () => {
-                               calendar.current.getApi().changeView('dayGridWeek');
-                             }
-                           },
-                           toggleMonth: {
-                             text: 'Mes',
-                             click: () => {
-                               calendar.current.getApi().changeView('dayGridMonth')
-                             }
-                           },
-                         }}  */
+                          eventClick={toggleShowDetalles}
+                          
 
-                          events={fetchDataParcelaCultivo.map(items => ({
-                            title: items.id_parcela,
-                            description:"",
-                            start: items.fecha_inicio,
-                            end: items.fecha_final,
+                          events={fetchDataHistorialParcela?.map(items => ({
+                            title: items.id_actividad,
+                            start: items.fecha_historial,
                             color: "#00da41"
                           }))
                           }
 
-                        /* events={[
-                          {
-                            title: fetchDataCampania[0].descripcion_campania,
-                            start: fetchDataCampania[0].fecha_inicio,
-                            end: fetchDataCampania[0].fecha_final,
-                            color: "#00da41"
-                          },
-                        ]} */
-                        />^
+                        />
 
                       </div>
-                      {/* <AgregarEvento isOpen={modalOpen} onClose={() => setModalOpen(false)} onEventAdded={event => onEventAdded(event)} /> */}
+                      
 
                     </div>
                   </div>
+                  <DetallesModal
+                            optSmModalDetalles={optSmModalDetalles}
+                            setOptSmModalDetalles={setOptSmModalDetalles}
+                            toggleShowDetalles={toggleShowDetalles}
+                            />
                   <div className="col-sm-5 text-center text-sm-left">
                     <div className="card-body pb-0 px-0 px-md-4">
                     </div>

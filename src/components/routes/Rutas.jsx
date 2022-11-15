@@ -82,6 +82,7 @@ function Rutas() {
           <Route path='/formulario-almacen' exact element={<FormAlmacen/>} />
           <Route path="/calendario" exact element={<Calendario/>} />
           <Route path="/tuCalendario" exact element={<TuCalendario/>} />
+          
           <Route path="*" exact element={<Home />} />
         </Routes>
       );
