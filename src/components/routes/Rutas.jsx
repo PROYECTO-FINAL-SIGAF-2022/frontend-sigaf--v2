@@ -18,7 +18,7 @@ import HomeEstablecimientos from "../../pages/establecimientos/HomeEstablecimien
 import FormPersonal from "../../pages/personal/FormPersonal";
 import FormMaquinas from "../../pages/maquinas/FormMaquinas";
 import Explotaciones from "../../pages/explotaciones/Explotaciones";
-import Campos from "../../pages/campos/Campos";
+/* import Campos from "../../pages/campos/Campos"; */
 import Ingresos from "../../pages/analisis/ingresos/Index";
 import Egresos from "../../pages/analisis/egresos/Index";
 import FormAlmacen from "../../pages/almacenes/FormAlmacen";
@@ -28,7 +28,7 @@ import { useFetch } from "../../hooks/useFetch";
 import { URL } from "../../utils/getUrl";
 import FormGastosMaquinas from "../../pages/analisis/egresos/formularios/gastosMaquinas/FormGastosMaquinas";
 import FormPagosPersonal from "../../pages/analisis/egresos/formularios/pagosPersonal/FormPagosPersonal";
-
+import Trabajos from "../../pages/tiposTrabajos/Trabajos";
 function Rutas() {
   const session = useSession();
 
@@ -76,12 +76,13 @@ function Rutas() {
           <Route path="/formulario-maquinas" exact element={<FormMaquinas/>}/>
           <Route path="/actualizar-proveedor/:proid" exact element={<UpdateProveedor/>}/>
           <Route path='/Explotaciones' exact element={<Explotaciones/>} />
-          <Route path='/Campos' exact element={<Campos/>} />
+          {/* <Route path='/Campos' exact element={<Campos/>} /> */}
           <Route path='/Ingresos' exact element={<Ingresos/>} />
           <Route path='/Egresos' exact element={<Egresos/>} />
           <Route path='/formulario-almacen' exact element={<FormAlmacen/>} />
           <Route path="/calendario" exact element={<Calendario/>} />
           <Route path="/tuCalendario" exact element={<TuCalendario/>} />
+          <Route path="/tipo-trabajos" exact element={<Trabajos/>} />
           
           <Route path="*" exact element={<Home />} />
         </Routes>

@@ -20,7 +20,19 @@ function TuCalendario() {
   const [setConfigFetchParcelaCultivo, fetchDataParcelaCultivo] = useFetch()
   const [setConfigFetchParcela, fetchDataParcela] = useFetch()
   const [setConfigFetchHistorialParcela, fetchDataHistorialParcela] = useFetch()
-  const [setConfigFetchActividades, fetchDataActividades] = useFetch()
+  const [setConfigFetchActividad, fetchDataActividades] = useFetch()
+
+  const getActividades = () => {
+    setConfigFetchActividad({
+      url: `${URL}/actividades`,
+      headersRequest: {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      }
+    });
+  };
 
   const getParcelaCultivo = () => {
     setConfigFetchParcelaCultivo({
@@ -55,32 +67,26 @@ function TuCalendario() {
       }
     });
   };
-  const getActividades = () => {
-    setConfigFetchActividades({
-      url: `${URL}/actividades`,
-      headersRequest: {
-        method: "GET",
-        headers: {
-          "Content-type": "application/json; charset=UTF-8"
-        }
-      }
-    });
-  };
+  
 
   useEffect(() => {
-    getParcelaCultivo();
     getParcela();
     getHistorialParcela();
-    getActividades();
+    getActividades()
   }, []);
 
-  console.log(fetchDataParcelaCultivo)
-  //console.log(fetchDataParcela)
-  //console.log(fetchDataHistorialParcela)
-  //console.log(fetchDataActividades)
+/*   console.log(fetchDataParcelaCultivo)
+  console.log(fetchDataParcela) */
+
+  console.log(fetchDataActividades)
 
   const [optSmModalDetalles, setOptSmModalDetalles] = useState(false);
-  const toggleShowDetalles = () => setOptSmModalDetalles(!optSmModalDetalles);
+  const [datosHistorial, setDatosHistorial] = useState("");
+  const toggleShowDetalles = (item) => {
+    console.log(item)
+    setOptSmModalDetalles(!optSmModalDetalles);
+    setDatosHistorial(item)
+  }
  
 
 
@@ -93,6 +99,12 @@ function TuCalendario() {
     let calendarApi = calendarRef.current.GetApi()
     calendarApi.addEvent(event)
   }
+
+
+  const fechaActual = new Date().toLocaleDateString('es-ES')
+
+
+ 
   return (
     <LayoutContainer>
       <div className="content-wrapper">
@@ -105,8 +117,8 @@ function TuCalendario() {
                     <div className="card-body">
 
                       {/* filtro */}
-                      <select className="form-select" aria-label="Default select example">
-                        <option disabled='true' selected>Seleccione una Parcela</option>
+                      <select className="form-select" aria-label="Default select example" defaultValue=" ">
+                        <option disabled value=" ">Seleccione una Parcela</option>
                         {fetchDataParcela?.map(elemento => {
                          return(
                           <option key={elemento?.id_parcela} value={elemento?.id_parcela}>{elemento?.descripcion_parcela}</option>
@@ -117,7 +129,6 @@ function TuCalendario() {
                       </select>
                       
                       <p></p>
-
 
                       <div style={{ width: '178%' }}>
                         <FullCalendar
@@ -133,14 +144,32 @@ function TuCalendario() {
                             end: 'newAppointment',
                           }}
 
-                          eventClick={toggleShowDetalles}
+                          eventClick={()=>{
+                            fetchDataHistorialParcela?.map(item =>{
+                              toggleShowDetalles(item)
+                            })
+                          }}
                           
+                          events={fetchDataHistorialParcela?.map(items => {
+                            var nombreActividad;
+                            
+                            for (var i = 0; i < fetchDataHistorialParcela.length; i++) {
+                              //console.log(fetchDataHistorialParcela[i].id_parcela_cultivo)
+                              if(fetchDataActividades[i]?.id_actividad === items?.id_actividad){
+                                nombreActividad = fetchDataActividades[i].descripcion_actividad
+                              }
 
-                          events={fetchDataHistorialParcela?.map(items => ({
-                            title: items.id_actividad,
-                            start: items.fecha_historial,
-                            color: "#00da41"
-                          }))
+                            }
+                            
+
+                            return(
+                              {
+                                title: nombreActividad,
+                                start: items.fecha_historial,
+                                color: items.fecha_historial > fechaActual ? "#bfd4b7" : "#0a837f"
+                              }
+                            )
+                          })
                           }
 
                         />
@@ -154,6 +183,7 @@ function TuCalendario() {
                             optSmModalDetalles={optSmModalDetalles}
                             setOptSmModalDetalles={setOptSmModalDetalles}
                             toggleShowDetalles={toggleShowDetalles}
+                            item = {datosHistorial}
                             />
                   <div className="col-sm-5 text-center text-sm-left">
                     <div className="card-body pb-0 px-0 px-md-4">

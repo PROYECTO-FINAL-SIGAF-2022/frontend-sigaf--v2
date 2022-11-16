@@ -149,7 +149,7 @@ function Menu () {
           <li className="menu-item">
             <Link to="/calendario" className="menu-link">
               <i className="menu-icon tf-icons bx bx-calendar"></i>
-              <div data-i18n="Analytics">Calendario Cultivos</div>
+              <div data-i18n="Analytics">Guia Cultivos</div>
               </Link>
           </li>
 
@@ -208,16 +208,16 @@ function Menu () {
               <div data-i18n="Account Settings">Configuraciones</div>
             </a>
             <ul className="menu-sub">
-              <li className="menu-item">
+              {/* <li className="menu-item">
                 <Link to="/Explotaciones" className="menu-link">
                   <div data-i18n="Connections">Explotaciones</div>
                 </Link>
-              </li>
-              <li className="menu-item">
+              </li> */}
+              {/* <li className="menu-item">
                 <Link to="/Campos" className="menu-link">
                   <div data-i18n="Connections">Campos</div>
                 </Link>
-              </li>
+              </li> */}
               <li className="menu-item">
                 <Link to="/maquinas" className="menu-link">
                   <div data-i18n="Connections">Máquinas</div>
@@ -243,9 +243,9 @@ function Menu () {
               </li>
 
               <li className="menu-item">
-                <a href="#" className="menu-link">
+              <Link to="/tipo-trabajos" className="menu-link">
                   <div data-i18n="Connections">Trabajos</div>
-                </a>
+                </Link>
               </li>
               <li className="menu-item">
               <Link to="/almacenes" className="menu-link">
