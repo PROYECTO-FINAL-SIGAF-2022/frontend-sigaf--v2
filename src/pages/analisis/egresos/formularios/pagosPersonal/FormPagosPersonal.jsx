@@ -11,7 +11,7 @@ const FormGastosMaquinas = () => {
   const [setConfigFetchContabilidad, fetchDataContabilidad] = useFetch();
 
   const [descripcionContabilidad, setDescripcionContabilidad] = useState("");
-  const [tipoContabilidad, setTipoContabilidad] = useState("1");
+  /*   const [tipoContabilidad, setTipoContabilidad] = useState("1"); */
 
   const guardarDatos = (e) => {
     const nombrePersonal = e.target.value;
@@ -19,7 +19,7 @@ const FormGastosMaquinas = () => {
   };
 
   const formikRef = useRef();
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
 
   const getPersonal = () => {
     setConfigFetchPersonal({
@@ -64,9 +64,15 @@ const FormGastosMaquinas = () => {
   }, []);
 
   // useEffect(() => {
-  //   if (fetchDataContabilidad.lenght === 0) return;
+  //   if (fetchDataContabilidad.length === 0) return;
   //   Navigate("/Egresos");
   // }, [fetchDataContabilidad]);
+  /*  useEffect(() => {
+    if ("msg" in fetchDataPersonal && "msg" in fetchDataContabilidad) {
+      alert("Pago guardado Exitosamente");
+      navigate("/Egresos", { state: { tab: "tab2" } });
+    }
+  }, [fetchDataPersonal, fetchDataContabilidad]); */
 
   // console.log(fetchDataContabilidad);
 

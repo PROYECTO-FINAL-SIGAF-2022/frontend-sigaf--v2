@@ -6,14 +6,14 @@ import Loading from "../../components/layouts/Loading";
 import { useFetch } from "../../hooks/useFetch";
 import { URL } from "../../utils/getUrl";
 import { Link } from "react-router-dom";
-import { useEffect  } from "react";
+import { useEffect } from "react";
 
-function Productos() {
+function Productos () {
   const [
     setConfigFetchProductos,
     fetchDataProductos,
     loadingProductos,
-    errorProductos,
+    errorProductos
   ] = useFetch();
 
   const getProductos = () => {
@@ -22,9 +22,9 @@ function Productos() {
       headersRequest: {
         method: "GET",
         headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-      },
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      }
     });
   };
 
@@ -32,7 +32,7 @@ function Productos() {
     getProductos();
   }, []);
 
-  //console.log(fetchDataProductos)
+  // console.log(fetchDataProductos)
   if (!errorProductos) {
     return <h1>Error</h1>;
   }
@@ -91,12 +91,12 @@ function Productos() {
                         {fetchDataProductos.length > 0 && (
                           <>
                             {
-                              
-                              //key={proveedor.id_proveedor}
+
+                              // key={proveedor.id_proveedor}
                               fetchDataProductos?.map((item) => {
                                 const fecha = new Date(item.fecha_vencimiento_producto);
                                 const fechaConvertida = fecha.toLocaleDateString();
-                                return( 
+                                return (
                                 <tr>
                                   <td>
                                     <img
@@ -146,7 +146,8 @@ function Productos() {
                                     </a>
                                   </td>
                                 </tr>
-                              )})
+                                );
+                              })
                             }
                           </>
                         )}
