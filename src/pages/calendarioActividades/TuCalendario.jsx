@@ -13,7 +13,7 @@ import Modal from 'react-bootstrap/Modal';
 import { Link } from "react-router-dom"
 import { elementClosest } from 'fullcalendar';
 import DetallesModal from './DetalllesEventos.jsx/DetallesModal';
-
+import { Tooltip } from "bootstrap";
 
 function TuCalendario() {
 
@@ -101,9 +101,35 @@ function TuCalendario() {
   }
 
 
-  const fechaActual = new Date().toLocaleDateString('es-ES')
+  const fechaActual = new Date('11/11/2022')
+  let tooltipInstance = null;
+ // console.info(fechaActual)
 
 
+/*  const handleMouseEnter = (info) => {
+  if (info.event.title) {
+    tooltipInstance = new Tooltip(info.el, {
+      title: `La Actividad es: ${info.event.title}`,
+      html: true,
+      placement: "top",
+      trigger: "hover",
+      container: "body",
+     
+    });
+
+    tooltipInstance.show();
+  }
+};
+
+const handleMouseLeave = (info) => {
+  console.log(tooltipInstance._isEnabled)
+  if (tooltipInstance) {
+    tooltipInstance.dispose();
+    tooltipInstance = null;
+    //tooltipInstance._isEnabled()
+    //console.info(tooltipInstance)
+  }
+}; */
  
   return (
     <LayoutContainer>
@@ -142,6 +168,7 @@ function TuCalendario() {
                             start: 'prev today next',
                             center: 'title',
                             end: 'newAppointment',
+                            
                           }}
 
                           eventClick={()=>{
@@ -149,24 +176,40 @@ function TuCalendario() {
                               toggleShowDetalles(item)
                             })
                           }}
+                          /* eventMouseEnter={handleMouseEnter}
+                          eventMouseLeave={handleMouseLeave} */
                           
                           events={fetchDataHistorialParcela?.map(items => {
                             var nombreActividad;
-                            
+                            var fecha
+                            var color = "red"
                             for (var i = 0; i < fetchDataHistorialParcela.length; i++) {
-                              //console.log(fetchDataHistorialParcela[i].id_parcela_cultivo)
+                              fecha = new Date(items.fecha_historial)
+                              //console.log(fecha)
                               if(fetchDataActividades[i]?.id_actividad === items?.id_actividad){
                                 nombreActividad = fetchDataActividades[i].descripcion_actividad
                               }
 
+                              if(fecha > fechaActual){
+                                  color = "#bfd4b7"
+                                  //console.info("ganador =>", fecha)
+                              }else if (fecha < fechaActual){
+                                color = "#0a837f"
+                                //console.info("ganador Fecha actual =>",fechaActual)
+                              }else{
+                                //console.info("Son Iguales")
+                                color = "#f0b300"
+                              }
+
                             }
-                            
+                            //console.log(color)                            
 
                             return(
                               {
                                 title: nombreActividad,
                                 start: items.fecha_historial,
-                                color: items.fecha_historial > fechaActual ? "#bfd4b7" : "#0a837f"
+                                color: color,
+                                
                               }
                             )
                           })
