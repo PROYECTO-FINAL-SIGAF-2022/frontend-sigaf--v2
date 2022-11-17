@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from "react";
 import "../../Index.css";
 import { MDBCard } from "mdb-react-ui-kit";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Select from "react-select";
 
 import Swal from "sweetalert2";
@@ -10,12 +10,16 @@ import withReactContent from "sweetalert2-react-content";
 import { useFetch } from "../../../../../hooks/useFetch";
 import { URL } from "../../../../../utils/getUrl";
 
+
+
 const PagosPersonal = () => {
   const optFecha = [
     { label: "2021" },
     { label: "2022" },
     { label: "2022" }
   ];
+
+  const navigate = useNavigate();
 
   const [setConfigFetchContabilidadPersonal, fetchDataContabilidadPersonal] = useFetch();
 
@@ -50,7 +54,6 @@ const PagosPersonal = () => {
 
   const MySwal = withReactContent(Swal);
   const modalEliminar = (id) => {
-    id;
     return MySwal.fire({
       title: "Seguro que lo quiere eliminar?",
       text: "Se eliminara permanentemente!",
@@ -64,7 +67,7 @@ const PagosPersonal = () => {
       if (result.isConfirmed) {
         // console.log(id)
         setConfigFetchEliminarPagoContabilidad({
-          url: `${URL}/contabilidad/${id}`,
+          url: `${URL}/contabilidad-del/${id}`,
           headersRequest: {
             method: "DELETE",
             headers: {
@@ -72,12 +75,15 @@ const PagosPersonal = () => {
             }
           }
         });
+
+        navigate("/Egresos")
+        
         Swal.fire(
           "Eliminado!",
           "El archivo fue eliminado.",
           "success"
         ).then((resultClose) => {
-          // console.log(resultClose)
+          getContabilidadPersonal()
         });
       }
     });
@@ -133,60 +139,68 @@ const PagosPersonal = () => {
                 </tr>
             </thead>
         <tbody>
-          {fetchDataContabilidadPersonal.length > 0 && (
+          {fetchDataContabilidadPersonal.length > 0 ? (
           <>
           {
             fetchDataContabilidadPersonal?.map((item) => {
               const fecha = new Date(item.fecha_contabilidad);
-              const fechaConvertida = fecha.toLocaleDateString();
-              return (
-                <tr>
-                  <td className="text-center">
-                    <a className="text-center">
-                      {item?.descripcion_contabilidad}
-                    </a>
-                  </td>
-                  <td className="text-center" >
-                    <a>
-                      {item?.observacion_contabilidad}
-                    </a>
-                  </td>
-                  <td className="text-center" >
-                    <a>
-                      {item?.monto_contabilidad}
-                    </a>
-                  </td>
-                  <td className="text-center" >
-                    <a>
-                    {fechaConvertida}
-                    </a>
-                  </td>
-                  <td className="text-center">
-                    <a href="#" className="table-link">
-                      <span className="fa-stack">
-                        <i className="fa fa-square fa-stack-2x"></i>
-                        <i className="fa fa-search-plus fa-stack-1x fa-inverse"></i>
-                      </span>
-                    </a>
-                    <a href="#" className="table-link">
-                      <span className="fa-stack">
-                        <i className="fa fa-square fa-stack-2x "></i>
-                        <i className="fa fa-pencil fa-stack-1x fa-inverse"></i>
-                      </span>
-                    </a>
-                    <a href="#" className="table-link danger" onClick={() => { modalEliminar(item?.id_contabilidad)}}>
-                      <span className="fa-stack">
-                        <i className="fa fa-square fa-stack-2x"></i>
-                        <i className="fa fa-trash-o fa-stack-1x fa-inverse"></i>
-                      </span>
-                    </a>
-                  </td>
-                </tr>
-              );
+
+              if(item?.observacion_contabilidad !== "-"){
+
+                const fechaConvertida = fecha.toLocaleDateString();
+                return (
+                  <tr>
+                    <td className="text-center">
+                      <a className="text-center">
+                        {item?.descripcion_contabilidad}
+                      </a>
+                    </td>
+                    <td className="text-center" >
+                      <a>
+                        {item?.observacion_contabilidad}
+                      </a>
+                    </td>
+                    <td className="text-center" >
+                      <a>
+                        {item?.monto_contabilidad}
+                      </a>
+                    </td>
+                    <td className="text-center" >
+                      <a>
+                      {fechaConvertida}
+                      </a>
+                    </td>
+                    <td className="text-center">
+                      <a href="#" className="table-link">
+                        <span className="fa-stack">
+                          <i className="fa fa-square fa-stack-2x"></i>
+                          <i className="fa fa-search-plus fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                      <a href="#" className="table-link">
+                        <span className="fa-stack">
+                          <i className="fa fa-square fa-stack-2x "></i>
+                          <i className="fa fa-pencil fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                      <a href="#" className="table-link danger" onClick={() => { modalEliminar(item?.id_contabilidad)}}>
+                        <span className="fa-stack">
+                          <i className="fa fa-square fa-stack-2x"></i>
+                          <i className="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </td>
+                  </tr>
+                );
+              }
             })
           }
           </>
-          )}
+          ): 
+          (
+            <h3 className="text-danger text-center">No hay pagos cargados...</h3>
+          )
+          }
         </tbody>
         </table>
         </>

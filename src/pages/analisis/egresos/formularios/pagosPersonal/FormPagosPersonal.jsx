@@ -7,6 +7,7 @@ import { useFetch } from "../../../../../hooks/useFetch";
 import { URL } from "../../../../../utils/getUrl";
 
 const FormGastosMaquinas = () => {
+  const [isSend, setIsSend] = useState(false)
   const [setConfigFetchPersonal, fetchDataPersonal] = useFetch();
   const [setConfigFetchContabilidad, fetchDataContabilidad] = useFetch();
 
@@ -39,8 +40,6 @@ const FormGastosMaquinas = () => {
       monto_contabilidad
     } = values;
 
-    console.log(descripcionContabilidad);
-
     /* const tipo_contabilidad = "egreso";
     const descripcion_contabilidad = "se pago el personal " */
 
@@ -57,24 +56,20 @@ const FormGastosMaquinas = () => {
         })
       }
     });
+
+    setIsSend(true)
   };
 
   useEffect(() => {
     getPersonal();
   }, []);
 
-  // useEffect(() => {
-  //   if (fetchDataContabilidad.length === 0) return;
-  //   Navigate("/Egresos");
-  // }, [fetchDataContabilidad]);
-  /*  useEffect(() => {
-    if ("msg" in fetchDataPersonal && "msg" in fetchDataContabilidad) {
-      alert("Pago guardado Exitosamente");
-      navigate("/Egresos", { state: { tab: "tab2" } });
-    }
-  }, [fetchDataPersonal, fetchDataContabilidad]); */
+  
 
-  // console.log(fetchDataContabilidad);
+  useEffect(()=> {
+    if (!isSend) return;
+    navigate("/Egresos", { state: { tab: "tab2" } });
+  }, [isSend])
 
   return (
     <LayoutContainer>
@@ -102,34 +97,35 @@ const FormGastosMaquinas = () => {
                             Seleccione Personal
                           </label>
                           <Field
-                                className="form-control"
-                                as="select"
-                                name="personal"
-                                onChange={(e) => {
-                                  handleChange(e);
-                                  guardarDatos(e);
-                                }}
-                              >
-                                <option value="" disabled>
-                                  Seleccionar Personal
+                            className="form-control"
+                            as="select"
+                            name="personal"
+                            onChange={(e) => {
+                              handleChange(e);
+                              guardarDatos(e);
+                            }}
+                          >
+                            <option value="" disabled>
+                              Seleccionar Personal...
+                            </option>
+                            {fetchDataPersonal?.map((item) => {
+                              return (
+                                <option
+                                  key={`${item.id_usuario}-personal`}
+                                  value={`${item.nombre_persona} ${item.apellido_persona}`}
+                                >
+                                  {item.nombre_persona}
                                 </option>
-                                {fetchDataPersonal?.map((item) => {
-                                  return (
-                                    <option
-                                      key={`${item.id_usuario}-personal`}
-                                      value={`${item.nombre_persona} ${item.apellido_persona}`}
-                                    >
-                                      {item.nombre_persona}
-                                    </option>
-                                  );
-                                })}
-                              </Field>
+                              );
+                            })}
+                          </Field>
                         </div>
                         <div className="mb-3">
                           <label className="form-label">
                             Seleccione Tipo de Pago
                           </label>
                           <Field className="form-control" as="select" name="observacion_contabilidad">
+                            <option value="" disabled>Seleccionar Tipo...</option>
                             <option value="pago mensual">Mensual</option>
                             <option value="pago por dia">Diario</option>
                           </Field>
@@ -147,17 +143,17 @@ const FormGastosMaquinas = () => {
                           />
                         </div>
                         <br></br>
-                        <Link to='/Egresos'>
+                        <Link to='/Egresos' state={{ tab: "tab2" }}>
                         <button className="btn btn-danger mx-3">
                           Volver
                         </button>
                         </Link >
-                        <button className="btn btn-success" type="submit">
+                        <button type="submit" className="btn btn-success" >
                           Agregar Pago
                         </button>
                         </Form>
                       )
-                      }
+                  }
                     </Formik>
                     </div>
                   </div>

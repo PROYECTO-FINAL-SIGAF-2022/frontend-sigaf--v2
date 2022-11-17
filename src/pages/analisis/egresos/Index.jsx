@@ -16,6 +16,7 @@ import { MDBBtn, MDBModal, MDBModalBody, MDBModalContent, MDBModalDialog, MDBMod
 import PagosPersonal from "./formularios/pagosPersonal/PagosPersonal";
 import GastosMaquinas from "./formularios/gastosMaquinas/GastosMaquinas";
 import TotalesEgresos from "./formularios/totalesEgresos/TotalesEgresos";
+import { useLocation } from "react-router-dom";
 
 const Precios = () => {
   // const [activeTab, setActiveTab] = useState("1");
@@ -23,8 +24,8 @@ const Precios = () => {
   // const toggleTab = tab => {
   //   setActiveTab(tab);
   // };
-
-  const [basicActive, setBasicActive] = useState("tab1");
+  const { state } = useLocation();
+  const [basicActive, setBasicActive] = useState(state?.tab || "tab1");
 
   const handleBasicClick = (value) => {
     if (value === basicActive) {
