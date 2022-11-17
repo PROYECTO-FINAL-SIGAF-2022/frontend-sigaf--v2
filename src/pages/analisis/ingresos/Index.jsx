@@ -4,39 +4,76 @@ import "./Index.css";
 
 import { useState } from "react";
 
-import { TabContent, TabPane, Col } from "reactstrap";
-
-import Tabs from "./Tabs";
-import CosechaTabContent from "./CosechaTabContent";
-import MaquinasTabContent from "./MaquinasTabContent";
-import AlmacenesTabContent from "./AlmacenesTabContent";
+import {
+  MDBTabs,
+  MDBTabsContent,
+  MDBTabsItem,
+  MDBTabsLink,
+  MDBTabsPane
+} from "mdb-react-ui-kit";
+import VentasMaquinas from "./VentasMaquinas/VentasMaquinas";
+import VentasCosechas from "./VentasCosechas/VentasCosechas";
+import VentasAlmacenes from "./VentasAlmacenes/VentasAlmacenes";
+import TotalGeneralIngresos from "./TotalGeneralIngresos/TotalGeneralIngresos";
+import { useLocation } from "react-router-dom";
 
 const Costos = () => {
-  const [activeTab, setActiveTab] = useState('1');
+  const { state } = useLocation();
+  const [basicActive, setBasicActive] = useState(state?.tab || "tab1");
+  // console.log(basicActive);
+  const handleBasicClick = (value) => {
+    if (value === basicActive) {
+      return;
+    }
 
-  const toggleTab = tab => {
-    setActiveTab(tab);
+    setBasicActive(value);
   };
 
   return (
     <LayoutContainer>
-            <div style={{ textAlign: "center" }}>
-              <h1 style={{ textAlign: "left" }} className="fw-lighter">Ingresos o Ventas</h1>
-            </div>
-            <Col xs={12}>
-            <Tabs className='mb-2' activeTab={activeTab} toggleTab={toggleTab} />
-            <TabContent activeTab={activeTab}>
-              <TabPane tabId='1'>
-                <CosechaTabContent/>
-              </TabPane>
-              <TabPane tabId='2'>
-                <MaquinasTabContent/>
-              </TabPane>
-              <TabPane tabId='3'>
-                <AlmacenesTabContent/>
-              </TabPane>
-            </TabContent>
-            </Col>
+      <h1 className="text-center text-dark mt-3">Ingresos</h1>
+
+      <MDBTabs className="mb-3 px-3">
+        <MDBTabsItem>
+          <MDBTabsLink
+            onClick={() => handleBasicClick("tab1")}
+            active={basicActive === "tab1"}
+          >
+            Total General
+          </MDBTabsLink>
+        </MDBTabsItem>
+        <MDBTabsItem>
+          <MDBTabsLink
+            onClick={() => handleBasicClick("tab2")}
+            active={basicActive === "tab2"}
+          >
+            Venta Cosechas
+          </MDBTabsLink>
+        </MDBTabsItem>
+        <MDBTabsItem>
+          <MDBTabsLink
+            onClick={() => handleBasicClick("tab3")}
+            active={basicActive === "tab3"}
+          >
+            Venta Maquinas
+          </MDBTabsLink>
+        </MDBTabsItem>
+        <MDBTabsItem>
+          <MDBTabsLink
+            onClick={() => handleBasicClick("tab4")}
+            active={basicActive === "tab4"}
+          >
+            Venta Almacenes
+          </MDBTabsLink>
+        </MDBTabsItem>
+      </MDBTabs>
+
+      <MDBTabsContent>
+        <MDBTabsPane show={basicActive === "tab1"}><TotalGeneralIngresos/></MDBTabsPane>
+        <MDBTabsPane show={basicActive === "tab2"}><VentasCosechas/></MDBTabsPane>
+        <MDBTabsPane show={basicActive === "tab3"}><VentasMaquinas/></MDBTabsPane>
+        <MDBTabsPane show={basicActive === "tab4"}><VentasAlmacenes/></MDBTabsPane>
+      </MDBTabsContent>
     </LayoutContainer>
   );
 };

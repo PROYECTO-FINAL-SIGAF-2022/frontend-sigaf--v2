@@ -19,7 +19,7 @@ const Tabs = ({ activeTab, toggleTab }) => {
         </NavLink>
       </NavItem>
     </Nav>
-);
+  );
 };
 
 export default Tabs;
