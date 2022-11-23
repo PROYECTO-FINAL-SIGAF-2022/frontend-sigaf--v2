@@ -1,26 +1,26 @@
 import { Field, Formik, Form } from "formik";
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LayoutContainer from "../../../../../components/layouts/LayoutContainer";
 
 import { useFetch } from "../../../../../hooks/useFetch";
 import { URL } from "../../../../../utils/getUrl";
 
 const FormGastosMaquinas = () => {
+  const [isSend, setIsSend] = useState(false)
   const [setConfigFetchPersonal, fetchDataPersonal] = useFetch();
-  // const [setConfigFetchContabilidad, fetchDataContabilidad] = useFetch();
+  const [setConfigFetchContabilidad, fetchDataContabilidad] = useFetch();
 
-  // const [descripcionC, setDescripcionC] = useState("");
+  const [descripcionContabilidad, setDescripcionContabilidad] = useState("");
+  /*   const [tipoContabilidad, setTipoContabilidad] = useState("1"); */
 
-  const seleccionarNombre = (e) => {
-    console.log(e.target.value);
+  const guardarDatos = (e) => {
+    const nombrePersonal = e.target.value;
+    setDescripcionContabilidad("Se pago al personal: " + nombrePersonal);
   };
 
-  useEffect(() => {
-    console.log(descripcionC);
-  }, [descripcionC]);
-
   const formikRef = useRef();
+  const navigate = useNavigate();
 
   const getPersonal = () => {
     setConfigFetchPersonal({
@@ -36,7 +36,6 @@ const FormGastosMaquinas = () => {
 
   const handleSubmit = (values) => {
     const {
-      descripcion_contabilidad,
       observacion_contabilidad,
       monto_contabilidad
     } = values;
@@ -49,19 +48,28 @@ const FormGastosMaquinas = () => {
       headersRequest: {
         method: "POST",
         body: JSON.stringify({
-          descripcion_contabilidad,
+          descripcion_contabilidad: descripcionContabilidad,
           observacion_contabilidad,
-          monto_contabilidad
+          tipo_contabilidad: "egreso",
+          monto_contabilidad: `-${monto_contabilidad}`,
+          id_parcela_cultivo: 1
         })
       }
     });
+
+    setIsSend(true)
   };
 
   useEffect(() => {
     getPersonal();
   }, []);
 
-  // console.log(fetchDataContabilidad);
+  
+
+  useEffect(()=> {
+    if (!isSend) return;
+    navigate("/Egresos", { state: { tab: "tab2" } });
+  }, [isSend])
 
   return (
     <LayoutContainer>
@@ -76,40 +84,50 @@ const FormGastosMaquinas = () => {
                     <Formik
                     innerRef={formikRef}
                     initialValues={{
-                      descripcion_contabilidad: "",
                       observacion_contabilidad: "",
                       monto_contabilidad: "",
-                      tipo_contabilidad: "",
-                      fecha_contabilidad: "",
                       personal: ""
                     }}
                     onSubmit={handleSubmit}
                     >
-                      <Form id="formAuthentication" className="form-group">
+                      {({ handleChange }) => (
+                        <Form id="formAuthentication" className="form-group">
                         <div className="mb-3">
                           <label className="form-label">
                             Seleccione Personal
                           </label>
-                          <Field className="form-control" as="select" name="personal" onChange={(e) => { seleccionarNombre(e); }}>
-                            <option value="" disabled>Seleccionar Personal</option>
-                            {
-                              fetchDataPersonal?.map((item) => {
-                                return (
-                                  <option key={`${item.id_usuario}-personal`} value={item.id_usuario} >{item.nombre_persona}</option>
-                                );
-                              })
-                            }
-
+                          <Field
+                            className="form-control"
+                            as="select"
+                            name="personal"
+                            onChange={(e) => {
+                              handleChange(e);
+                              guardarDatos(e);
+                            }}
+                          >
+                            <option value="" disabled>
+                              Seleccionar Personal...
+                            </option>
+                            {fetchDataPersonal?.map((item) => {
+                              return (
+                                <option
+                                  key={`${item.id_usuario}-personal`}
+                                  value={`${item.nombre_persona} ${item.apellido_persona}`}
+                                >
+                                  {item.nombre_persona}
+                                </option>
+                              );
+                            })}
                           </Field>
                         </div>
                         <div className="mb-3">
                           <label className="form-label">
                             Seleccione Tipo de Pago
                           </label>
-                          <Field className="form-control" as="select">
-                            <option value="xs">Mensual</option>
-                            <option value="xd">Diario</option>
-
+                          <Field className="form-control" as="select" name="observacion_contabilidad">
+                            <option value="" disabled>Seleccionar Tipo...</option>
+                            <option value="pago mensual">Mensual</option>
+                            <option value="pago por dia">Diario</option>
                           </Field>
                         </div>
                         <div className="mb-3">
@@ -119,23 +137,24 @@ const FormGastosMaquinas = () => {
                           <Field
                             type="number"
                             className="form-control"
+                            name= "monto_contabilidad"
                             placeholder= "Ingrese el valor del pago"
                             aria-describedby="emailHelp"
                           />
                         </div>
                         <br></br>
-                        <Link to='/Egresos'>
+                        <Link to='/Egresos' state={{ tab: "tab2" }}>
                         <button className="btn btn-danger mx-3">
                           Volver
                         </button>
                         </Link >
-                        <Link to='/Egresos'>
-                        <button className="btn btn-success">
+                        <button type="submit" className="btn btn-success" >
                           Agregar Pago
                         </button>
-                        </Link >
                         </Form>
-              </Formik>
+                      )
+                  }
+                    </Formik>
                     </div>
                   </div>
                 </div>

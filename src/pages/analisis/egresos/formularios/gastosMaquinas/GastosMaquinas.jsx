@@ -1,8 +1,14 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import Select from "react-select";
 import "../../Index.css";
 import { MDBCard } from "mdb-react-ui-kit";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
+import { useFetch } from "../../../../../hooks/useFetch";
+import { URL } from "../../../../../utils/getUrl";
 
 const GastosMaquinas = () => {
   const optMaquina = [
@@ -15,6 +21,66 @@ const GastosMaquinas = () => {
     { label: "2022" },
     { label: "2022" }
   ];
+
+  const navigate = useNavigate();
+
+  const [setConfigFetchContabilidadPersonal, fetchDataContabilidadPersonal] = useFetch();
+
+  const getContabilidadPersonal = () => {
+    setConfigFetchContabilidadPersonal({
+      url: `${URL}/contabilidad`,
+      headersRequest: {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      }
+    });
+  };
+
+  const [setConfigFetchEliminarPagoContabilidad] = useFetch();
+
+  useEffect(() => {
+    getContabilidadPersonal();
+  }, []);
+
+  const MySwal = withReactContent(Swal);
+  const modalEliminar = (id) => {
+    return MySwal.fire({
+      title: "Seguro que lo quiere eliminar?",
+      text: "Se eliminara permanentemente!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Si, eliminar!",
+      cancelButtonText: "Cancelar!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // console.log(id)
+        setConfigFetchEliminarPagoContabilidad({
+          url: `${URL}/contabilidad-del/${id}`,
+          headersRequest: {
+            method: "DELETE",
+            headers: {
+              "Content-type": "application/json; charset=UTF-8"
+            }
+          }
+        });
+
+        navigate("/Egresos")
+        
+        Swal.fire(
+          "Eliminado!",
+          "El archivo fue eliminado.",
+          "success"
+        ).then((resultClose) => {
+          getContabilidadPersonal()
+        });
+      }
+    });
+  };
+
   return (
     <Fragment>
       <div className="content-wrapper">
@@ -55,9 +121,6 @@ const GastosMaquinas = () => {
             <thead>
                 <tr>
                     <th className="text-center">
-                    <span>Maquina</span>
-                    </th>
-                    <th className="text-center">
                     <span>Observacion</span>
                     </th>
                     <th className="text-center">
@@ -70,53 +133,63 @@ const GastosMaquinas = () => {
                 </tr>
             </thead>
         <tbody>
-        <tr>
-                      <td>
-                        <img
-                          src="https://pngimages.in/uploads/png-thumb/Tractor_png_photo_editing.png"
-                          alt=""
-                        />
-                        <a href="#" className="user-link">
-                          Tractor
-                        </a>
-                        <span className="user-subhead">Detalle</span>
-                      </td>
-                      <td className="text-center">
-                        <span className="label label-default">
-                          Gasto Combustible
+        {fetchDataContabilidadPersonal.length > 0 ? (
+          <>
+          {
+            fetchDataContabilidadPersonal?.map((item) => {
+              const fecha = new Date(item.fecha_contabilidad);
+
+              if(item?.observacion_contabilidad === "-"){
+
+                const fechaConvertida = fecha.toLocaleDateString();
+                return (
+                  <tr>
+                    <td className="text-center" >
+                      <a>
+                        {item?.descripcion_contabilidad}
+                      </a>
+                    </td>
+                    <td className="text-center" >
+                      <a>
+                        {item?.monto_contabilidad}
+                      </a>
+                    </td>
+                    <td className="text-center" >
+                      <a>
+                      {fechaConvertida}
+                      </a>
+                    </td>
+                    <td className="text-center">
+                      <a href="#" className="table-link">
+                        <span className="fa-stack">
+                          <i className="fa fa-square fa-stack-2x"></i>
+                          <i className="fa fa-search-plus fa-stack-1x fa-inverse"></i>
                         </span>
-                      </td>
-                      <td className="text-center">
-                        <span className="label label-default">
-                          $2500
+                      </a>
+                      <a href="#" className="table-link">
+                        <span className="fa-stack">
+                          <i className="fa fa-square fa-stack-2x "></i>
+                          <i className="fa fa-pencil fa-stack-1x fa-inverse"></i>
                         </span>
-                      </td>
-                      <td className="text-center">
-                        <span className="label label-default">
-                          12/10/2022
+                      </a>
+                      <a href="#" className="table-link danger" onClick={() => { modalEliminar(item?.id_contabilidad)}}>
+                        <span className="fa-stack">
+                          <i className="fa fa-square fa-stack-2x"></i>
+                          <i className="fa fa-trash-o fa-stack-1x fa-inverse"></i>
                         </span>
-                      </td>
-                      <td className="text-center">
-                        <a href="#" className="table-link">
-                          <span className="fa-stack">
-                            <i className="fa fa-square fa-stack-2x"></i>
-                            <i className="fa fa-search-plus fa-stack-1x fa-inverse"></i>
-                          </span>
-                        </a>
-                        <a href="#" className="table-link">
-                          <span className="fa-stack">
-                            <i className="fa fa-square fa-stack-2x "></i>
-                            <i className="fa fa-pencil fa-stack-1x fa-inverse"></i>
-                          </span>
-                        </a>
-                        <a href="#" className="table-link danger">
-                          <span className="fa-stack">
-                            <i className="fa fa-square fa-stack-2x"></i>
-                            <i className="fa fa-trash-o fa-stack-1x fa-inverse"></i>
-                          </span>
-                        </a>
-                      </td>
-                    </tr>
+                      </a>
+                    </td>
+                  </tr>
+                );
+              }
+            })
+          }
+          </>
+          ): 
+          (
+            <h3 className="text-danger text-center">No hay pagos cargados...</h3>
+          )
+          }
         </tbody>
         </table>
         </>

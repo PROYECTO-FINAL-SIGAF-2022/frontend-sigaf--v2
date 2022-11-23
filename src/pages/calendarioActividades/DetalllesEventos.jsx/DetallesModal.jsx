@@ -23,7 +23,7 @@ const DetallesModal = ({
   
   useEffect(()=>{
     setConfigFetchActividad({
-      url: `${URL}/actividades/${item.id_actividad}`,
+      url: `${URL}/actividades/${item?.id_actividad}`,
       headersRequest: {
         method: "GET",
         headers: {
@@ -32,7 +32,7 @@ const DetallesModal = ({
       }
     });
     setConfigFetchMaquina({
-      url: `${URL}/maquinas/${item.id_maquina}`,
+      url: `${URL}/maquinas/${item?.id_maquina}`,
       headersRequest: {
         method: "GET",
         headers: {
@@ -41,7 +41,7 @@ const DetallesModal = ({
       }
     });
     setConfigFetchEmpleado({
-      url: `${URL}/usuarios/${item.id_usuario}`,
+      url: `${URL}/usuarios/${item?.id_usuario}`,
       headersRequest: {
         method: "GET",
         headers: {
@@ -50,7 +50,7 @@ const DetallesModal = ({
       }
     });
     setConfigFetchProducto({
-      url: `${URL}/productos/${item.id_producto}`,
+      url: `${URL}/productos/${item?.id_producto}`,
       headersRequest: {
         method: "GET",
         headers: {
@@ -62,7 +62,7 @@ const DetallesModal = ({
 
   },[item])
 
- console.log(item)
+ //console.log(item)
 
   return (
     <MDBModal
@@ -95,7 +95,7 @@ const DetallesModal = ({
                     className="d-block"
                     style={{ fontSize: "1.5rem", fontWeight: "bold" }}
                   >
-                    <a href="#">{fetchDataActividades.descripcion_actividad}</a>
+                    <a href="#">{fetchDataActividades?.descripcion_actividad}</a>
                   </h2>
                   {/* <h6 className="d-block"><a href="#">300</a> Blog Posts</h6> */}
                 </div>
@@ -125,7 +125,7 @@ const DetallesModal = ({
                           </label>
                         </div>
                         <div className="col-md-8 col-6">
-                       {item.fecha_historial}
+                       {item?.fecha_historial}
                         </div>
                       </div>
                       <hr />
@@ -137,7 +137,7 @@ const DetallesModal = ({
                           </label>
                         </div>
                         <div className="col-md-8 col-6">
-                          {fetchDataEmpleado.nombre_persona} {fetchDataEmpleado.apellido_persona}
+                          {fetchDataEmpleado?.nombre_persona} {fetchDataEmpleado?.apellido_persona}
                         </div>
                       </div>
                       <hr />    
@@ -148,7 +148,7 @@ const DetallesModal = ({
                           </label>
                         </div>
                         <div className="col-md-8 col-6">
-                       {fetchDataProducto.descripcion_producto}, Cantidad aplicada: {item.cantidad_uso_producto}
+                       {fetchDataProducto?.descripcion_producto}, Cantidad aplicada: {item?.cantidad_uso_producto}
                         </div>
                       </div>
                       <hr />  
@@ -159,7 +159,7 @@ const DetallesModal = ({
                           </label>
                         </div>
                         <div className="col-md-8 col-6">
-                       {fetchDataMaquina.descripcion_maquina}
+                       {fetchDataMaquina?.descripcion_maquina}
                         </div>
                       </div>
                       <hr />          

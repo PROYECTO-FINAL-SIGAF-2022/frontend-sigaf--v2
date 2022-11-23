@@ -93,7 +93,7 @@ const DetallesProductoModal = ({item,optSmModalDetalles,setOptSmModalDetalles,to
               <div className="d-flex justify-content-start">
                 <div className="image-container">
                   {
-                    fetchDataTipoProductos.descripcion_tipo_producto == "Fertilizante"
+                    fetchDataTipoProductos?.descripcion_tipo_producto == "Fertilizante"
                     ?
                     <img
                       src="https://cdn-icons-png.flaticon.com/512/2713/2713463.png"
@@ -115,18 +115,18 @@ const DetallesProductoModal = ({item,optSmModalDetalles,setOptSmModalDetalles,to
                     className="d-block"
                     style={{ fontSize: "1.5rem", fontWeight: "bold" }}
                   >
-                    <a href="#">{item.descripcion_producto}</a>
+                    <a href="#">{item?.descripcion_producto}</a>
                   </h2>
                   <h6 className="d-block">
                     <a href="#">Tipo:</a>{" "}
                     <strong >
-                    {fetchDataTipoProductos.descripcion_tipo_producto}
+                    {fetchDataTipoProductos?.descripcion_tipo_producto}
                     </strong>
                   </h6>
                   <h6 className="d-block">
                     <a href="#">Cantidad Comprada:</a>{" "}
                     <strong >
-                    {item.cantidad_producto} {fetchDataUnidadMedida.descripcion_unidad_medida}
+                    {item.cantidad_producto} {fetchDataUnidadMedida?.descripcion_unidad_medida}
                     </strong>
                   </h6>
                   {/* <h6 className="d-block"><a href="#">300</a> Blog Posts</h6> */}
@@ -180,7 +180,7 @@ const DetallesProductoModal = ({item,optSmModalDetalles,setOptSmModalDetalles,to
                           </label>
                         </div>
                         <div className="col-md-8 col-6">
-                        {fetchDataAlmacen.descripcion_almacen}
+                        {fetchDataAlmacen?.descripcion_almacen}
                         </div>
                       </div>
                       <hr />
@@ -191,7 +191,7 @@ const DetallesProductoModal = ({item,optSmModalDetalles,setOptSmModalDetalles,to
                           </label>
                         </div>
                         <div className="col-md-8 col-6">
-                        {fetchDataProveedor.nombre_proveedor}
+                        {fetchDataProveedor?.nombre_proveedor}
                         </div>
                       </div>
                       <hr />

@@ -120,7 +120,7 @@ function Trabajos () {
                       <thead>
                         <tr>
                           <th className="text-center">
-                            <span>Maquina</span>
+                            <span>Trabajo</span>
                           </th>
                           <th className="text-center">
                             <span>Precio</span>
@@ -153,7 +153,7 @@ function Trabajos () {
                                   alt=""
                                 />
                                 <a href="#" className="user-link">
-                                 {item.descripcion_maquina}
+                                 {/* {item.descripcion_maquina} */} Trabajo
                                 </a>
                                 <span className="user-subhead">Detalle</span>
                               </td>

@@ -110,10 +110,11 @@ function Productos() {
 
  
 
-  console.log(fetchDataProductos)
-  if (!errorProductos) {
-    return <h1>Error</h1>;
-  }
+  // console.log(fetchDataProductos)
+  // console.log(errorProductos)
+  // if (!errorProductos?.length > 0) {
+  //   return <h1>Error</h1>;
+  // }
 
   return (
     <LayoutContainer>
@@ -166,7 +167,7 @@ function Productos() {
                           />
                         )}
 
-                        {fetchDataProductos.length > 0 && (
+                        {fetchDataProductos?.length > 0 && (
                           <>
                             {
                               
@@ -183,7 +184,7 @@ function Productos() {
                                     descripcionTipoProducto= fetchDataTipoProductos[i]?.descripcion_tipo_producto
                                   }
                                 }
-                                console.log(descripcionTipoProducto)
+                                // console.log(descripcionTipoProducto)
                                 
                                 return( 
                                 <tr>
