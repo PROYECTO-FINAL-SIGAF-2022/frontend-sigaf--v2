@@ -196,11 +196,13 @@ const PagosPersonal = () => {
             })
           }
           </>
-          ): 
+          ) : 
           (
             <h3 className="text-danger text-center">No hay pagos cargados...</h3>
           )
+          
           }
+          
         </tbody>
         </table>
         </>

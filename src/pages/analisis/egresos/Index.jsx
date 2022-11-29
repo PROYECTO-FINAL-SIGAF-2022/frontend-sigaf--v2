@@ -6,12 +6,6 @@ import { useState } from "react";
 
 import { TabContent, TabPane, Col } from "reactstrap";
 
-import Tabs from "./Tabs";
-
-import PersonalTabContent from "./PersonalTabContent";
-import ProductosTabContent from "./ProductosTabContent";
-import MaquinasTabContent from "./MaquinasTabContent";
-import AlmacenesTabContent from "./AlmacenesTabContent";
 import { MDBBtn, MDBModal, MDBModalBody, MDBModalContent, MDBModalDialog, MDBModalHeader, MDBModalTitle, MDBTabs, MDBTabsContent, MDBTabsItem, MDBTabsLink, MDBTabsPane } from "mdb-react-ui-kit";
 import PagosPersonal from "./formularios/pagosPersonal/PagosPersonal";
 import GastosMaquinas from "./formularios/gastosMaquinas/GastosMaquinas";
