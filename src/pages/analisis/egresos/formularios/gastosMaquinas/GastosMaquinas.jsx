@@ -38,6 +38,8 @@ const GastosMaquinas = () => {
     });
   };
 
+  console.log(fetchDataContabilidadPersonal)
+
   const [setConfigFetchEliminarPagoContabilidad] = useFetch();
 
   useEffect(() => {

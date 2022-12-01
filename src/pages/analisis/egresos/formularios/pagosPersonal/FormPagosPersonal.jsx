@@ -51,7 +51,7 @@ const FormGastosMaquinas = () => {
           descripcion_contabilidad: descripcionContabilidad,
           observacion_contabilidad,
           tipo_contabilidad: "egreso",
-          monto_contabilidad: `-${monto_contabilidad}`,
+          monto_contabilidad: monto_contabilidad,
           id_parcela_cultivo: 1
         })
       }
