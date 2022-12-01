@@ -18,11 +18,176 @@ Color setup
   background-color: var(--body);
 }
 
-
-
 /* ------------------------------------------------------------ 
 Setup components
 ---------------------------------------------------------------*/
+
+.title {
+  text-align: center;
+  padding-bottom: 60px;
+}
+
+.title h2 {
+  padding: 0px 0px 6px 0px;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: #052501;
+  line-height: 46px;
+  border-bottom: #052501 solid 1px;
+  font-size: 50px;
+  max-width: 374px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+offer_h3 {
+  font-size: 18px;
+
+  letter-spacing: 0;
+  font-weight: normal;
+  position: relative;
+  padding: 0 0 10px 0;
+  font-weight: normal;
+  line-height: normal;
+  color: #111111;
+  margin: 0;
+}
+.offer_p {
+  margin: 0px;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 24px;
+}
+.offer {
+  padding-top: 90px;
+}
+
+.offer-bg {
+  background: #052501;
+  padding: 90px 0px;
+ 
+  position:absolute;
+  right: 0%;
+}
+
+.margin {
+  margin-bottom: 30px;
+}
+
+.offer .offer-bg {
+  background: #052501;
+  text-align: center;
+  padding: 60px 0px;
+ 
+}
+.offer .offer-bg .offer_box {
+  text-align: center;
+}
+.offer .offer-bg .offer_box figure {
+  margin: 0;
+}
+.offer .offer-bg .offer_box figure img {
+  width: 100%;
+}
+.offer .offer-bg .offer_box h3 {
+  font-size: 30px;
+  font-weight: 500;
+  color: #fff;
+  padding-bottom: 30px;
+}
+.offer .offer-bg .offer_box p {
+  padding-top: 35px;
+  font-size: 17px;
+  line-height: 23px;
+  color: #fff;
+}
+
+.read-more {
+  max-width: 212px;
+  margin: 0 auto;
+  margin-top: 0px;
+  display: block;
+  background: #fff;
+  color: #000 !important;
+  padding: 12px 0px;
+  width: 100%;
+  font-size: 17px;
+  float: left;
+  border-radius: 10px;
+  margin-top: -100px;
+}
+
+.read-more:hover {
+  background: #30880d;
+  color: #fff !important;
+}
+
+.margin_ttt {
+  margin-top: 100px;
+}
+.margin-lkk {
+  margin-top: 200px;
+}
+
+.about {
+  padding: 90px 0;
+  width: 100%;
+}
+
+.about .about_img figure {
+  margin: 0px;
+}
+
+.about .about_box {
+  text-align: left;
+}
+
+.about .about_box h2 {
+  font-weight: 500;
+  font-size: 40px;
+  color: #163f03;
+  line-height: 55px;
+  padding-bottom: 7px;
+  display: block;
+  text-transform: uppercase;
+  padding: 0px 0px 6px 0px;
+  border-bottom: #163f03 solid 1px;
+}
+
+.about .about_box p {
+  font-size: 17px;
+  line-height: 33px;
+  color: #4c4a49;
+  padding: 40px 0px;
+  font-weight: 500;
+}
+.about .about_box a {
+  color: #fff;
+  font-size: 17px;
+  line-height: 29px;
+  background: #052501;
+  border: #052501 solid 1px;
+  padding: 12px 40px;
+  display: inline-block;
+  width: 231px;
+  text-align: center;
+  border-radius: 18px;
+}
+.about .about_box a:hover {
+  color: #fff;
+  background: #4bc714;
+  border: #4bc714 solid 1px;
+}
+.about_img {
+  margin-top: 25px;
+}
+.about_img figure {
+  margin: 0;
+}
+.about_img figure img {
+  width: 100%;
+}
+
 .tituloSigaf {
   letter-spacing: 0;
   font-weight: bold;
@@ -39,18 +204,19 @@ Setup components
   font-weight: bold;
 }
 
-.contenedorLandingSIGAF img{
-    width:40vw;
-    animation: float 3s linear infinite;
+.contenedorLandingSIGAF img {
+  width: 40vw;
+  animation: float 3s linear infinite;
 }
 
-@keyframes float{
-    0%, 100%{
-        transform: translateY(0rem);
-    }
-    50%{
-        transform: translateY(-0.5rem);
-    }
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0rem);
+  }
+  50% {
+    transform: translateY(-0.5rem);
+  }
 }
 /* button */
 /* .btn {
@@ -212,9 +378,6 @@ section.information .info-1 {
 Footer setion
 ---------------------------------------------------------------*/
 
-
-
-
 footer .copy {
   margin-top: 32px;
   font-size: 14px;
@@ -276,5 +439,4 @@ Responsive section
   /* ------------------------------------------------------------ 
     Footer setion
     ---------------------------------------------------------------*/
-  
 }

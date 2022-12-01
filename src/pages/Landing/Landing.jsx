@@ -7,7 +7,11 @@ import img3 from './styles/img/icons/icons-3.svg'
 import img4 from './styles/img/icons/icons-1.svg'
 import img5 from './styles/img/image2.png'
 import img6 from './styles/img/image1.png'
-import img7 from './styles/img/image3.png'
+import img7 from './styles/img/image4.png'
+import img8 from './styles/img/offer1.png'
+import img9 from './styles/img/offer2.png'
+import img10 from './styles/img/offer3.png'
+import about from './styles/img/about.png'
 import NavbarLanding from '../../components/layouts/NavbarLanding'
 import { Link } from 'react-router-dom'
 const Landing = () => {
@@ -43,7 +47,84 @@ const Landing = () => {
         </div>
     </section>
 
-    <section class="setup">
+    
+
+    <div class="offer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="title">
+                        <h2>Modulos <br></br><strong class="black"> Del Sistema</strong></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="offer-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 ">
+                        <div class="offer_box">
+                            <h3 class="offer_h3">Establecimientos</h3>
+                            <figure><img src={img5} alt="img" /></figure>
+                            <p class="offer_p">Sigaf organiza todos los datos por establecimiento de esta forma la información es presentada de una forma mas ordenada</p>
+
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 margin_ttt">
+                        <div class="offer_box">
+                            <h3 class="offer_h3">Mapa</h3>
+                            <figure><img src={img6} alt="img" /></figure>
+                            <p class="offer_p">Los productores podran georeferenciar sus establecimiento, junto a sus parcelas con datos como: la superficie y los cultivos que se encuentran en dicha parcela...</p>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 margin-lkk">
+                        <div class="offer_box">
+                            <h3 class="offer_h3">Configuraciones</h3>
+                            <figure><img src={img7} alt="img" /></figure>
+                            <p class="offer_p">Se podran registrar , editar y eliminar datos relacionados con las maquinas , personal, productos, proveedores, actividades, almacenes del establecimiento...</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <a class="read-more">Leer Más</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
+    <br></br><br></br><br></br><br></br><br></br><br></br><br></br>
+    <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
+    
+    <div id="about" class="about">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-xl-5 col-lg-5 col-md-5 co-sm-l2">
+                    <div class="about_box">
+                        {/* <h2>SIGAF<br></br><strong class="black"> Sistema Integrado de Gestión Agropecuaria Formoseña</strong></h2> */}
+                        <h2><strong class="black"> Sistema Integrado de Gestión Agropecuaria Formoseña</strong></h2>
+                        <p>
+                        El sistema cuenta con varios módulos diferenciados de acuerdo a la actividad, para mantener un control ordenado y simple. 
+                        Cada módulo tiene sus funciones específicas que permiten que nada quede librado al azar. Con este sistema el productor va a poder realizar 
+                        a un solo click de distancia, cambios y actualizaciones que puedan surgir en el establecimiento.
+                        Además también lo que se busca es poder cubrir con la trazabilidad completa de las actividades realizadas por los mismos
+
+                        </p>
+                        <a href="#">Leer Más</a>
+                    </div>
+                </div>
+                <div class="col-xl-7 col-lg-7 col-md-7 co-sm-l2">
+                    <div class="about_img">
+                        <figure><img src={about} alt="img" /></figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {/* <section class="setup">
         <div class="container">
             <div class="text-header text-center">
                 <h3>Funcionades del sistema</h3>
@@ -85,7 +166,6 @@ const Landing = () => {
             </div>
         </div>
     </section>
- 
     <section class="information">
         <div class="container">
             <div class="row info-1">
@@ -121,15 +201,9 @@ const Landing = () => {
             </div>
             </div>
         </div>
-    </section>
+    </section> */}
     
-    <footer>
-        <div class="container">     
-                <div class="copy" style={{textAlign: 'center'}}>
-                    &copy; 2022 Sigaf
-                </div>
-        </div>
-    </footer>
+    
     </div>
   </div>
   )
