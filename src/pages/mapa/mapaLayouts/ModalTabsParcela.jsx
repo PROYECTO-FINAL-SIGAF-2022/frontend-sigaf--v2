@@ -20,6 +20,7 @@ const ModalTabsParcela = () => {
 
   return (
     <>
+      <div className="container">
       <MDBTabs className='mb-3'>
         <MDBTabsItem>
           <MDBTabsLink onClick={() => handleBasicClick("tab1")} active={basicActive === "tab1"}>
@@ -45,6 +46,7 @@ const ModalTabsParcela = () => {
         <MDBTabsPane show={basicActive === "tab2"}>Tab 2 content</MDBTabsPane>
         <MDBTabsPane show={basicActive === "tab3"}>Tab 3 content</MDBTabsPane>
       </MDBTabsContent>
+      </div>
     </>
   );
 };

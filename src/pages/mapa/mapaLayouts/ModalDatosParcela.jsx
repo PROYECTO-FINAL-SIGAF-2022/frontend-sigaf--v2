@@ -50,7 +50,8 @@ const ModalDatosParcela = ({
   //   });
   // }, [parcelaSelected]);
   return (
-    <MDBModal
+    <div className="container">
+<MDBModal
       staticBackdrop
       stabindex="-1"
       show={optSmModal}
@@ -131,6 +132,7 @@ const ModalDatosParcela = ({
         </MDBModalContent>
       </MDBModalDialog>
     </MDBModal>
+    </div>
   );
 };
 

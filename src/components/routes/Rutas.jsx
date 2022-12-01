@@ -32,6 +32,9 @@ import FormVentasAlmacenes from "../../pages/analisis/ingresos/VentasAlmacenes/F
 import FormVentasMaquinas from "../../pages/analisis/ingresos/VentasMaquinas/FormVentasMaquinas";
 import FormPagosPersonal from "../../pages/analisis/egresos/formularios/pagosPersonal/FormPagosPersonal";
 import Trabajos from "../../pages/tiposTrabajos/Trabajos";
+import Landing from "../../pages/Landing/Landing";
+import Historiales from "../../pages/Historial-Trazabilidad/Historiales";
+import DetallesTrazabilidad from "../../pages/Historial-Trazabilidad/DetallesTrazabilidad/DetallesTrazabilidad";
 function Rutas() {
   const session = useSession();
 
@@ -89,6 +92,8 @@ function Rutas() {
           <Route path="/calendario" exact element={<Calendario/>} />
           <Route path="/tuCalendario" exact element={<TuCalendario/>} />
           <Route path="/tipo-trabajos" exact element={<Trabajos/>} />
+          <Route path="/historiales" exact element={<Historiales/>} />
+          <Route path="/detalles-trazabilidad/:idParcelaCultivo" exact element={<DetallesTrazabilidad/>} />
           
           <Route path="*" exact element={<Home />} />
         </Routes>
@@ -107,9 +112,9 @@ function Rutas() {
 
   return (
     <Routes>
+       <Route path="/landing" exact element={<Landing />} />
       <Route path="/auth" exact element={<Login />} />
       <Route path="/registrarse" exact element={<Register />} />
-      <Route path="*" exact element={<Login />} />
     </Routes>
   );
 }

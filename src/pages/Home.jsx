@@ -6,7 +6,8 @@ import { useSession, useSetSession } from "../context/SessionProvider";
 import { useEffect, useState } from "react";
 import { URL } from "../utils/getUrl";
 import { useFetch } from "../hooks/useFetch";
-
+import img from "../assets/img/Portada.png"
+import './Home.css'
 function Home () {
   // const setSession = useSetSession();
 
@@ -22,23 +23,25 @@ function Home () {
             <div className="col-lg-12 mb-4 order-0">
               <div className="card">
                 <div className="d-flex align-items-end row">
-                  <div className="col-sm-7">
+                  <div className="">
                     <div className="card-body">
-                      <h5 className="card-title text-primary">
+                      <h5 className="card-title" style={{color:'green'}} Align="center">
                         Bienvenido {user?.username_usuario}!!! 🎉
                       </h5>
 
                       <p className="mb-4" >
-                      SISTEMA DE GESTIÓN AGROPECUARIA FORMOSEÑA! {" "}
-                        <span className="fw-bold">ayudamos</span> a facilitar las tareas agropecuarias para los pequeños y medianos productores
+
                       </p>
 
-                      <a href="#" className="btn btn-sm btn-outline-primary">
+                     {/*  <a href="#" className="btn btn-sm btn-outline-success">
                         Ver Mas
-                      </a>
+                      </a> */}
+                      <div className="imagenDiv" Align="center">
+                      <img className="imgDiv" src={img} />
+                      </div>
                     </div>
                   </div>
-                  <div className="col-sm-5 text-center text-sm-left">
+                  {/* <div className="col-sm-5 text-center text-sm-left">
                     <div className="card-body pb-0 px-0 px-md-4">
                       <img
                         src={img1}
@@ -48,7 +51,7 @@ function Home () {
                         data-app-light-img="illustrations/man-with-laptop-light.png"
                       />
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

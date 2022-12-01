@@ -8,6 +8,8 @@ import { useFetch } from "../../hooks/useFetch";
 import { URL } from "../../utils/getUrl";
 import Loading from "../../components/layouts/Loading";
 import Alerta from "../../components/layouts/Alerta";
+import NavbarLanding from "../../components/layouts/NavbarLanding";
+import logo from '../../pages/Landing/styles/img/Logo/logo 1.png'
 
 const Register = () => {
   const [setConfigFetch, fetchData, loading, error] = useFetch();
@@ -83,7 +85,9 @@ const Register = () => {
     navigate("/");
   }, [fetchData]);
   return (
-    <div className="container-xxl" style={{ width: "50%" }}>
+    <div className="container">
+      <NavbarLanding/>
+      <div className="container-xxl" style={{ width: "50%" }}>
       <div className="authentication-wrapper authentication-basic container-p-y">
         <div className="authentication-inner">
           <div className="card">
@@ -91,7 +95,7 @@ const Register = () => {
               <div className="app-brand justify-content-center">
                 <a href="#" className="app-brand-link gap-2">
                   <span className="app-brand-text demo text-body fw-bolder">
-                    SIGAF 🚀
+                    REGISTRO
                   </span>
                 </a>
               </div>
@@ -248,7 +252,7 @@ const Register = () => {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="btn btn-primary d-grid w-100"
+                      className="btn btn-success d-grid w-100"
                     >
                       Registrarse!
                     </button>
@@ -269,13 +273,14 @@ const Register = () => {
               <p className="text-center">
                 <span>Ya tienes una cuenta?</span>
                 <Link to="/auth">
-                  <span>Inicia Sesión</span>
+                  <span> Inicia Sesión</span>
                 </Link>
               </p>
             </div>
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };

@@ -15,7 +15,7 @@ const SessionProvider = ({ children }) => {
       // navigate("/");
     } else {
       setSession(null);
-      navigate("/auth");
+      navigate("/landing");
     }
   }, []);
 

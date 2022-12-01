@@ -35,7 +35,7 @@ function Navbar () {
         className="navbar-nav-right d-flex align-items-center"
         id="navbar-collapse"
       >
-        <div className="navbar-nav align-items-center">
+        {/* <div className="navbar-nav align-items-center">
           <div className="nav-item d-flex align-items-center">
             <i className="bx bx-search fs-4 lh-0"></i>
             <input
@@ -45,7 +45,7 @@ function Navbar () {
               aria-label="Buscando..."
             />
           </div>
-        </div>
+        </div> */}
 
         <ul className="navbar-nav flex-row align-items-center ms-auto">
           <li className="nav-item lh-1 me-3">
