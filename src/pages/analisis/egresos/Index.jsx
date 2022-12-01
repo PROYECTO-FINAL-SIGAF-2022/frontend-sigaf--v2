@@ -33,6 +33,7 @@ const Precios = () => {
     <LayoutContainer>
             {/* <div style={{ textAlign: "center" }}>
             </div> */}
+            <br></br>
               <h1 className="text-center text-dark">Egresos o Costos</h1>
 
             <MDBTabs className='mb-3 px-3'>
