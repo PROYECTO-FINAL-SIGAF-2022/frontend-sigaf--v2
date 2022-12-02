@@ -84,10 +84,10 @@ function Menu () {
           </li>
 
           <li className="menu-item">
-            <a href="#" className="menu-link">
+            <Link to="/stock" className="menu-link">
               <i className="menu-icon tf-icons bx bxs-business"></i>
               <div data-i18n="Analytics">Stock</div>
-            </a>
+            </Link>
           </li>
           <li className={`menu-item ${dropdown.costes ? "open" : "false"} `}>
             <a

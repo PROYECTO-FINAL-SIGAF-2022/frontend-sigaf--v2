@@ -62,6 +62,10 @@ const ListadoActividades = ({ parcelaSelected, campania }) => {
 
   return (
     <>
+    <button className="btn btn-success" onClick={toggleShow}>
+              Agregar Actividad
+            </button>
+            
       {loadingParcelasCultivosActividades && <h4>Cargando Datos</h4>}
 
       {errorParcelasCultivosActividades?.length > 0 && <h4>Error al cargar los datos</h4>}
@@ -70,11 +74,8 @@ const ListadoActividades = ({ parcelaSelected, campania }) => {
         <>
           <h4>Actividades</h4>
 
-          {fetchParcelasCultivosActividades && (
-            <button className="btn btn-success" onClick={toggleShow}>
-              Agregar Actividad
-            </button>
-          )}
+          
+         
           {fetchParcelasCultivosActividades?.map((historial) => (
             <div className="card mt-2" key={historial.id_historial_parcelas_cultivos}>
               <div className="card-body">

@@ -9,8 +9,8 @@ import Loading from "../../../components/layouts/Loading";
 import Alerta from "../../../components/layouts/Alerta";
 
 const DetallesTrazabilidad = () => {
-  const { idParcelaCultivo } = useParams();
-
+  const { idParcelaCultivo, parcela } = useParams();
+  
   const [
     setConfigFetchHistorial,
     fetchDataHistorial,
@@ -34,8 +34,8 @@ const DetallesTrazabilidad = () => {
     getHistorial();
   }, []);
 
-  console.log(fetchDataHistorial);
-
+/*   console.log(fetchDataHistorial); */
+var mostrarDiv = -1;
   return (
     <LayoutContainer>
       <div className="content-wrapper">
@@ -51,7 +51,7 @@ const DetallesTrazabilidad = () => {
                           className="font__family-montserrat font__weight-light text-uppercase font__size-18 text-blue brk-library-rendered"
                           data-brk-library="component__title"
                         >
-                          HISTORIAL
+                          <strong>HISTORIAL DE LA PARCELA LLAMADA: {parcela}</strong>
                         </h5>
                           <Link to="/historiales" className="btn btn-success">Volver</Link>
                         <hr
@@ -96,15 +96,11 @@ const DetallesTrazabilidad = () => {
                                                             }
                                                           } */
 
-                              let mostrarDiv = -1;
-                              for (
-                                var i = 0;
-                                i < fetchDataHistorial?.length;
-                                i++
-                              ) {
-                                mostrarDiv++;
-                              }
-
+                              
+                              mostrarDiv = mostrarDiv + 1
+                              
+                              console.info(mostrarDiv)
+                              
                               return (
                                 <>
                                   {mostrarDiv % 2 === 0 ? (
@@ -148,20 +144,45 @@ const DetallesTrazabilidad = () => {
                                       <div className="date">22 Oct</div>
                                       <i className="icon fa fa-gift"></i>
                                       <div className="content">
-                                        <h2>Lorem ipsum dolor sit amet</h2>
+                                      <h2>
+                                          La actividad:{" "}
+                                          <strong>
+                                            {
+                                              item?.actividade
+                                                ?.descripcion_actividad
+                                            }
+                                          </strong>
+                                        </h2>
                                         <p>
-                                          Lorem ipsum dolor sit amet elit.
-                                          Aliquam odio dolor, id luctus erat
-                                          sagittis non. Ut blandit semper
-                                          pretium.
+                                          El personal encargado fue:{" "}
+                                          <strong>
+                                            {item?.usuario?.nombre_persona}{" "}
+                                            {item?.usuario?.apellido_persona}
+                                          </strong>
+                                          , se aplico el producto:{" "}
+                                          <strong>
+                                            {
+                                              item?.producto
+                                                ?.descripcion_producto
+                                            }
+                                          </strong>
+                                          , con la maquina:{" "}
+                                          <strong>
+                                            {item?.maquina?.descripcion_maquina}
+                                          </strong>
                                         </p>
                                       </div>
                                     </div>
                                   )}
                                 </>
                               );
-                            })}
+                              
+                            }
+                            
+                            )}
+                           
                           </>
+                          
                         )}
 
                         {/* <div className="containerSigaf right">

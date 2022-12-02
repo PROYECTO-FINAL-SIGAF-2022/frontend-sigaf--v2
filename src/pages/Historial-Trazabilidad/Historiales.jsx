@@ -23,6 +23,25 @@ const Historiales = () => {
 		fetchDataCultivo,
 	] = useFetch()
 
+	const [
+		setConfigFetchParcela, 
+		fetchDataParcela,
+	] = useFetch()
+
+	
+
+	const getParcelas= () => {
+		setConfigFetchParcela({
+		  url: `${URL}/parcelas`,
+		  headersRequest: {
+			method: "GET",
+			headers: {
+			  "Content-type": "application/json; charset=UTF-8"
+			}
+		  }
+		});
+	  };
+
 	const getCultivo = () => {
 		setConfigFetchCultivo({
 		  url: `${URL}/cultivos`,
@@ -34,10 +53,11 @@ const Historiales = () => {
 		  }
 		});
 	  };
+	
 
 	const getParcelaCultivo = () => {
 		setConfigFetchParcelaCultivo({
-		  url: `${URL}/parcelas-cultivos`,
+		  url: `${URL}/parcelas-cultivos-todos`,
 		  headersRequest: {
 			method: "GET",
 			headers: {
@@ -51,6 +71,7 @@ const Historiales = () => {
 	
 		getParcelaCultivo();
 		getCultivo()
+		getParcelas()
 	  }, []);
 
 
@@ -98,6 +119,7 @@ const Historiales = () => {
 								const fechaConvertida = fecha.toLocaleDateString("es-ES", options);
 
 								var descripcionCultivo;
+								var descripcionParcela;
                                // console.info(fetchDataProductos.length)
 
                                 for (var i = 0; i < fetchDataParcelaCultivo?.length; i++) {
@@ -106,11 +128,18 @@ const Historiales = () => {
                                   }
                                 }
 
+                                for (var i = 0; i < fetchDataParcelaCultivo?.length; i++) {
+                                  if(item?.id_parcela === fetchDataParcela[i]?.id_parcela){
+                                    descripcionParcela= fetchDataParcela[i]?.descripcion_parcela
+                                  }
+                                }
+
                                 return( 
-									<Link to= {`/detalles-trazabilidad/${item?.id_parcela_cultivo}`}>
+									<Link to= {`/detalles-trazabilidad/${item?.id_parcela_cultivo}/${descripcionParcela}`}>
 									<li>
 									<span className="line"></span>
-									<i className="icon fa fa-home"></i> El registro fue iniciado la fecha <strong>{fechaConvertida}</strong> del cultivo: <strong>{descripcionCultivo}</strong>
+									<i className="icon fa fa-home"></i> El registro fue iniciado la fecha <strong>{fechaConvertida}</strong> del cultivo: <strong>{descripcionCultivo}</strong> {" "} {item?.activo == true ?  <label class="badge bg-success">Activo</label>	 : <label class="badge bg-danger">Finalizado</label>	}		
+									{" "}<label class="badge bg-info">{descripcionParcela}</label>	
 								</li>
 								</Link>
                               )})
