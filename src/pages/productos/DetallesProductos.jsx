@@ -84,7 +84,33 @@ useEffect(()=>{
                     <div className="card-body">
                     <div class="containerDetalles">
                                 <div class="text-center py-5">
-                                <img src="https://cdn-icons-png.flaticon.com/512/2713/2713463.png" alt class="ui-w-100 rounded-circle"/>
+                                  {
+                                    fetchDataProductos?.descripcionTipoProducto == "Fertilizante" ? 
+                                    <img
+                                    src="https://cdn-icons-png.flaticon.com/512/2713/2713463.png"
+                                    alt=""
+                                    />
+                                    : fetchDataProductos?.descripcionTipoProducto == "Semilla" ?
+                                    <img
+                                      src="https://cdn.pixabay.com/photo/2014/12/22/00/04/bag-576711_960_720.png"
+                                      alt=""
+                                    />
+                                    
+                                  : fetchDataProductos?.descripcionTipoProducto == "Estiercol" ?
+                                  <img
+                                    src="https://images.vexels.com/media/users/3/177604/isolated/preview/d78fad5055508b80f4cd7917a874ec9f-el-tarro-puede-cubrir-plano.png"
+                                    alt=""
+                                  />
+                                  
+                                  : fetchDataProductos?.descripcionTipoProducto == "Herramienta" ?
+                                  
+                                  <img
+                                    src="https://cdn-icons-png.flaticon.com/512/4819/4819885.png"
+                                    alt=""
+                                  />
+                                  : null
+                                  }
+                                {/* <img src="https://cdn-icons-png.flaticon.com/512/2713/2713463.png" alt class="ui-w-100 rounded-circle"/> */}
 
                                 <div class="col-md-8 col-lg-6 p-0 mx-auto">
                                     <h4 class="font-weight-bold my-4"><b>{fetchDataProductos?.descripcion_producto}</b></h4>

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Card } from "reactstrap";
 import Alerta from "../../../../components/layouts/Alerta";
+import { formateador } from "../../../../helpers/formateadorNumero";
 // import MensajeErrorInput from "../../../../components/layouts/MensajeErrorInput";
 import { useFetch } from "../../../../hooks/useFetch";
 import { URL } from "../../../../utils/getUrl";
@@ -199,7 +200,7 @@ const VentasCosechas = () => {
                   </td>
                   <td className="text-center">
                     <span className="label label-default">
-                      ${cosecha.precio_venta}
+                      {formateador(cosecha.precio_venta)}
                     </span>
                   </td>
                   <td className="text-center">

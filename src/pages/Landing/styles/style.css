@@ -67,7 +67,8 @@ offer_h3 {
   padding: 90px 0px;
  
   position:absolute;
-  right: 0%;
+  left: 0%;
+  width: 100%;
 }
 
 .margin {
@@ -206,7 +207,7 @@ offer_h3 {
 
 .contenedorLandingSIGAF img {
   width: 40vw;
-  animation: float 3s linear infinite;
+  animation: float 2.5s linear infinite;
 }
 
 @keyframes float {

@@ -29,7 +29,7 @@ const ListadoActividades = ({ parcelaSelected, campania }) => {
   //   setOptSmModalCultivo(!optSmModalCultivo);
   //   setIdParcelaCultivo(idParcelaCultivo);
   // };
-
+console.log(fetchParcelasCultivosActividades)
   const cargarDetalleHistorialParcelaCultivo = () => {
     // console.log(parcelaSelected.id);
     setParcelasCultivosActividades({
@@ -118,9 +118,9 @@ const ListadoActividades = ({ parcelaSelected, campania }) => {
           )
         : (
         <>
-          {/* <button className="btn btn-success mb-2" onClick={toggleShow}>
+          <button className="btn btn-success mb-2" onClick={toggleShow}>
             Agregar Cultivo
-          </button> */}
+          </button>
           <h3>No hay ninguna parcela con cultivo activo</h3>
         </>
           )}

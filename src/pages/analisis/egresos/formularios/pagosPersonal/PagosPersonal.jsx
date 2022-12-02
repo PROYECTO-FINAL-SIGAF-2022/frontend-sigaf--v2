@@ -3,6 +3,7 @@ import "../../Index.css";
 import { MDBCard } from "mdb-react-ui-kit";
 import { Link, useNavigate } from "react-router-dom";
 import Select from "react-select";
+import { formateador } from "../../../../../helpers/formateadorNumero";
 
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -162,7 +163,7 @@ const PagosPersonal = () => {
                     </td>
                     <td className="text-center" >
                       <a>
-                        {item?.monto_contabilidad}
+                        {formateador(item?.monto_contabilidad)}
                       </a>
                     </td>
                     <td className="text-center" >

@@ -147,8 +147,21 @@ function Almacenes() {
                           <>
                             {
                               //key={proveedor.id_proveedor}
-                              fetchDataAlmacen?.map((item) => (
-                                <tr>
+                              fetchDataAlmacen?.map((item) => {
+                                let options = {
+                                  year: "numeric",
+                                  month: "long",
+                                  day: "numeric",
+                                };
+                                
+                                const fecha = new Date(item?.fecha_adquisicion);
+                                const fechaConvertida = fecha.toLocaleDateString(
+                                  "es-ES",
+                                  options
+                                );
+
+                                return(
+                                  <tr>
                                   <td>
                                     <img
                                       src="https://www.pngmart.com/files/3/Warehouse-PNG-Transparent-Image.png"
@@ -163,7 +176,7 @@ function Almacenes() {
                                   </td>
                                   <td className="text-center">
                                     <span className="label label-default">
-                                    {item.fecha_adquisicion}
+                                    {fechaConvertida}
                                     </span>
                                   </td>
                                   <td className="text-center">
@@ -201,7 +214,8 @@ function Almacenes() {
                                     </a>
                                   </td>
                                 </tr>
-                              ))
+                                )
+                              })
                             }
                           </>
                         )}

@@ -92,23 +92,29 @@ const DetallesProductoModal = ({item,optSmModalDetalles,setOptSmModalDetalles,to
           <div >
               <div className="d-flex justify-content-start">
                 <div className="image-container">
-                  {
-                    fetchDataTipoProductos?.descripcion_tipo_producto == "Fertilizante"
-                    ?
-                    <img
-                      src="https://cdn-icons-png.flaticon.com/512/2713/2713463.png"
-                      id="imgProfile"
-                      style={{ width: "150px", height: "150px" }}
-                      className="img-thumbnail"
-                    />
-                    :
-                    <img
-                    src="https://cdn-icons-png.flaticon.com/512/2674/2674327.png"
-                    id="imgProfile"
-                    style={{ width: "150px", height: "150px" }}
-                    className="img-thumbnail"
-                  />
-                  }
+                {
+                                    fetchDataTipoProductos?.descripcion_tipo_producto == "Fertilizante" ? 
+                                    <img
+                                    src="https://cdn-icons-png.flaticon.com/512/2713/2713463.png"
+                                    alt=""
+                                    style={{ width: "150px", height: "150px" }}
+                                    />
+                                    : fetchDataTipoProductos?.descripcion_tipo_producto == "Semilla" ?
+                                    <img
+                                      src="https://cdn.pixabay.com/photo/2014/12/22/00/04/bag-576711_960_720.png"
+                                      alt=""
+                                      style={{ width: "150px", height: "150px" }}
+                                    />
+                                    
+                                  : fetchDataTipoProductos?.descripcion_tipo_producto == "Estiercol" ?
+                                  <img
+                                    src="https://images.vexels.com/media/users/3/177604/isolated/preview/d78fad5055508b80f4cd7917a874ec9f-el-tarro-puede-cubrir-plano.png"
+                                    alt=""
+                                    style={{ width: "150px", height: "150px" }}
+                                  />
+                                  : null
+                                  }
+                    
                 </div>
                 <div className="userData ml-3 mx-4 my-4">
                   <h2

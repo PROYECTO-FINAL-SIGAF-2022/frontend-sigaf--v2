@@ -56,12 +56,12 @@ function Menu () {
             </Link>
           </li>
 
-          <li className="menu-item">
+         {/*  <li className="menu-item">
             <a href="#" className="menu-link">
               <i className="menu-icon tf-icons bx bx-cube-alt"></i>
               <div data-i18n="Analytics">Actividades</div>
             </a>
-          </li>
+          </li> */}
           <li className="menu-item">
             <Link to="/mapa" className="menu-link">
               <i className="menu-icon tf-icons bx bxs-map"></i>
@@ -84,10 +84,10 @@ function Menu () {
           </li>
 
           <li className="menu-item">
-            <a href="#" className="menu-link">
+            <Link to="/stock" className="menu-link">
               <i className="menu-icon tf-icons bx bxs-business"></i>
               <div data-i18n="Analytics">Stock</div>
-            </a>
+            </Link>
           </li>
           <li className={`menu-item ${dropdown.costes ? "open" : "false"} `}>
             <a
@@ -165,11 +165,11 @@ function Menu () {
                 </Link>
               </li>
 
-              <li className="menu-item">
+              {/* <li className="menu-item">
               <Link to="/tipo-trabajos" className="menu-link">
                   <div data-i18n="Connections">Trabajos</div>
                 </Link>
-              </li>
+              </li> */}
               <li className="menu-item">
               <Link to="/almacenes" className="menu-link">
                   <div data-i18n="Connections">Almacenes</div>

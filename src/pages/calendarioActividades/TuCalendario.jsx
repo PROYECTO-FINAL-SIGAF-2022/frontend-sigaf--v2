@@ -191,10 +191,10 @@ const handleMouseLeave = (info) => {
                               }
 
                               if(fecha > fechaActual){
-                                  color = "#bfd4b7"
+                                  color = "#0a837f"
                                   //console.info("ganador =>", fecha)
                               }else if (fecha < fechaActual){
-                                color = "#0a837f"
+                                color = "#bfd4b7"
                                 //console.info("ganador Fecha actual =>",fechaActual)
                               }else{
                                 //console.info("Son Iguales")

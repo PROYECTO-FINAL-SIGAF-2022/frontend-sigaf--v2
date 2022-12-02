@@ -195,11 +195,22 @@ function Productos() {
                                       src="https://cdn-icons-png.flaticon.com/512/2713/2713463.png"
                                       alt=""
                                       />
-                                      :
+                                      : descripcionTipoProducto == "Semilla" ?
                                       <img
-                                        src="https://cdn-icons-png.flaticon.com/512/2674/2674327.png"
+                                        src="https://cdn.pixabay.com/photo/2014/12/22/00/04/bag-576711_960_720.png"
                                         alt=""
                                       />
+                                      
+                                    : descripcionTipoProducto == "Estiercol" ?
+                                    <img
+                                      src="https://images.vexels.com/media/users/3/177604/isolated/preview/d78fad5055508b80f4cd7917a874ec9f-el-tarro-puede-cubrir-plano.png"
+                                      alt=""
+                                    />
+                                    : 
+                                    <img
+                                    src="https://cdn-icons-png.flaticon.com/256/7297/7297353.png"
+                                    alt=""
+                                  />
                                     }
 
                                    

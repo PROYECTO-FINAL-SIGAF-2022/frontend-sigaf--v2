@@ -6,6 +6,7 @@ import { Card } from "reactstrap";
 // import MensajeErrorInput from "../../../../components/layouts/MensajeErrorInput";
 import { useFetch } from "../../../../../hooks/useFetch";
 import { URL } from "../../../../../utils/getUrl";
+import { formateador } from "../../../../../helpers/formateadorNumero";
 const TotalesEgresos = () => {
 
   const [
@@ -185,7 +186,7 @@ const TotalesEgresos = () => {
                       </td>
                       <td className="text-danger text-center">
                         <span className="label label-default">
-                        $ {producto?.precio_total_producto}
+                        {formateador(producto?.precio_total_producto)}
                         {contador(producto.precio_total_producto)}
                       </span>
                       </td>
@@ -240,7 +241,7 @@ const TotalesEgresos = () => {
                       </td>
                       <td className="text-danger text-center">
                         <span className="label label-default">
-                        $ {maquina?.precio_adquisicion_maquina}
+                        {formateador(maquina?.precio_adquisicion_maquina)}
                         {contador(maquina.precio_adquisicion_maquina)}
                       </span>
                       </td>
@@ -295,7 +296,7 @@ const TotalesEgresos = () => {
                       </td>
                       <td className="text-danger text-center">
                         <span className="label label-default">
-                        $ {almacen?.precio_adquisicion}
+                         {formateador(almacen?.precio_adquisicion)}
                         {contador(almacen.precio_adquisicion)}
                       </span>
                       </td>
@@ -359,7 +360,7 @@ const TotalesEgresos = () => {
                         </td>
                         <td className="text-danger text-center">
                           <span className="label label-default">
-                          $ {pagoPersonal?.monto_contabilidad}
+                           {formateador(pagoPersonal?.monto_contabilidad)}
                           {contador(pagoPersonal.monto_contabilidad)}
                         </span>
                         </td>
@@ -407,7 +408,7 @@ const TotalesEgresos = () => {
                   const fecha = new Date(gastoMaquina.fecha_contabilidad);
                   const fechaConvertida = fecha.toLocaleDateString();
 
-                  if(gastoMaquina?.observacion_contabilidad === "-"){
+                  if(gastoMaquina?.observacion_contabilidad === "-" && gastoMaquina?.tipo_contabilidad === "egreso"){
                     return(
                       <tr key={`gastoMaquina-${gastoMaquina?.id_contabilidad}`}>
                         <td className="text-center">
@@ -417,7 +418,7 @@ const TotalesEgresos = () => {
                         </td>
                         <td className="text-danger text-center">
                           <span className="label label-default">
-                          $ {gastoMaquina?.monto_contabilidad}
+                          {formateador(gastoMaquina?.monto_contabilidad)}
                           {contador(gastoMaquina.monto_contabilidad)}
                         </span>
                         </td>
@@ -441,7 +442,7 @@ const TotalesEgresos = () => {
           )}  
     </Card>
     <hr />
-    <b className="px-3">Total Egresos: ${total.current}</b>
+    <b className="px-3">Total Egresos: {formateador(total.current)}</b>
     </>
   );
 };

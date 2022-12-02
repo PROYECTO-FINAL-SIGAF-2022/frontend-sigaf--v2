@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Card } from "reactstrap";
 import { useFetch } from "../../../../hooks/useFetch";
 import { URL } from "../../../../utils/getUrl";
+import { formateador } from "../../../../helpers/formateadorNumero";
 // import "./Index.css";
 
 const VentasAlmacenes = () => {
@@ -89,7 +90,7 @@ const VentasAlmacenes = () => {
 
                   <td className="text-center">
                     <span className="label label-default">
-                      ${almacen.precio_venta}
+                      {formateador(almacen.precio_venta)}
                     </span>
                   </td>
                   <td className="text-center">

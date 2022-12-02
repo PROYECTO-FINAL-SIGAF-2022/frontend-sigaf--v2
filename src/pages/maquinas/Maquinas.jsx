@@ -146,7 +146,20 @@ function Maquinas () {
                         <>
                         {
                           //key={proveedor.id_proveedor}
-                          fetchDataMaquinas?.map(item => (
+                          fetchDataMaquinas?.map(item => {
+
+                            let options = {
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                            };
+                            
+                            const fecha = new Date(item?.fecha_adquisicion_maquina);
+                            const fechaConvertida = fecha.toLocaleDateString(
+                              "es-ES",
+                              options
+                            );
+                            return(
                               <tr key={item.id_maquina}>
                               <td>
                                 <img
@@ -165,7 +178,7 @@ function Maquinas () {
                               </td>
                               <td className="text-center">
                                 <span className="label label-default">
-                                  {item.fecha_adquisicion_maquina}
+                                  {fechaConvertida}
                                 </span>
                               </td>
                               <td className="text-center">
@@ -196,7 +209,8 @@ function Maquinas () {
                                 </a>
                               </td>
                             </tr>
-                              ))
+                            )
+                          })
                             }
                             </>
                             )

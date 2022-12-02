@@ -2,6 +2,7 @@ import React, { Fragment, useEffect } from "react";
 import Select from "react-select";
 import "../../Index.css";
 import { MDBCard } from "mdb-react-ui-kit";
+import { formateador } from "../../../../../helpers/formateadorNumero";
 import { Link, useNavigate } from "react-router-dom";
 
 import Swal from "sweetalert2";
@@ -11,11 +12,6 @@ import { useFetch } from "../../../../../hooks/useFetch";
 import { URL } from "../../../../../utils/getUrl";
 
 const GastosMaquinas = () => {
-  const optMaquina = [
-    { label: "Tractor" },
-    { label: "Camion" },
-    { label: "Cohete" }
-  ];
   const optFecha = [
     { label: "2021" },
     { label: "2022" },
@@ -105,12 +101,6 @@ const GastosMaquinas = () => {
         </th>
         <th>
         <Select
-          placeholder="Maquina"
-          options={optMaquina}
-        />
-        </th>
-        <th>
-        <Select
           placeholder="Fecha"
           options={optFecha}
           />
@@ -141,7 +131,7 @@ const GastosMaquinas = () => {
             fetchDataContabilidadPersonal?.map((item) => {
               const fecha = new Date(item.fecha_contabilidad);
 
-              if(item?.observacion_contabilidad === "-"){
+              if(item?.observacion_contabilidad === "-" && item?.tipo_contabilidad === "egreso"){
 
                 const fechaConvertida = fecha.toLocaleDateString();
                 return (
@@ -153,7 +143,7 @@ const GastosMaquinas = () => {
                     </td>
                     <td className="text-center" >
                       <a>
-                        {item?.monto_contabilidad}
+                        {formateador(item?.monto_contabilidad)}
                       </a>
                     </td>
                     <td className="text-center" >

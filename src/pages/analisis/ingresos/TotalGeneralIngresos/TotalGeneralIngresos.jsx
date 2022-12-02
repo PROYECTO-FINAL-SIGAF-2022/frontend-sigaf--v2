@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-
+import { formateador } from "../../../../helpers/formateadorNumero";
 import { Card } from "reactstrap";
 // import { Link } from "react-router-dom";
 // import Alerta from "../../../../components/layouts/Alerta";
@@ -43,6 +43,10 @@ const TotalGeneralIngresos = () => {
 
   const [campania, setCampania] = useState("");
   const [parcela, setParcela] = useState("");
+
+
+  
+
 
   const total = useRef(0);
 
@@ -161,7 +165,13 @@ const TotalGeneralIngresos = () => {
   };
   total.current = 0;
 
+
+  
+
+
+
   return (
+    <>
     <Card style={{ overflowY: "scroll", height: "400px" }}>
       <div className="d-inline px-3" style={{ width: "20%" }}>
         <label htmlFor="smallSelect" className="form-label d-inline">
@@ -234,9 +244,9 @@ const TotalGeneralIngresos = () => {
                       {cosecha.unidades_medida.descripcion_unidad_medida}
                     </span>
                   </td>
-                  <td className="text-center">
+                  <td className="text-success text-center">
                     <span className="label label-default">
-                      ${cosecha.precio_venta}
+                      {formateador(cosecha.precio_venta)}
                       {contador(cosecha.precio_venta)}
                     </span>
                   </td>
@@ -292,9 +302,9 @@ const TotalGeneralIngresos = () => {
                     </span>
                   </td>
 
-                  <td className="text-center">
+                  <td className="text-success text-center">
                     <span className="label label-default">
-                      ${maquina.precio_venta_maquina}
+                      {formateador(maquina.precio_venta_maquina)}
                       {contador(maquina.precio_venta_maquina)}
                     </span>
                   </td>
@@ -340,9 +350,9 @@ const TotalGeneralIngresos = () => {
                     </span>
                   </td>
 
-                  <td className="text-center">
+                  <td className="text-success text-center">
                     <span className="label label-default">
-                      ${almacen.precio_venta}
+                      {formateador(almacen.precio_venta)}
                       {contador(almacen.precio_venta)}
                     </span>
                   </td>
@@ -360,12 +370,15 @@ const TotalGeneralIngresos = () => {
         <h3 className="text-danger text-center">No hay venta de almacenes</h3>
           )}
 
-      <hr />
-      <b className="px-3">Campaña: {campania || "Todos"}</b>
-      <b className="px-3">Parcela: {parcela || "Todos"}</b>
-      <b className="px-3">Total Ingresos: ${total.current}</b>
+ 
 
     </Card>
+    <hr />
+      <b className="px-3">Campaña: {campania || "Todos"}</b>
+      <b className="px-3">Parcela: {parcela || "Todos"}</b>
+      <b className="px-3">Total Ingresos: {formateador(total.current) }</b>
+    </>
+
   );
 };
 

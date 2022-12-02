@@ -35,6 +35,8 @@ import Trabajos from "../../pages/tiposTrabajos/Trabajos";
 import Landing from "../../pages/Landing/Landing";
 import Historiales from "../../pages/Historial-Trazabilidad/Historiales";
 import DetallesTrazabilidad from "../../pages/Historial-Trazabilidad/DetallesTrazabilidad/DetallesTrazabilidad";
+import StockCosechas from "../../pages/stock/StockCosechas";
+
 function Rutas() {
   const session = useSession();
 
@@ -93,7 +95,8 @@ function Rutas() {
           <Route path="/tuCalendario" exact element={<TuCalendario/>} />
           <Route path="/tipo-trabajos" exact element={<Trabajos/>} />
           <Route path="/historiales" exact element={<Historiales/>} />
-          <Route path="/detalles-trazabilidad/:idParcelaCultivo" exact element={<DetallesTrazabilidad/>} />
+          <Route path="/detalles-trazabilidad/:idParcelaCultivo/:parcela" exact element={<DetallesTrazabilidad/>} />
+          <Route path="/stock" exact element={<StockCosechas/>} />
           
           <Route path="*" exact element={<Home />} />
         </Routes>
