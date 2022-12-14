@@ -25,6 +25,7 @@ import perfil2 from "./styles/img/Team/img-8.png";
 import perfil3 from "./styles/img/Team/img-9.png";
 import perfil4 from "./styles/img/Team/img-10.png";
 import perfil5 from "./styles/img/Team/img-11.png";
+import perfil6 from "./styles/img/Team/img-12.png";
 import headerSVG from "./styles/img/icons/header-shape.svg";
 
 import about2 from "./styles/img/about-img.jpg";
@@ -234,7 +235,7 @@ const Landing = () => {
                     data-aos-offset="400"
                     data-aos-easing="ease-in-sine"
                   >
-                    <img src={perfil4} className="image_7" />
+                    <img src={perfil6} className="image_7" />
                     <p className="readable_text">Centurion Agustin</p>
                   </div>
                   <div
