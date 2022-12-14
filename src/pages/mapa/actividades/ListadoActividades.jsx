@@ -119,9 +119,9 @@ console.log(fetchParcelasCultivosActividades)
         : (
         <>
           <button className="btn btn-success mb-2" onClick={toggleShow}>
-            Agregar Cultivo
+            Agregar Actividad
           </button>
-          <h3>No hay ninguna parcela con cultivo activo</h3>
+          <h3>No hay ninguna actividad cargada</h3>
         </>
           )}
           {

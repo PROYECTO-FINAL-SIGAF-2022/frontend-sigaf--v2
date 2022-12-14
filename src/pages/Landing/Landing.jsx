@@ -328,7 +328,7 @@ const Landing = () => {
                     />
 
                     <Carousel.Caption>
-                      <h3 style={{fontSize:"60px" }}>El productor y la complejidad de la gestión de sus establecimientos</h3>
+                      <h3 style={{fontSize:"40px" }}>El productor y la complejidad de la gestión de sus establecimientos</h3>
                      
                     </Carousel.Caption>
                   </Carousel.Item>
@@ -340,7 +340,7 @@ const Landing = () => {
                       alt="Second slide"
                     />
                     <Carousel.Caption>
-                      <h1 style={{fontSize:"60px" }}>Información, requerimientos y decisiones </h1>
+                      <h1 style={{fontSize:"40px" }}>Información, requerimientos y decisiones </h1>
                       
                     </Carousel.Caption>
                   </Carousel.Item>
@@ -352,7 +352,7 @@ const Landing = () => {
                     />
 
                     <Carousel.Caption>
-                      <h3 style={{fontSize:"60px" }}>A partir de numerosas entrevistas a
+                      <h3 style={{fontSize:"40px" }}>A partir de numerosas entrevistas a
 productores de la región, y comprendiendo sus necesidades</h3>
                       
                     </Carousel.Caption>
@@ -366,7 +366,7 @@ productores de la región, y comprendiendo sus necesidades</h3>
                     />
 
                     <Carousel.Caption>
-                      <h3 style={{fontSize:"60px" }}>¿ Por qué lo hacen de esta forma ?</h3>
+                      <h3 style={{fontSize:"40px" }}>¿ Por qué lo hacen de esta forma ?</h3>
                      
                     </Carousel.Caption>
                   </Carousel.Item>

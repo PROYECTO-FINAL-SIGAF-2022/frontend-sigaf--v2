@@ -97,7 +97,7 @@ const PagosPersonal = () => {
       </div>
       <hr></hr>
         <div class="tableAnalisis">
-          <div class="rowAnalisis headerAnalisis">
+          <div class="rowAnalisis headerAnalisis blue">
             <div class="cellAnalisis">Observacion</div>
             <div class="cellAnalisis">Tipo</div>
             <div class="cellAnalisis">Precio</div>
