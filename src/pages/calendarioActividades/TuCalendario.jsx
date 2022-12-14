@@ -78,12 +78,13 @@ function TuCalendario() {
 /*   console.log(fetchDataParcelaCultivo)
   console.log(fetchDataParcela) */
 
-  console.log(fetchDataActividades)
+ // console.log(fetchDataActividades)
 
   const [optSmModalDetalles, setOptSmModalDetalles] = useState(false);
   const [datosHistorial, setDatosHistorial] = useState("");
   const toggleShowDetalles = (item) => {
-    console.log(item)
+    //console.log(item)
+    setDatosHistorial("")
     setOptSmModalDetalles(!optSmModalDetalles);
     setDatosHistorial(item)
   }
@@ -167,14 +168,20 @@ const handleMouseLeave = (info) => {
                           headerToolbar={{
                             start: 'prev today next',
                             center: 'title',
-                            end: 'newAppointment',
-                            
+                            end: '',
                           }}
 
-                          eventClick={()=>{
-                            fetchDataHistorialParcela?.map(item =>{
-                              toggleShowDetalles(item)
-                            })
+                          eventClick={(e)=>{
+                            let idHistorial = e.event._def.publicId
+
+                            //console.log(idHistorial)
+
+                            for (var i = 0; i < fetchDataHistorialParcela.length; i++) {
+                              if(idHistorial == fetchDataHistorialParcela[i].id_historial_parcelas_cultivos){
+                                //console.log(fetchDataHistorialParcela[i])
+                                toggleShowDetalles(fetchDataHistorialParcela[i])
+                              }
+                            }
                           }}
                           /* eventMouseEnter={handleMouseEnter}
                           eventMouseLeave={handleMouseLeave} */
@@ -209,7 +216,7 @@ const handleMouseLeave = (info) => {
                                 title: nombreActividad,
                                 start: items.fecha_historial,
                                 color: color,
-                                
+                                id: items.id_historial_parcelas_cultivos
                               }
                             )
                           })

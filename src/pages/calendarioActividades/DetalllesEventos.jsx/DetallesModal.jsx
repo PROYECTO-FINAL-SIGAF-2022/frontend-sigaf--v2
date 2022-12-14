@@ -62,7 +62,7 @@ const DetallesModal = ({
 
   },[item])
 
-
+//console.log(item)
   return (
     <MDBModal
     staticBackdrop
