@@ -1,0 +1,106 @@
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  width: 250px;
+  height: 160px;
+  font-size: 48px;
+}
+
+.nodejs {
+  background-color: #91C44A;
+}
+
+.mysql {
+  background-color: #EC5E5D;
+}
+
+.expressjs {
+  background-color: #ECB45D;
+}
+
+.reactjs {
+  background-color: #6AD3F8;
+}
+
+.cliente {
+  background-color: #FFCC66;
+}
+
+.servidor {
+  background-color: #77D8AC;
+}
+
+.rounded {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  font-weight: bold;
+}
+
+.r1 {
+  width: 360px;
+  height: 360px;
+}
+
+.r2 {
+  width: 280px;
+  height: 280px;
+}
+
+.r3 {
+  width: 200px;
+  height: 200px;
+}
+
+.r4 {
+  width: 120px;
+  height: 120px;
+}
+
+.font_bold {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.center-sm {
+  gap: 80px
+}
+
+.hide {
+  display: none;
+}
+
+.title_architecture {
+  font-size: 59px;
+  font-weight: bold;
+  color: #09f !important;
+}
+
+.sm {
+  width: 150px;
+  height: 150px;
+  font-size: 28px;
+}
+
+.font-sm {
+  font-size: 20px !important;
+}
+
+.title {
+  color: #09f !important;
+}
+
+.quest {
+  color: #EC5E5D !important;
+}

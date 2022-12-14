@@ -141,9 +141,9 @@ const Landing = () => {
                                 </p>
                               </div>
                               <div className="buttons">
-                                <Link to="/auth" className="btn btn-success">
+                                <a href="#"  className="btn btn-success">{/* target="_blank" */}
                                   Ver Mas
-                                </Link>
+                                </a>
                                 {/* <!--  <a href="#" className="btn btn-outline-secondary ms-3">Live preview</a> --> */}
                               </div>
                             </div>

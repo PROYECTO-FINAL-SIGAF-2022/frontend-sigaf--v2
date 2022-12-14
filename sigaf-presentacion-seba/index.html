@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+
+    <title>reveal.js</title>
+
+    <link rel="stylesheet" href="dist/reset.css" />
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="dist/theme/black.css" />
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/monokai.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+				<section>
+					<h2 class="title">SIGAF</h2>
+					<h4 class="fragment quest">¿Cómo lo hicimos?</h4>
+					<p class="fragment fade-left">Investigación 🔬</p>
+					<p class="fragment fade-right">Empatía 🤝</p>
+					<p class="fragment fade-up">Diseño 🎨</p>
+				</section>
+				<section data-auto-animate>
+					<h2 data-id="title">Tecnologías</h2>
+				</section>
+        <section data-auto-animate>
+          <h2>Tecnologías</h2>
+          <div class="center">
+            <div class="rounded r1 nodejs" data-id="r_1">
+              <div class="rounded r2 mysql" data-id="r_2">
+                <div class="rounded r3 expressjs" data-id="r_3">
+                  <div class="rounded r4 reactjs font_bold" data-id="r_4">
+                    MERN
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section data-auto-animate>
+          <h2>Tecnologías</h2>
+          <div class="center">
+            <div class="card mysql" data-id="r_2">MySQL</div>
+            <div class="card expressjs" data-id="r_3">Express</div>
+            <div class="card reactjs" data-id="r_4">ReactJS</div>
+            <div class="card nodejs" data-id="r_1">NodeJS</div>
+          </div>
+        </section>
+				
+        <section data-auto-animate>
+          <h2 data-id="title" class="title_architecture">Arquitectura</h2>
+          <div class="center">
+            <div class="card mysql" data-id="r_2">MySQL</div>
+            <div class="card expressjs" data-id="r_3">Express</div>
+            <div class="card reactjs" data-id="r_4">ReactJS</div>
+            <div class="card nodejs" data-id="r_1">NodeJS</div>
+          </div>
+        </section>
+
+        <section data-auto-animate>
+          <h2  class="title_architecture">Arquitectura</h2>
+          <div class="center">
+            <div class="rounded r1" data-id="servidor">
+              <div class="rounded r1 nodejs" data-id="r_1">
+                <div class="rounded r2 mysql" data-id="r_2">
+                  <div class="rounded r3 expressjs" data-id="r_3">
+                    NodeJS MySQL Express
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card reactjs" data-id="r_4">ReactJS</div>
+            <div class="card nodejs" data-id="r_7">NodeJS</div>
+          </div>
+        </section>
+
+        <section data-auto-animate>
+          <h2 class="title_architecture">Arquitectura</h2>
+          <div class="center">
+            <div class="rounded r1" data-id="servidor">
+              <div class="rounded r1 nodejs"">
+                <div class="rounded r2 mysql"">
+                  <div class="rounded r3 expressjs"">
+                    NodeJS MySQL Express
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="rounded r1" data-id="cliente">
+              <div class="rounded r1 nodejs" data-id="r_7">
+                <div class="rounded r2 reactjs" data-id="r_4">
+                  NodeJS ReactJS
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section data-auto-animate>
+        	<h2 class="title_architecture">Arquitectura</h2>
+          <div class="center">
+						<div class="rounded r1 servidor" data-id="servidor">
+							Servidor
+              <div class="rounded r1 nodejs hide" data-id="r_1">
+                <div class="rounded r2 mysql hide" data-id="r_2">
+                  <div class="rounded r3 expressjs hide" data-id="r_3">
+                    NodeJS MySQL Express
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="rounded r1" data-id="cliente">
+              <div class="rounded r1 nodejs">
+                <div class="rounded r2 reactjs">
+                  NodeJS ReactJS
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section data-auto-animate>
+          <h2 class="title_architecture">Arquitectura</h2>
+					<p>Cliente - Servidor</p>
+          <div class="center">
+						<div class="rounded r1 cliente" data-id="cliente">
+							Cliente
+              <div class="rounded r1 nodejs hide" data-id="r_7">
+                <div class="rounded r2 reactjs hide" data-id="r_4">
+                  NodeJS ReactJS
+                </div>
+              </div>
+            </div>
+
+						<div class="rounded r1 servidor" data-id="servidor">
+							Servidor
+              <div class="rounded r1 nodejs hide">
+                <div class="rounded r2 mysql hide">
+                  <div class="rounded r3 expressjs hide">
+                    NodeJS MySQL Express
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </section>
+
+        <section data-auto-animate>
+          <h2 class="title_architecture">Arquitectura</h2>
+					<p>Cliente - Servidor</p>
+          <div class="center center-sm">
+						<div>
+							<div class="rounded r1 cliente sm" data-id="cliente">
+								Cliente
+								<div class="rounded r1 nodejs hide" data-id="r_7">
+									<div class="rounded r2 reactjs hide" data-id="r_4">
+										NodeJS ReactJS
+									</div>
+								</div>
+							</div>
+							<p class="fragment font-sm">Interfaces de usuario 👨‍💻</p>
+							<p class="fragment font-sm">Experiencia de usuario 😁</p>
+						</div>
+						
+						<div>
+							<div class="rounded r1 servidor sm" data-id="servidor">
+								Servidor
+								<div class="rounded r1 nodejs hide">
+									<div class="rounded r2 mysql hide">
+										<div class="rounded r3 expressjs hide">
+											NodeJS MySQL Express
+										</div>
+									</div>
+								</div>
+							</div>
+							<p class="fragment font-sm">Lógica de negocio 🧠</p>
+							<p class="fragment font-sm">Seguridad de los datos 🔐</p>
+						</div>	
+							
+          </div>
+        </section>
+				<section>
+					<h2>¡Muchas gracias!</h2>
+				</section>
+      </div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script>
+      // More info about initialization & config:
+      // - https://revealjs.com/initialization/
+      // - https://revealjs.com/config/
+      Reveal.initialize({
+        hash: true,
+
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+      });
+    </script>
+  </body>
+</html>
