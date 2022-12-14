@@ -314,6 +314,16 @@ Setup components
   font-weight: bold;
   text-align: center;
 }
+ .what_taital2 {
+  width: 100%;
+  float: left;
+  font-size: 20px;
+  color: #08b602;
+  padding-top: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-align: center;
+}
  .team_section{
   width: 100%;
   float: left;
