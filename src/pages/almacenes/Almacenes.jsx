@@ -143,7 +143,7 @@ function Almacenes() {
                             mensajeAlerta={errorAlmacen?.msg}
                           />
                         )}
-                        {fetchDataAlmacen.length > 0 && (
+                        {fetchDataAlmacen?.length > 0 && (
                           <>
                             {
                               //key={proveedor.id_proveedor}
@@ -168,7 +168,7 @@ function Almacenes() {
                                       alt=""
                                     />
                                     <a href="#" className="user-link">
-                                      {item.descripcion_almacen}
+                                      {item?.descripcion_almacen}
                                     </a>
                                     <span className="user-subhead">
                                       Detalle
@@ -181,12 +181,12 @@ function Almacenes() {
                                   </td>
                                   <td className="text-center">
                                     <span className="label label-default">
-                                      $ {item.precio_adquisicion}
+                                      $ {item?.precio_adquisicion}
                                     </span>
                                   </td>
                                   <td className="text-center">
                                     <span className="label label-default" style={{textTransform: "uppercase", color: "green" }}>
-                                      {item.tipo_adquisicion}
+                                      {item?.tipo_adquisicion}
                                     </span>
                                   </td>
                                   <td style={{ width: "20%" }}>
@@ -206,7 +206,7 @@ function Almacenes() {
                                         <i className="fa fa-pencil fa-stack-1x fa-inverse"></i>
                                       </span>
                                     </a>
-                                    <a href="#" className="table-link danger" onClick={()=>{handleBounceIn(item.id_almacen)}}>
+                                    <a href="#" className="table-link danger" onClick={()=>{handleBounceIn(item?.id_almacen)}}>
                                       <span className="fa-stack">
                                         <i className="fa fa-square fa-stack-2x"></i>
                                         <i className="fa fa-trash-o fa-stack-1x fa-inverse"></i>

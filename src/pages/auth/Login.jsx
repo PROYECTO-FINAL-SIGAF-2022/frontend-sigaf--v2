@@ -8,8 +8,9 @@ import { useSetSession } from "../../context/SessionProvider";
 import { URL } from "../../utils/getUrl";
 import Alerta from "../../components/layouts/Alerta";
 import NavbarLanding from "../../components/layouts/NavbarLanding";
+import NavbarLanding2 from "../../components/layouts/NavbarLanding2";
 import './Login.css'
-import logo from '../../pages/Landing/styles/img/Logo/default.png'
+import logo from '../../pages/Landing/styles/img/Logo/default4.png'
 const Login = () => {
   const [setConfigFetch, fetchData, loading, error] = useFetch();
   const formikRef = useRef();
@@ -47,7 +48,7 @@ const Login = () => {
 
   return (
     <div className="container">
-      <NavbarLanding/>
+      <NavbarLanding2/>
    
 
 <aside class="profile-card">

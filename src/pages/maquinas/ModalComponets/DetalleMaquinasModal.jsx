@@ -17,7 +17,7 @@ const DetalleMaquinasModal = ({item,optSmModalDetalles,setOptSmModalDetalles,tog
     //console.log(item)
     const [fechaAdquisicionState, setFechaAdquisicionState] = useState('');
       useEffect(()=>{
-        var fechaAdquisicion = new Date(item.fecha_adquisicion_maquina);
+        var fechaAdquisicion = new Date(item?.fecha_adquisicion_maquina);
       setFechaAdquisicionState(fechaAdquisicion.toLocaleDateString())
       })
     //console.log(fetchDataProveedor)
@@ -57,12 +57,12 @@ const DetalleMaquinasModal = ({item,optSmModalDetalles,setOptSmModalDetalles,tog
                     className="d-block"
                     style={{ fontSize: "1.5rem", fontWeight: "bold" }}
                   >
-                    <a href="#">{item.descripcion_maquina}</a>
+                    <a href="#">{item?.descripcion_maquina}</a>
                   </h2>
                   <h6 className="d-block">
                     <a href="#">Tipo Adquisicion:</a>{" "}
                     <strong style={{ textTransform: "uppercase" }}>
-                    {item.tipo_adquisicion_maquina}
+                    {item?.tipo_adquisicion_maquina}
                     </strong>
                   </h6>
                   {/* <h6 className="d-block"><a href="#">300</a> Blog Posts</h6> */}
@@ -105,12 +105,12 @@ const DetalleMaquinasModal = ({item,optSmModalDetalles,setOptSmModalDetalles,tog
                           </label>
                         </div>
                         <div className="col-md-8 col-6">
-                          $ {item.precio_adquisicion_maquina}
+                          $ {item?.precio_adquisicion_maquina}
                         </div>
                       </div>
                       <hr />
 
-                      {item.precio_venta_maquina ? (
+                      {item?.precio_venta_maquina ? (
                         <>
                           <div className="row">
                             <div className="">
@@ -119,13 +119,13 @@ const DetalleMaquinasModal = ({item,optSmModalDetalles,setOptSmModalDetalles,tog
                               </label>
                             </div>
                             <div className="col-md-8 col-6">
-                            {item.precio_venta_maquina}
+                            {item?.precio_venta_maquina}
                             </div>
                           </div>
                           <hr />
                         </>
                       ) : null}
-                      {item.fecha_venta_maquina ? (
+                      {item?.fecha_venta_maquina ? (
                         <>
                           <div className="row">
                             <div className="">
@@ -134,7 +134,7 @@ const DetalleMaquinasModal = ({item,optSmModalDetalles,setOptSmModalDetalles,tog
                               </label>
                             </div>
                             <div className="col-md-8 col-6">
-                            {item.fecha_venta_maquina}
+                            {item?.fecha_venta_maquina}
                             </div>
                           </div>
                           <hr />

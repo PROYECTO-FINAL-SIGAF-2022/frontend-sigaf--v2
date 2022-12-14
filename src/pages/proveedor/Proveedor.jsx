@@ -119,14 +119,14 @@ function Proveedor() {
                       </Link>
                     </div>
                     <br></br>
-                    {fetchDataProveedores.length > 0 && (
+                    {fetchDataProveedores?.length > 0 && (
                       <>
                         {
                           //key={proveedor.id_proveedor}
                           fetchDataProveedores?.map((item) => (
                             <div
                               className="job-box d-md-flex align-items-center justify-content-between mb-30"
-                              key={item.id_proveedor}
+                              key={item?.id_proveedor}
                             >
                               <div className="job-left my-4 d-md-flex align-items-center flex-wrap">
                                 <div className="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">

@@ -9,6 +9,7 @@ import { URL } from "../../utils/getUrl";
 import Loading from "../../components/layouts/Loading";
 import Alerta from "../../components/layouts/Alerta";
 import NavbarLanding from "../../components/layouts/NavbarLanding";
+import NavbarLanding2 from "../../components/layouts/NavbarLanding2";
 import logo from '../../pages/Landing/styles/img/Logo/logo 1.png'
 
 const Register = () => {
@@ -86,7 +87,8 @@ const Register = () => {
   }, [fetchData]);
   return (
     <div className="container">
-      <NavbarLanding/>
+      <NavbarLanding2/>
+      <br></br> <br></br> <br></br>
       <div className="container-xxl" style={{ width: "50%" }}>
       <div className="authentication-wrapper authentication-basic container-p-y">
         <div className="authentication-inner">

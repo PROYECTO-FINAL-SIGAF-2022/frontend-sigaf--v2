@@ -26,9 +26,9 @@ const MapaToolbar = ({ campania, fetchDataCampanias, setCampania }) => {
     <select className="form-select mb-2" defaultValue={campania} onChange={handleChangeSelect}>
         <option value="" disabled>Campaña</option>
         {
-            fetchDataCampanias.map(campania => (
+            fetchDataCampanias?.map(campania => (
 
-        <option key={campania.id_campania} value={campania.id_campania}>{campania.descripcion_campania}</option>
+        <option key={campania?.id_campania} value={campania?.id_campania}>{campania?.descripcion_campania}</option>
             ))
         }
     </select>

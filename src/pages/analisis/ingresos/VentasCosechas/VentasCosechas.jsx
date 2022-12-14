@@ -123,109 +123,105 @@ const VentasCosechas = () => {
 
   return (
     <>
-      <Link to="/venta-cosecha">
+     <div class="wrapper">
+      <div>
+      <Link className="d-inline px-3" to="/venta-cosecha">
         <button className="btn btn-success mb-3">+ Venta Cosecha</button>
       </Link>
-      <Card>
-        <div className="d-inline px-3" style={{ width: "20%" }}>
-          <label htmlFor="smallSelect" className="form-label d-inline">
-            Campaña
-          </label>
-          <select
-            id="smallSelect"
-            className="form-select form-select-sm d-inline"
-            defaultValue=""
-            onChange={handleChangeCampania}
-          >
-            <option value="">Todos</option>
-            {fetchDataCampanias?.map((campania) => (
-              <option key={campania.id_campania} value={campania.id_campania}>
-                {campania.descripcion_campania}
-              </option>
-            ))}
-          </select>
-          <label htmlFor="smallSelect" className="form-label d-inline">
-            Parcelas
-          </label>
-          <select
-            id="smallSelect"
-            className="form-select form-select-sm d-inline"
-            defaultValue=""
-            onChange={handleChangeParcela}
-          >
-            <option value="">Todos</option>
-            {fetchDataParcelas?.map((parcela) => (
-              <option key={parcela.id_parcela} value={parcela.id_parcela}>
-                {parcela.descripcion_parcela}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="d-inline px-3" style={{ width: "20%" }}></div>
-        <br></br>
-        <table className="table user-list">
-          <thead>
-            <tr>
-              <th className="text-center">
-                <span>Parcela</span>
-              </th>
-              <th className="text-center">
-                <span>Cantidad Vendida</span>
-              </th>
-              <th className="text-center">
-                <span>Precio</span>
-              </th>
-              <th className="text-center">
-                <span>Fecha de Venta</span>
-              </th>
-              <th className="text-center">
-                <span>Eliminar</span>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {fetchDataContabilidadCosechas?.length > 0 &&
-              fetchDataContabilidadCosechas.map((cosecha) => (
-                <tr key={cosecha.id_cosecha}>
-                  <td className="text-center">
-                    <span className="label label-default">
-                      {cosecha.parcelas_cultivo.parcela.descripcion_parcela}
-                    </span>
-                  </td>
-                  <td className="text-center">
-                    <span className="label label-default">
-                      {cosecha.cantidad_total_vendida}{" "}
-                      {cosecha.unidades_medida.descripcion_unidad_medida}
-                    </span>
-                  </td>
-                  <td className="text-center">
-                    <span className="label label-default">
-                      {formateador(cosecha.precio_venta)}
-                    </span>
-                  </td>
-                  <td className="text-center">
-                    <span className="label label-default">
-                      {cosecha.fecha_venta}
-                    </span>
-                  </td>
-                  <td className="text-center">
-                    <span className="label label-default">
-                      <button
-                        className="btn btn-danger"
-                        onClick={() =>
-                          handleEliminarCosechaYContabilidad(
-                            cosecha.fecha_venta
-                          )
-                        }
-                      >
-                        Eliminar
-                      </button>
-                    </span>
-                  </td>
-                </tr>
+      </div>
+      <div>
+          <div className="d-inline px-3" style={{ width: "20%" }}>
+            <label htmlFor="smallSelect" className="form-label d-inline">
+              Campaña
+            </label>
+            <div class="selectCostoDiv mx-3">
+                <select className="selectCosto"
+                id="smallSelect"
+                defaultValue=""
+                onChange={handleChangeCampania}
+                >
+                     <option value="">Todos</option>
+              {fetchDataCampanias?.map((campania) => (
+                <option key={campania.id_campania} value={campania.id_campania}>
+                  {campania.descripcion_campania}
+                </option>
+                  ))}
+                </select>
+          </div>
+          <br></br>
+          <div className="d-inline px-3" style={{ width: "20%" }}>
+            <label htmlFor="smallSelect" className="form-label d-inline">
+              Parcelas
+            </label>
+            <div class="selectCostoDiv mx-3">
+                <select className="selectCosto"
+                id="smallSelect"
+                defaultValue=""
+                onChange={handleChangeParcela}
+                >
+                    <option value="">Todos</option>
+              {fetchDataParcelas?.map((parcela) => (
+                <option key={parcela.id_parcela} value={parcela.id_parcela}>
+                  {parcela.descripcion_parcela}
+                </option>
               ))}
-          </tbody>
-        </table>
+                </select>
+          </div>
+          </div>
+          </div>
+          <div className="d-inline px-3" style={{ width: "20%" }}></div>
+          <br></br>
+        
+        </div>
+
+      <hr></hr>
+        <div class="tableAnalisis">
+          <div class="rowAnalisis headerAnalisis green">
+            <div class="cellAnalisis">Parcela</div>
+            <div class="cellAnalisis">Cantidad Vendida</div>
+            <div class="cellAnalisis">Precio</div>
+            <div class="cellAnalisis">Fecha de Venta</div>
+            <div class="cellAnalisis">Eliminar</div>
+          </div>
+
+          {fetchDataContabilidadCosechas?.length > 0 &&
+              fetchDataContabilidadCosechas.map((cosecha) => {
+                const fecha = new Date(cosecha?.fecha_venta);
+                const fechaConvertida = fecha.toLocaleDateString();
+                return(
+                  <div class="rowAnalisis" key={cosecha.id_cosecha}>
+                    <div class="cellAnalisis" data-title="Name">
+                    {cosecha.parcelas_cultivo.parcela.descripcion_parcela}
+                    </div>
+                    <div class="cellAnalisis" data-title="Occupation" style={{color:'#429867'}}>
+                    {cosecha.cantidad_total_vendida}{" "}
+                        {cosecha.unidades_medida.descripcion_unidad_medida}
+                    </div>
+                    <div class="cellAnalisis" data-title="Location" style={{color:'#429867'}}>
+                    <strong>{formateador(cosecha.precio_venta)}</strong>
+                    </div>
+                    <div class="cellAnalisis" data-title="Location">
+                    {fechaConvertida}
+                    </div>
+                    <div class="cellAnalisis" data-title="actions">
+                    
+                        <a href="#" className="table-link danger" 
+                          
+                          onClick={() =>
+                            handleEliminarCosechaYContabilidad(
+                              cosecha.fecha_venta
+                            )
+                          }>
+                          <span className="fa-stack" style={{color:'red'}}>
+                            <i className="fa fa-square fa-stack-2x"></i>
+                            <i className="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+                          </span>
+                        </a>
+                    </div>
+                  </div>
+                )
+              })}
+        </div>
         {loadingContabilidadCosechas && <h4>Cargando datos de cosechas</h4>}
         {fetchDataDeleteParcelaCampania && <h4 className="text-success">Registro de cosecha y de contabilidad eliminadas</h4>}
         {errorContabilidadCosechas?.errors &&
@@ -236,7 +232,7 @@ const VentasCosechas = () => {
               mensajeAlerta={msgError?.msg}
             />
           ))}
-      </Card>
+     </div>
     </>
   );
 };

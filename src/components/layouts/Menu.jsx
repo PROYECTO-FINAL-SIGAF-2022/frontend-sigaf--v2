@@ -72,7 +72,7 @@ function Menu () {
           <li className="menu-item">
             <Link to="/calendario" className="menu-link">
               <i className="menu-icon tf-icons bx bx-calendar"></i>
-              <div data-i18n="Analytics">Guia Cultivos</div>
+              <div data-i18n="Analytics">Guía Cultivos</div>
               </Link>
           </li>
 
@@ -114,7 +114,7 @@ function Menu () {
           <li className="menu-item">
             <Link to="/historiales" className="menu-link">
               <i className="menu-icon tf-icons bx bx-collection"></i>
-              <div data-i18n="Basic">Analisis</div>
+              <div data-i18n="Basic">Análisis</div>
             </Link>
           </li>
 
@@ -180,7 +180,7 @@ function Menu () {
           <li className="menu-item">
             <a href="#" className="menu-link" onClick={handleChangeLogout}>
               <i className="bx bx-power-off me-2"></i>
-              <div data-i18n="Basic">Cerrar Sessión</div>
+              <div data-i18n="Basic">Cerrar Sesión</div>
             </a>
           </li>
         </ul>

@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from "react";
-import "../../Index.css";
+import "../../index2.css";
 import { MDBCard } from "mdb-react-ui-kit";
 import { Link, useNavigate } from "react-router-dom";
 import Select from "react-select";
@@ -11,18 +11,13 @@ import withReactContent from "sweetalert2-react-content";
 import { useFetch } from "../../../../../hooks/useFetch";
 import { URL } from "../../../../../utils/getUrl";
 
-
-
 const PagosPersonal = () => {
-  const optFecha = [
-    { label: "2021" },
-    { label: "2022" },
-    { label: "2022" }
-  ];
+  const optFecha = [{ label: "2021" }, { label: "2022" }, { label: "2022" }];
 
   const navigate = useNavigate();
 
-  const [setConfigFetchContabilidadPersonal, fetchDataContabilidadPersonal] = useFetch();
+  const [setConfigFetchContabilidadPersonal, fetchDataContabilidadPersonal] =
+    useFetch();
 
   const getContabilidadPersonal = () => {
     setConfigFetchContabilidadPersonal({
@@ -30,9 +25,9 @@ const PagosPersonal = () => {
       headersRequest: {
         method: "GET",
         headers: {
-          "Content-type": "application/json; charset=UTF-8"
-        }
-      }
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      },
     });
   };
 
@@ -63,7 +58,7 @@ const PagosPersonal = () => {
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
       confirmButtonText: "Si, eliminar!",
-      cancelButtonText: "Cancelar!"
+      cancelButtonText: "Cancelar!",
     }).then((result) => {
       if (result.isConfirmed) {
         // console.log(id)
@@ -72,126 +67,77 @@ const PagosPersonal = () => {
           headersRequest: {
             method: "DELETE",
             headers: {
-              "Content-type": "application/json; charset=UTF-8"
-            }
-          }
+              "Content-type": "application/json; charset=UTF-8",
+            },
+          },
         });
 
-        navigate("/Egresos")
-        
-        Swal.fire(
-          "Eliminado!",
-          "El archivo fue eliminado.",
-          "success"
-        ).then((resultClose) => {
-          getContabilidadPersonal()
-        });
+        navigate("/Egresos");
+
+        Swal.fire("Eliminado!", "El archivo fue eliminado.", "success").then(
+          (resultClose) => {
+            getContabilidadPersonal();
+          }
+        );
       }
     });
   };
 
   return (
     <Fragment>
-      <div className="content-wrapper">
-      <div className="container-xxl flex-grow-1 container-p-y">
-      <div style={{ textAlign: "center" }}>
+      <div class="wrapper">
+      <div>
         <Link to="/formulario-pagos-personal">
           <button
             className="btn btn-success"
-            style={{ position: "relative", left: "-47%" }}
           >
             + Pago
           </button>
         </Link>
       </div>
-      </div>
-      </div>
-      <tr>
-        <th>
-          <i className='bx bx-filter-alt'>Filtros:</i>
-        </th>
-        <th>
-        <Select
-          placeholder="Fecha"
-          options={optFecha}
+      <hr></hr>
+        <div class="tableAnalisis">
+          <div class="rowAnalisis headerAnalisis">
+            <div class="cellAnalisis">Observacion</div>
+            <div class="cellAnalisis">Tipo</div>
+            <div class="cellAnalisis">Precio</div>
+            <div class="cellAnalisis">Fecha</div>
+            <div class="cellAnalisis">Eliminar</div>
+          </div>
 
-          />
-        </th>
-      </tr>
-      <br></br>
-      <MDBCard>
-        <>
-        <table className="table user-list">
-            <thead>
-                <tr>
-                    <th className="text-center">
-                    <span>Observacion</span>
-                    </th>
-                    <th className="text-center">
-                    <span>Tipo</span>
-                    </th>
-                    <th className="text-center">
-                    <span>Precio</span>
-                    </th>
-                    <th className="text-center">
-                    <span>Fecha</span>
-                    </th>
-                    <th>&nbsp;</th>
-                </tr>
-            </thead>
-        <tbody>
-          {fetchDataContabilidadPersonal.length > 0 ? (
+          {fetchDataContabilidadPersonal?.length > 0 ? (
           <>
           {
             fetchDataContabilidadPersonal?.map((item) => {
-              const fecha = new Date(item.fecha_contabilidad);
+              const fecha = new Date(item?.fecha_contabilidad);
 
               if(item?.observacion_contabilidad !== "-"){
 
                 const fechaConvertida = fecha.toLocaleDateString();
                 return (
-                  <tr>
-                    <td className="text-center">
-                      <a className="text-center">
-                        {item?.descripcion_contabilidad}
-                      </a>
-                    </td>
-                    <td className="text-center" >
-                      <a>
-                        {item?.observacion_contabilidad}
-                      </a>
-                    </td>
-                    <td className="text-center" >
-                      <a>
-                        {formateador(item?.monto_contabilidad)}
-                      </a>
-                    </td>
-                    <td className="text-center" >
-                      <a>
-                      {fechaConvertida}
-                      </a>
-                    </td>
-                    <td className="text-center">
-                      <a href="#" className="table-link">
-                        <span className="fa-stack">
-                          <i className="fa fa-square fa-stack-2x"></i>
-                          <i className="fa fa-search-plus fa-stack-1x fa-inverse"></i>
-                        </span>
-                      </a>
-                      <a href="#" className="table-link">
-                        <span className="fa-stack">
-                          <i className="fa fa-square fa-stack-2x "></i>
-                          <i className="fa fa-pencil fa-stack-1x fa-inverse"></i>
-                        </span>
-                      </a>
+                  <div class="rowAnalisis">
+                  <div class="cellAnalisis" data-title="Name">
+                  {item?.descripcion_contabilidad}
+                  </div>
+                  <div class="cellAnalisis" data-title="Age">
+                  {item?.observacion_contabilidad}
+                  </div>
+                  <div class="cellAnalisis" data-title="Occupation">
+                  <strong style={{color:'red'}}>{formateador(item?.monto_contabilidad)}</strong>
+                  </div>
+                  <div class="cellAnalisis" data-title="Location">
+                  {fechaConvertida}
+                  </div>
+                  <div class="cellAnalisis" data-title="actions">
+                  
                       <a href="#" className="table-link danger" onClick={() => { modalEliminar(item?.id_contabilidad)}}>
-                        <span className="fa-stack">
+                        <span className="fa-stack" style={{color:'red'}}>
                           <i className="fa fa-square fa-stack-2x"></i>
                           <i className="fa fa-trash-o fa-stack-1x fa-inverse"></i>
                         </span>
                       </a>
-                    </td>
-                  </tr>
+                  </div>
+                </div>
                 );
               }
             })
@@ -203,11 +149,163 @@ const PagosPersonal = () => {
           )
           
           }
+
           
-        </tbody>
-        </table>
-        </>
-      </MDBCard>
+
+         
+        </div>
+
+        {/* <div class="tableAnalisis">
+          <div class="rowAnalisis headerAnalisis green">
+            <div class="cellAnalisis">Product</div>
+            <div class="cellAnalisis">Unit Price</div>
+            <div class="cellAnalisis">Quantity</div>
+            <div class="cellAnalisis">Date Sold</div>
+            <div class="cellAnalisis">Status</div>
+          </div>
+
+          <div class="rowAnalisis">
+            <div class="cellAnalisis" data-title="Product">
+              Solid oak work table
+            </div>
+            <div class="cellAnalisis" data-title="Unit Price">
+              $800
+            </div>
+            <div class="cellAnalisis" data-title="Quantity">
+              10
+            </div>
+            <div class="cellAnalisis" data-title="Date Sold">
+              03/15/2014
+            </div>
+            <div class="cellAnalisis" data-title="Status">
+              Waiting for Pickup
+            </div>
+          </div>
+
+          <div class="rowAnalisis">
+            <div class="cellAnalisis" data-title="Product">
+              Leather iPhone wallet
+            </div>
+            <div class="cellAnalisis" data-title="Unit Price">
+              $45
+            </div>
+            <div class="cellAnalisis" data-title="Quantity">
+              120
+            </div>
+            <div class="cellAnalisis" data-title="Date Sold">
+              02/28/2014
+            </div>
+            <div class="cellAnalisis" data-title="Status">
+              In Transit
+            </div>
+          </div>
+
+          <div class="rowAnalisis">
+            <div class="cellAnalisis" data-title="Product">
+              27" Apple Thunderbolt displays
+            </div>
+            <div class="cellAnalisis" data-title="Unit Price">
+              $1000
+            </div>
+            <div class="cellAnalisis" data-title="Quantity">
+              25
+            </div>
+            <div class="cellAnalisis" data-title="Date Sold">
+              02/10/2014
+            </div>
+            <div class="cellAnalisis" data-title="Status">
+              Delivered
+            </div>
+          </div>
+
+          <div class="rowAnalisis">
+            <div class="cellAnalisis" data-title="Product">
+              Bose studio headphones
+            </div>
+            <div class="cellAnalisis" data-title="Unit Price">
+              $60
+            </div>
+            <div class="cellAnalisis" data-title="Quantity">
+              90
+            </div>
+            <div class="cellAnalisis" data-title="Date Sold">
+              01/14/2014
+            </div>
+            <div class="cellAnalisis" data-title="Status">
+              Delivered
+            </div>
+          </div>
+        </div>
+
+        <div class="tableAnalisis">
+          <div class="rowAnalisis headerAnalisis blue">
+            <div class="cellAnalisis">Username</div>
+            <div class="cellAnalisis">Email</div>
+            <div class="cellAnalisis">Password</div>
+            <div class="cellAnalisis">Active</div>
+          </div>
+
+          <div class="rowAnalisis">
+            <div class="cellAnalisis" data-title="Username">
+              ninjalug
+            </div>
+            <div class="cellAnalisis" data-title="Email">
+              misterninja@hotmail.com
+            </div>
+            <div class="cellAnalisis" data-title="Password">
+              ************
+            </div>
+            <div class="cellAnalisis" data-title="Active">
+              Yes
+            </div>
+          </div>
+
+          <div class="rowAnalisis">
+            <div class="cellAnalisis" data-title="Username">
+              jsmith41
+            </div>
+            <div class="cellAnalisis" data-title="Email">
+              joseph.smith@gmail.com
+            </div>
+            <div class="cellAnalisis" data-title="Password">
+              ************
+            </div>
+            <div class="cellAnalisis" data-title="Active">
+              No
+            </div>
+          </div>
+
+          <div class="rowAnalisis">
+            <div class="cellAnalisis" data-title="Username">
+              1337hax0r15
+            </div>
+            <div class="cellAnalisis" data-title="Email">
+              hackerdude1000@aol.com
+            </div>
+            <div class="cellAnalisis" data-title="Password">
+              ************
+            </div>
+            <div class="cellAnalisis" data-title="Active">
+              Yes
+            </div>
+          </div>
+
+          <div class="rowAnalisis">
+            <div class="cellAnalisis" data-title="Username">
+              hairyharry19
+            </div>
+            <div class="cellAnalisis" data-title="Email">
+              harryharry@gmail.com
+            </div>
+            <div class="cellAnalisis" data-title="Password">
+              ************
+            </div>
+            <div class="cellAnalisis" data-title="Active">
+              Yes
+            </div>
+          </div>
+        </div> */}
+      </div>
     </Fragment>
   );
 };

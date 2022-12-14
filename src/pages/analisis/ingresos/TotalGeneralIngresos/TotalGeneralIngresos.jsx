@@ -10,43 +10,39 @@ const TotalGeneralIngresos = () => {
   const [
     setFetchCampanias,
     fetchDataCampanias,
-    loadingCampanias
+    loadingCampanias,
     // errorCampanias
   ] = useFetch([]);
 
   const [
     setFetchParcelas,
     fetchDataParcelas,
-    loadingParcelas
+    loadingParcelas,
     // errorParcelas
   ] = useFetch([]);
   const [
     setFetchVentasCosechas,
     fetchDataContabilidadCosechas,
-    loadingContabilidadCosechas
+    loadingContabilidadCosechas,
     // errorContabilidadCosechas
   ] = useFetch([]);
 
   const [
     setFetchMaquinas,
     fetchDataMaquinas,
-    loadingMaquinas
+    loadingMaquinas,
     // errorMaquinas
   ] = useFetch([]);
 
   const [
     setFetchAlmacenes,
     fetchDataAlmacenes,
-    loadingAlmacenes
+    loadingAlmacenes,
     // errorAlmacenes
   ] = useFetch([]);
 
   const [campania, setCampania] = useState("");
   const [parcela, setParcela] = useState("");
-
-
-  
-
 
   const total = useRef(0);
 
@@ -70,8 +66,8 @@ const TotalGeneralIngresos = () => {
       setFetchVentasCosechas({
         url: `${URL}/cosechas-campania-parcelas/0/0`,
         headersRequest: {
-          method: "GET"
-        }
+          method: "GET",
+        },
       });
     }
 
@@ -80,8 +76,8 @@ const TotalGeneralIngresos = () => {
       setFetchVentasCosechas({
         url: `${URL}/cosechas-campania-parcelas/${campania}/0`,
         headersRequest: {
-          method: "GET"
-        }
+          method: "GET",
+        },
       });
     }
 
@@ -90,8 +86,8 @@ const TotalGeneralIngresos = () => {
       setFetchVentasCosechas({
         url: `${URL}/cosechas-campania-parcelas/0/${parcela}`,
         headersRequest: {
-          method: "GET"
-        }
+          method: "GET",
+        },
       });
     }
 
@@ -100,8 +96,8 @@ const TotalGeneralIngresos = () => {
       setFetchVentasCosechas({
         url: `${URL}/cosechas-campania-parcelas/${campania}/${parcela}`,
         headersRequest: {
-          method: "GET"
-        }
+          method: "GET",
+        },
       });
     }
     return () => {
@@ -115,28 +111,28 @@ const TotalGeneralIngresos = () => {
     setFetchAlmacenes({
       url: `${URL}/almacenes-vender`,
       headersRequest: {
-        method: "GET"
-      }
+        method: "GET",
+      },
     });
 
     setFetchCampanias({
       url: `${URL}/campanias`,
       headersRequest: {
-        method: "GET"
-      }
+        method: "GET",
+      },
     });
     setFetchParcelas({
       url: `${URL}/parcelas`,
       headersRequest: {
-        method: "GET"
-      }
+        method: "GET",
+      },
     });
 
     setFetchMaquinas({
       url: `${URL}/maquinas-vendidas`,
       headersRequest: {
-        method: "GET"
-      }
+        method: "GET",
+      },
     });
 
     return () => {
@@ -156,7 +152,7 @@ const TotalGeneralIngresos = () => {
     loadingParcelas,
     loadingContabilidadCosechas,
     loadingMaquinas,
-    loadingAlmacenes
+    loadingAlmacenes,
   ]);
 
   const contador = (precio) => {
@@ -165,220 +161,174 @@ const TotalGeneralIngresos = () => {
   };
   total.current = 0;
 
-
-  
-
-
-
   return (
     <>
-    <Card style={{ overflowY: "scroll", height: "400px" }}>
-      <div className="d-inline px-3" style={{ width: "20%" }}>
-        <label htmlFor="smallSelect" className="form-label d-inline">
-          Campaña
-        </label>
-        <select
-          id="smallSelect"
-          className="form-select form-select-sm d-inline"
-          defaultValue=""
-          onChange={handleChangeCampania}
-        >
-          <option value="">Todos</option>
-          {fetchDataCampanias?.map((campania) => (
-            <option key={campania.id_campania} value={campania.id_campania}>
-              {campania.descripcion_campania}
-            </option>
-          ))}
-        </select>
-        <label htmlFor="smallSelect" className="form-label d-inline">
-          Parcelas
-        </label>
-        <select
-          id="smallSelect"
-          className="form-select form-select-sm d-inline"
-          defaultValue=""
-          onChange={handleChangeParcela}
-        >
-          <option value="">Todos</option>
-          {fetchDataParcelas?.map((parcela) => (
-            <option key={parcela.id_parcela} value={parcela.id_parcela}>
-              {parcela.descripcion_parcela}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="d-inline px-3" style={{ width: "20%" }}></div>
-      <br></br>
-      <h4 className="text-center">Cosechas</h4>
-      {fetchDataContabilidadCosechas?.length > 0
-        ? (
-        <table className="table user-list">
-          <thead>
-            <tr>
-              <th className="text-center">
-                <span>Parcela</span>
-              </th>
-              <th className="text-center">
-                <span>Cantidad Vendida</span>
-              </th>
-              <th className="text-center">
-                <span>Precio</span>
-              </th>
-              <th className="text-center">
-                <span>Fecha de Venta</span>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
+      <div class="wrapper">
+        <div>
+          <div className="d-inline px-3" style={{ width: "20%" }}>
+            <label htmlFor="smallSelect" className="form-label d-inline">
+              Campaña
+            </label>
+            <div class="selectCostoDiv mx-3">
+                <select className="selectCosto"
+                id="smallSelect"
+                defaultValue=""
+                onChange={handleChangeCampania}
+                >
+                     <option value="">Todos</option>
+              {fetchDataCampanias?.map((campania) => (
+                <option key={campania.id_campania} value={campania.id_campania}>
+                  {campania.descripcion_campania}
+                </option>
+                  ))}
+                </select>
+          </div>
+          <br></br>
+          <div className="d-inline px-3" style={{ width: "20%" }}>
+            <label htmlFor="smallSelect" className="form-label d-inline">
+              Parcelas
+            </label>
+            <div class="selectCostoDiv mx-3">
+                <select className="selectCosto"
+                id="smallSelect"
+                defaultValue=""
+                onChange={handleChangeParcela}
+                >
+                    <option value="">Todos</option>
+              {fetchDataParcelas?.map((parcela) => (
+                <option key={parcela.id_parcela} value={parcela.id_parcela}>
+                  {parcela.descripcion_parcela}
+                </option>
+              ))}
+                </select>
+          </div>
+          </div>
+          </div>
+          <div className="d-inline px-3" style={{ width: "20%" }}></div>
+          <br></br>
+        
+        </div>
+         <div style={{ overflowY: "scroll", height: "400px" }}>
+         <h4 className="text-center">Cosechas</h4>
+        <hr></hr>
+        {fetchDataContabilidadCosechas?.length > 0 ? (
+          <div class="tableAnalisis">
+            <div class="rowAnalisis headerAnalisis green">
+              <div class="cellAnalisis">Parcela</div>
+              <div class="cellAnalisis">Cantidad Vendida</div>
+              <div class="cellAnalisis">Precio</div>
+              <div class="cellAnalisis">Fecha de Venta</div>
+            </div>
+
             {fetchDataContabilidadCosechas?.length > 0 &&
-              fetchDataContabilidadCosechas.map((cosecha) => (
-                <tr key={`cosecha-${cosecha.id_cosecha}`}>
-                  <td className="text-center">
-                    <span className="label label-default">
-                      {cosecha.parcelas_cultivo.parcela.descripcion_parcela}
-                    </span>
-                  </td>
-                  <td className="text-center">
-                    <span className="label label-default">
-                      {cosecha.cantidad_total_vendida}{" "}
-                      {cosecha.unidades_medida.descripcion_unidad_medida}
-                    </span>
-                  </td>
-                  <td className="text-success text-center">
-                    <span className="label label-default">
-                      {formateador(cosecha.precio_venta)}
-                      {contador(cosecha.precio_venta)}
-                    </span>
-                  </td>
-                  <td className="text-center">
-                    <span className="label label-default">
-                      {cosecha.fecha_venta}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
-          )
-        : (
-        <h3 className="text-danger text-center">No hay venta de cosechas</h3>
-          )}
+              fetchDataContabilidadCosechas?.map((cosecha) => {
+                const fecha = new Date(cosecha?.fecha_venta);
+                const fechaConvertida = fecha.toLocaleDateString();
+                return(
+                  <div class="rowAnalisis" key={`cosecha-${cosecha?.id_cosecha}`}>
+                  <div class="cellAnalisis" data-title="Name">
+                    {cosecha?.parcelas_cultivo?.parcela?.descripcion_parcela}
+                  </div>
+                  <div class="cellAnalisis" data-title="Occupation" style={{color:'#429867'}}>
+                  {cosecha?.cantidad_total_vendida}{" "}
+                      {cosecha?.unidades_medida?.descripcion_unidad_medida}
+                  </div>
+                  <div class="cellAnalisis" data-title="Location" style={{color:'#429867'}}>
+                  <strong>{formateador(cosecha?.precio_venta)}
+                  {contador(cosecha?.precio_venta)}
+                  </strong>
+                  </div>
+                  <div class="cellAnalisis" data-title="actions">
+                    {fechaConvertida}
+                  </div>
+                </div>
+                )
+              })}
+          </div>
+        ) : (
+          <h3 className="text-danger text-center">No hay venta de cosechas</h3>
+        )}
 
-      {/* {loadingContabilidadCosechas && <h4>Cargando datos de cosechas</h4>}
-
-    {errorContabilidadCosechas?.errors &&
-      errorContabilidadCosechas?.errors.map((msgError, i) => (
-        <Alerta
-          claseAlerta="danger"
-          key={i}
-          mensajeAlerta={msgError?.msg}
-        />
-      ))} */}
-      <hr />
-      <h4 className="text-center">Maquinas</h4>
-      {fetchDataMaquinas?.length > 0
-        ? (
-        <table className="table user-list">
-          <thead>
-            <tr>
-              <th className="text-center">
-                <span>Nombre Maquina</span>
-              </th>
-              <th className="text-center">
-                <span>Precio de Venta</span>
-              </th>
-              <th className="text-center">
-                <span>Fecha de Venta</span>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
+        <hr />
+        <h4 className="text-center">Maquinas</h4>
+        {fetchDataMaquinas?.length > 0 ? (
+          <div class="tableAnalisis">
+            <div class="rowAnalisis headerAnalisis green">
+              <div class="cellAnalisis">Nombre Maquina</div>
+              <div class="cellAnalisis">Precio de Venta</div>
+              <div class="cellAnalisis">Fecha de Venta</div>
+            </div>
             {fetchDataMaquinas?.length > 0 &&
-              fetchDataMaquinas.map((maquina) => (
-                <tr key={`maquina-${maquina.id_maquina}`}>
-                  <td className="text-center">
-                    <span className="label label-default">
-                      {maquina.descripcion_maquina}
-                    </span>
-                  </td>
+              fetchDataMaquinas?.map((maquina) => {
+                const fecha = new Date(maquina?.fecha_venta_maquina);
+                const fechaConvertida = fecha.toLocaleDateString();
+                return(
+                  <div class="rowAnalisis" key={`maquina-${maquina?.id_maquina}`}>
+                    <div class="cellAnalisis" data-title="Name">
+                      {maquina?.descripcion_maquina}
+                    </div>
+                    <div class="cellAnalisis" data-title="Occupation">
+                      <strong style={{ color: "#429867" }}>
+                        {formateador(maquina?.precio_venta_maquina)}
+                        {contador(maquina?.precio_venta_maquina)}
+                      </strong>
+                    </div>
+                    <div class="cellAnalisis" data-title="actions">
+                      {fechaConvertida}
+                    </div>
+                  </div>
+                )
+              })}
+          </div>
+        ) : (
+          <h3 className="text-danger text-center">No hay venta de maquinas</h3>
+        )}
 
-                  <td className="text-success text-center">
-                    <span className="label label-default">
-                      {formateador(maquina.precio_venta_maquina)}
-                      {contador(maquina.precio_venta_maquina)}
-                    </span>
-                  </td>
-                  <td className="text-center">
-                    <span className="label label-default">
-                      {maquina.fecha_venta_maquina}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
-          )
-        : (
-        <h3 className="text-danger text-center">No hay venta de maquinas</h3>
-          )}
+        <hr />
+        <h4 className="text-center">Almacenes</h4>
 
-      <hr />
-      <h4 className="text-center">Almacenes</h4>
-      {fetchDataAlmacenes?.length > 0
+        {fetchDataAlmacenes?.length > 0
         ? (
-        <table className="table user-list">
-          <thead>
-            <tr>
-              <th className="text-center">
-                <span>Nombre Almacen</span>
-              </th>
-              <th className="text-center">
-                <span>Precio de Venta</span>
-              </th>
-              <th className="text-center">
-                <span>Fecha de Venta</span>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
+          <div class="tableAnalisis">
+          <div class="rowAnalisis headerAnalisis green">
+            <div class="cellAnalisis">Nombre Almacen</div>
+            <div class="cellAnalisis">Precio de Venta</div>
+            <div class="cellAnalisis">Fecha de Venta</div>
+          </div>
             {fetchDataAlmacenes?.length > 0 &&
-              fetchDataAlmacenes.map((almacen) => (
-                <tr key={`almacen-${almacen.id_almacen}`}>
-                  <td className="text-center">
-                    <span className="label label-default">
-                      {almacen.descripcion_almacen}
-                    </span>
-                  </td>
-
-                  <td className="text-success text-center">
-                    <span className="label label-default">
-                      {formateador(almacen.precio_venta)}
-                      {contador(almacen.precio_venta)}
-                    </span>
-                  </td>
-                  <td className="text-center">
-                    <span className="label label-default">
-                      {almacen.fecha_venta}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
+              fetchDataAlmacenes?.map((almacen) => {
+                const fecha = new Date(almacen?.fecha_venta);
+                const fechaConvertida = fecha.toLocaleDateString();
+                return(
+                  <div class="rowAnalisis" key={`almacen-${almacen?.id_almacen}`}>
+                    <div class="cellAnalisis" data-title="Name">
+                    {almacen?.descripcion_almacen}
+                    </div>
+                    <div class="cellAnalisis" data-title="Occupation">
+                      <strong style={{ color: "#429867" }}>
+                      {formateador(almacen?.precio_venta)}
+                        {contador(almacen?.precio_venta)}
+                      </strong>
+                    </div>
+                    <div class="cellAnalisis" data-title="actions">
+                    {fechaConvertida}
+                    </div>
+                  </div>
+                )
+              })}
+          </div>
           )
         : (
         <h3 className="text-danger text-center">No hay venta de almacenes</h3>
           )}
+         </div>
 
- 
-
-    </Card>
-    <hr />
-      <b className="px-3">Campaña: {campania || "Todos"}</b>
-      <b className="px-3">Parcela: {parcela || "Todos"}</b>
-      <b className="px-3">Total Ingresos: {formateador(total.current) }</b>
+         <hr />
+      <b className="px-3" style={{fontSize:"20px"}}>Campaña:<strong style={{ color: "#24211a" }}> {campania || "Todos"}</strong></b>
+      <b className="px-3" style={{fontSize:"20px"}}>Parcela: <strong style={{ color: "#24211a" }}>{parcela || "Todos"}</strong></b>
+      <b className="px-3" style={{fontSize:"20px"}}>Total Ingresos: <strong style={{ color: "#429867" }}>{formateador(total.current) }</strong></b>
+      </div>
     </>
-
   );
 };
 

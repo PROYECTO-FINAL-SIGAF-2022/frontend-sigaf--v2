@@ -142,7 +142,7 @@ function Maquinas () {
                       <Alerta claseAlerta="danger" mensajeAlerta={errorMaquinas?.msg} />
                       )}
                         {
-                        fetchDataMaquinas.length > 0 && (
+                        fetchDataMaquinas?.length > 0 && (
                         <>
                         {
                           //key={proveedor.id_proveedor}
@@ -160,20 +160,20 @@ function Maquinas () {
                               options
                             );
                             return(
-                              <tr key={item.id_maquina}>
+                              <tr key={item?.id_maquina}>
                               <td>
                                 <img
                                   src="https://pngimages.in/uploads/png-thumb/Tractor_png_photo_editing.png"
                                   alt=""
                                 />
                                 <a href="#" className="user-link">
-                                 {item.descripcion_maquina}
+                                 {item?.descripcion_maquina}
                                 </a>
                                 <span className="user-subhead">Detalle</span>
                               </td>
                               <td className="text-center">
                                 <span className="label label-default">
-                                  {item.precio_adquisicion_maquina}
+                                  {item?.precio_adquisicion_maquina}
                                 </span>
                               </td>
                               <td className="text-center">
@@ -183,7 +183,7 @@ function Maquinas () {
                               </td>
                               <td className="text-center">
                                 <span className="label label-default" style={{textTransform: "uppercase", color: "green" }}>
-                                    {item.tipo_adquisicion_maquina}
+                                    {item?.tipo_adquisicion_maquina}
                                 </span>
                               </td>
                               <td style={{ width: "20%" }}>

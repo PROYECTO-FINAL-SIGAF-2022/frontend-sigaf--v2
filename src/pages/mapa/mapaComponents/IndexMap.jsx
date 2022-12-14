@@ -108,7 +108,7 @@ const IndexMap = () => {
     const parcelasEditadas = Object.values(_layers);
 
     // validar geolocalizaciones de edicion de parcelas
-    for (let i = 0; i < parcelasEditadas.length; i++) {
+    for (let i = 0; i < parcelasEditadas?.length; i++) {
       const { _leaflet_id, _latlngs } = parcelasEditadas[i];
       const arrayOfCoordinates = _latlngs[0];
 
@@ -229,7 +229,7 @@ const IndexMap = () => {
 
   const validarPoligonoInEstablecimiento = (georeferencia, opcion, parcelasNoEditadas = []) => {
     // validar que este en el establecimiento
-    for (let i = 0; i < georeferencia.length; i++) {
+    for (let i = 0; i < georeferencia?.length; i++) {
       const puntoPoligono = georeferencia[i];
       if (!pointInPolygon(puntoPoligono, mapaEstablecimientoGeoreferenciaRef.current)) {
         return "Por favor cree la parcela dentro del establecimiento";
@@ -237,7 +237,7 @@ const IndexMap = () => {
     }
 
     if (opcion === "crear") {
-      for (let z = 0; z < georeferencia.length; z++) {
+      for (let z = 0; z < georeferencia?.length; z++) {
         const puntoPoligono = georeferencia[z];
 
         for (let j = 0; j < parcelasRef.current.length; j++) {
@@ -250,11 +250,11 @@ const IndexMap = () => {
     } else {
       // console.log(georeferencia);
       // console.log(`230 ${georeferencia}`);
-      for (let z = 0; z < georeferencia.length; z++) {
+      for (let z = 0; z < georeferencia?.length; z++) {
         const puntoPoligono = georeferencia[z];
         // console.log(`233 ${puntoPoligono}`);
 
-        for (let j = 0; j < parcelasNoEditadas.length; j++) {
+        for (let j = 0; j < parcelasNoEditadas?.length; j++) {
           const parcela = parcelasNoEditadas[j];
 
           if (pointInPolygon(puntoPoligono, parcela.georeferencia)) {
@@ -280,7 +280,7 @@ const IndexMap = () => {
     // parcelasRef.current = [];
 
     if (!mapRef.current) return;
-    if (fetchDataParcelas.length === 0) return;
+    if (fetchDataParcelas?.length === 0) return;
     // console.log(fetchDataParcelas);
     const parcelas = fetchDataParcelas?.map((parcela) => {
       const georeferencia = JSON.parse(parcela.georeferencia);
@@ -375,10 +375,10 @@ const IndexMap = () => {
       }
     });
 
-    const campaniaActiva = fetchDataCampanias.filter(campania => campania.activo === 1)[0];
+    const campaniaActiva = fetchDataCampanias?.filter(campania => campania?.activo === 1)[0];
     // console.log(campaniaActiva);
     if (campaniaActiva) {
-      setCampania(campaniaActiva.id_campania);
+      setCampania(campaniaActiva?.id_campania);
     }
     loadParcelas();
   }, [fetchDataCampanias]);
@@ -442,8 +442,8 @@ const IndexMap = () => {
           <MapaToolbar campania={campania} fetchDataCampanias={fetchDataCampanias} setCampania={setCampania}/>
 
           {
-            parcelas.length > 0 && parcelas.map(parcela => (
-              <Rectangle key={parcela.id} color="#1f6764" weight={"1"} bounds={parcela.georeferencia} interactive={true} eventHandlers={{
+            parcelas?.length > 0 && parcelas?.map(parcela => (
+              <Rectangle key={parcela?.id} color="#1f6764" weight={"1"} bounds={parcela?.georeferencia} interactive={true} eventHandlers={{
                 // click: () => onClick(parcela.id),
                 add: (e) => addParcelaToRef(parcela, e)
                 // baselayerchange: () => onClick("baselayerchange"),

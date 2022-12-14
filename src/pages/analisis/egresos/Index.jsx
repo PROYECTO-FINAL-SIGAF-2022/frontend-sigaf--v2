@@ -34,7 +34,9 @@ const Precios = () => {
             {/* <div style={{ textAlign: "center" }}>
             </div> */}
             <br></br>
-              <h1 className="text-center text-dark">Egresos o Costos</h1>
+             {/*  <h1 className="text-center text-dark">Egresos o Costos</h1> */}
+
+            <div style={{marginTop:'50px'}}>
 
             <MDBTabs className='mb-3 px-3'>
               <MDBTabsItem>
@@ -82,6 +84,7 @@ const Precios = () => {
               </TabPane>
             </TabContent>
             </Col> */}
+            </div>
     </LayoutContainer>
   );
 };

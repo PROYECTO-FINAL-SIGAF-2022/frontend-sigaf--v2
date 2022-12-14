@@ -1,6 +1,6 @@
 import LayoutContainer from "../../../components/layouts/LayoutContainer";
 
-import "./Index.css";
+import "./index2.css";
 
 import { useState } from "react";
 
@@ -31,9 +31,9 @@ const Costos = () => {
 
   return (
     <LayoutContainer>
-      <h1 className="text-center text-dark mt-3">Ingresos</h1>
+       <div style={{marginTop:'50px'}}>
 
-      <MDBTabs className="mb-3 px-3">
+       <MDBTabs className="mb-3 px-3">
         <MDBTabsItem>
           <MDBTabsLink
             onClick={() => handleBasicClick("tab1")}
@@ -74,6 +74,8 @@ const Costos = () => {
         <MDBTabsPane show={basicActive === "tab3"}><VentasMaquinas/></MDBTabsPane>
         <MDBTabsPane show={basicActive === "tab4"}><VentasAlmacenes/></MDBTabsPane>
       </MDBTabsContent>
+       </div>
+      
     </LayoutContainer>
   );
 };

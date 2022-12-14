@@ -57,68 +57,62 @@ const VentasMaquinas = () => {
 
   return (
     <>
+       
+      <div class="wrapper">
+      <div>
       <Link to="/venta-maquinas">
         <button className="btn btn-success mb-3">+ Venta Maquina</button>
       </Link>
-      <Card>
-        <table className="table user-list">
-          <thead>
-            <tr>
-              <th className="text-center">
-                <span>Nombre Maquina</span>
-              </th>
-              <th className="text-center">
-                <span>Precio de Venta</span>
-              </th>
-              <th className="text-center">
-                <span>Fecha de Venta</span>
-              </th>
-              <th className="text-center">
-                <span>Eliminar</span>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-          {fetchDataMaquinas?.length > 0 &&
-              fetchDataMaquinas.map((maquina) => (
-                <tr key={maquina.id_maquina}>
-                  <td className="text-center">
-                    <span className="label label-default">
-                      {maquina.descripcion_maquina}
-                    </span>
-                  </td>
+      </div>
+      <hr></hr>
+        <div class="tableAnalisis">
+          <div class="rowAnalisis headerAnalisis green">
+            <div class="cellAnalisis">Nombre Maquina</div>
+            <div class="cellAnalisis">Precio de Venta</div>
+            <div class="cellAnalisis">Fecha de Venta</div>
+            
+            <div class="cellAnalisis">Eliminar</div>
+          </div>
 
-                  <td className="text-center">
-                    <span className="label label-default">
-                      {formateador(maquina.precio_venta_maquina)}
-                    </span>
-                  </td>
-                  <td className="text-center">
-                    <span className="label label-default">
-                      {maquina.fecha_venta_maquina}
-                    </span>
-                  </td>
-                  <td className="text-center">
-                    <span className="label label-default">
-                      <button
-                        className="btn btn-danger"
-                        onClick={() =>
-                          handleEliminarMaquina(
-                            maquina.fecha_venta_maquina
-                          )
-                        }
-                      >
-                        Eliminar
-                      </button>
-                    </span>
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
+          {fetchDataMaquinas?.length > 0 &&
+              fetchDataMaquinas.map((maquina) => {
+                const fecha = new Date(maquina?.fecha_venta_maquina);
+                const fechaConvertida = fecha.toLocaleDateString();
+                return(
+                  <div class="rowAnalisis" key={maquina.id_maquina}>
+                    <div class="cellAnalisis" data-title="Name">
+                    {maquina.descripcion_maquina}
+                    </div>
+                    <div class="cellAnalisis" data-title="Occupation">
+                    <strong style={{color:'#429867'}}>{formateador(maquina.precio_venta_maquina)}</strong>
+                    </div>
+                    <div class="cellAnalisis" data-title="Location">
+                    {fechaConvertida}
+                    </div>
+                    <div class="cellAnalisis" data-title="actions">
+                    
+                        <a href="#" className="table-link danger" 
+                          onClick={() =>
+                            handleEliminarMaquina(
+                              maquina.fecha_venta_maquina
+                            )
+                          }>
+                          <span className="fa-stack" style={{color:'red'}}>
+                            <i className="fa fa-square fa-stack-2x"></i>
+                            <i className="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+                          </span>
+                        </a>
+                    </div>
+                  </div>
+                )
+              })}
         {fetchDataDeleteMaquinaContabilidad && <h4 className="text-success">Registro de maquina y de contabilidad eliminadas</h4>}
 
-      </Card>
+          
+
+         
+        </div>
+     </div>
     </>
   );
 };
